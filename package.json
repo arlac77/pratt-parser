@@ -1,26 +1,25 @@
 {
-	"name": "de.mfelten.expression",
-	"description": "TDOP parser",
-	"version": "0.0.1",
-	"engines": {
-		"iojs": ">= 1.0"
-	},
-	"author": {
-		"name": "Markus Felten",
-		"email": "Markus.Felten@gmx.de",
-		"url": "http://mfelten.de/projects/de.mfelten.expression"
-	},
-	"dependencies": {
-	},
-	"devDependencies": {
-		"qunit": "^0.7.5"
-	},
-	"scripts": {
-		"test": "qunit -c lib/lexer.js -t tests/lexer.js"
-	},
-	"repository": {
-		"type": "git",
-		"url": "ssh://mf-lex2.dyndns.org/Groups/dvlp/git/de.mfelten.expression"
-	},
-	"main": "lib/parser.js"
+  "name": "de.mfelten.expression",
+  "description": "TDOP parser",
+  "version": "0.0.1",
+  "engines": {
+    "iojs": ">= 1.0"
+  },
+  "author": {
+    "name": "Markus Felten",
+    "email": "Markus.Felten@gmx.de",
+    "url": "http://mfelten.de/projects/de.mfelten.expression"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "qunit": "^0.7.5"
+  },
+  "scripts": {
+    "test": "qunit -c lib/grammar.js -t tests/tokenizer.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://mf-lex2.dyndns.org/Groups/dvlp/git/de.mfelten.expression"
+  },
+  "main": "lib/parser.js"
 }
