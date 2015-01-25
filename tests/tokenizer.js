@@ -125,8 +125,17 @@ test("Kitchen sink of tokens", function() {
 
 
 	let myGrammar = defineGrammar({
+		terminals: {
+			'string': {
+				lbp: 1
+			},
+			'number': {},
+			'identifier': {}
+		},
 		operators: {
-			'=': {},
+			'=': {
+				lbp: 1
+			},
 			'+': {},
 			'-': {},
 			'*': {},
@@ -153,15 +162,15 @@ test("Kitchen sink of tokens", function() {
 	let i = 0;
 
 	for (let token of myGrammar.tokenizer(s)) {
-		/*	console.log(token.type + " " + token.value + " <> " + tokens[i].type + " " +
-			tokens[i].value + " " + tokens[i].lineNumber);
-*/
 		equal(token.type, tokens[i].type, "type: " + tokens[i].type);
 		equal(token.value, tokens[i].value, "value: " + tokens[i].value);
 		equal(token.lineNumber, tokens[i].lineNumber, "lineNumber: " + tokens[i]
 			.lineNumber);
 		i++;
 	}
+
+	//myGrammar.parse("1 + 2");
+
 });
 
 /*
