@@ -7,115 +7,35 @@ let path = require('path'),
 
 test("Kitchen sink of tokens", function() {
 
-	var tokens = [{
-		type: "number",
-		value: 4711,
-		lineNumber: 1
-	}, {
-		type: "string",
-		value: "str2",
-		lineNumber: 2
-	}, {
-		type: "string",
-		value: "str3",
-		lineNumber: 2
-	}, {
-		type: "string",
-		value: "\b\f\n\r\t\"\'A",
-		lineNumber: 2
-	}, {
-		type: "identifier",
-		value: "name1",
-		lineNumber: 3
-	}, {
-		type: "identifier",
-		value: "name_2",
-		lineNumber: 3
-	}, {
-		type: "identifier",
-		value: "n",
-		lineNumber: 4
-	}, {
-		type: "operator",
-		value: "+",
-		lineNumber: 5
-	}, {
-		type: "operator",
-		value: "-",
-		lineNumber: 6
-	}, {
-		type: "operator",
-		value: "*",
-		lineNumber: 7
-	}, {
-		type: "operator",
-		value: "/",
-		lineNumber: 8
-	}, {
-		type: "operator",
-		value: "(",
-		lineNumber: 9
-	}, {
-		type: "operator",
-		value: ")",
-		lineNumber: 9
-	}, {
-		type: "operator",
-		value: "{",
-		lineNumber: 10
-	}, {
-		type: "operator",
-		value: "}",
-		lineNumber: 10
-	}, {
-		type: "operator",
-		value: "[",
-		lineNumber: 11
-	}, {
-		type: "operator",
-		value: "]",
-		lineNumber: 11
-	}, {
-		type: "operator",
-		value: ":",
-		lineNumber: 12
-	}, {
-		type: "operator",
-		value: ",",
-		lineNumber: 12
-	}, {
-		type: "operator",
-		value: ";",
-		lineNumber: 12
-	}, {
-		type: "operator",
-		value: ".",
-		lineNumber: 12
-	}, {
-		type: "operator",
-		value: "<",
-		lineNumber: 13
-	}, {
-		type: "operator",
-		value: "===",
-		lineNumber: 13
-	}, {
-		type: "operator",
-		value: ">",
-		lineNumber: 13
-	}, {
-		type: "operator",
-		value: "<=",
-		lineNumber: 14
-	}, {
-		type: "operator",
-		value: ">=",
-		lineNumber: 15
-	}, {
-		type: "operator",
-		value: "=",
-		lineNumber: 16
-	}];
+	var tokens = [
+		["number", 4711, 1],
+		["string", "str2", 2],
+		["string", "str3", 2],
+		["string", "\b\f\n\r\t\"\'A", 2],
+		["identifier", "name1", 3],
+		["identifier", "name_2", 3],
+		["identifier", "n", 4],
+		["operator", "+", 5],
+		["operator", "-", 6],
+		["operator", "*", 7],
+		["operator", "/", 8],
+		["operator", "(", 9],
+		["operator", ")", 9],
+		["operator", "{", 10],
+		["operator", "}", 10],
+		["operator", "[", 11],
+		["operator", "]", 11],
+		["operator", ":", 12],
+		["operator", ",", 12],
+		["operator", ";", 12],
+		["operator", ".", 12],
+		["operator", "<", 13],
+		["operator", "===", 13],
+		["operator", ">", 13],
+		["operator", "<=", 14],
+		["operator", ">=", 15],
+		["operator", "=", 16]
+	];
 
 	expect(tokens.length * 3);
 
@@ -123,19 +43,9 @@ test("Kitchen sink of tokens", function() {
 		encoding: 'utf8'
 	});
 
-
 	let myGrammar = defineGrammar({
-		terminals: {
-			'string': {
-				lbp: 1
-			},
-			'number': {},
-			'identifier': {}
-		},
 		operators: {
-			'=': {
-				lbp: 1
-			},
+			'=': {},
 			'+': {},
 			'-': {},
 			'*': {},
@@ -162,16 +72,33 @@ test("Kitchen sink of tokens", function() {
 	let i = 0;
 
 	for (let token of myGrammar.tokenizer(s)) {
-		equal(token.type, tokens[i].type, "type: " + tokens[i].type);
-		equal(token.value, tokens[i].value, "value: " + tokens[i].value);
-		equal(token.lineNumber, tokens[i].lineNumber, "lineNumber: " + tokens[i]
-			.lineNumber);
+		equal(token.type, tokens[i][0], "type: " + tokens[i][0]);
+		equal(token.value, tokens[i][1], "value: " + tokens[i][1]);
+		equal(token.lineNumber, tokens[i][2], "lineNumber: " + tokens[i][2]);
 		i++;
 	}
 
-	//myGrammar.parse("1 + 2");
 
 });
+
+test("calculator",
+	function() {
+		let myGrammar = defineGrammar({
+			terminals: {
+				'number': {}
+			},
+			operators: {
+				'+': {},
+				'-': {},
+				'*': {},
+				'/': {},
+				'(': {},
+				')': {}
+			}
+		});
+
+		myGrammar.parse("1 + 2");
+	});
 
 /*
 		exports.testTokenizerSampleHelloWorld = function(test) {
