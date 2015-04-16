@@ -1,15 +1,17 @@
+/* jslint node: true, esnext: true */
+
 "use strict";
 
 let lexer = require('../lib/lexer'),
-  tdop = require('../lib/tdop');
+	tdop = require('../lib/tdop');
 
-test("Kitchen sink of tokens", function() {
-  expect(1);
+test("Kitchen sink of tokens", function () {
+	expect(1);
 
-  let expressions = tdop(lexer("var a = 2"));
+	let expressions = tdop(lexer("var a = 2"));
 
-  let e = expressions.next();
+	let e = expressions.next();
 
-  equal(e.type, "identifier", "type");
+	equal(e.type, "identifier", "type");
 
 });
