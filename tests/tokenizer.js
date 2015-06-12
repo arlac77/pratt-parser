@@ -2,10 +2,11 @@
 
 "use strict";
 
-let path = require('path'),
-  fs = require('fs'),
-  defineGrammar = require('../lib/grammar');
+const path = require('path');
+const fs = require('fs');
+const defineGrammar = require('../lib/grammar');
 
+/*
 test("Kitchen sink of tokens", function () {
   const tokens = [
     ["number", 4711, 1],
@@ -39,7 +40,7 @@ test("Kitchen sink of tokens", function () {
 
   expect(tokens.length * 3 + 2);
 
-  const s = fs.readFileSync(path.join(__dirname, 'samples', 'tokens1.txt'), {
+  const s = fs.readFileSync(path.join(__dirname, 'fixtures', 'tokens1.txt'), {
     encoding: 'utf8'
   });
 
@@ -84,6 +85,7 @@ test("Kitchen sink of tokens", function () {
     i++;
   }
 });
+*/
 
 test("calculator",
   function () {
@@ -95,7 +97,7 @@ test("calculator",
         '+': {
           precedence: 1,
           parseWithPrefix: function (prefix) {
-            console.log("parseWithPrefix: " + prefix);
+            console.log(`+ parseWithPrefix: ${prefix}`);
             return prefix;
           }
         }
@@ -104,6 +106,6 @@ test("calculator",
 
     expect(1);
 
-    equal(myGrammar.parse("1 + 41"), 42);
+    equal(myGrammar.parse("1 + 41 +"), 42);
 
   });
