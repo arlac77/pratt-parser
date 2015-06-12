@@ -10,9 +10,10 @@
     "email": "Markus.Felten@gmx.de",
     "url": "http://mfelten.de/projects/de.mfelten.expression"
   },
+  "license": "BSD-2-Clause",
   "dependencies": {},
   "devDependencies": {
-    "qunit": "^0.7.5"
+    "qunit": "0.7.6"
   },
   "scripts": {
     "test": "qunit -c lib/grammar.js -t tests/tokenizer.js"
