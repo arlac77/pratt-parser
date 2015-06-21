@@ -16,7 +16,7 @@
     "qunit": "0.7.6"
   },
   "scripts": {
-    "test": "qunit -c lib/grammar.js -t tests/tokenizer.js"
+    "test": "qunit -c lib/grammar.js -t tests/simple_grammar.js"
   },
   "repository": {
     "type": "git",

@@ -26,5 +26,5 @@ test("calculator",
 
     expect(1);
 
-    equal(myGrammar.parse("1 + 41 +"), 42);
+    equal(myGrammar.parse("1 + 41 ;"), 42);
   });
