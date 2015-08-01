@@ -2,8 +2,6 @@
 
 "use strict";
 
-const path = require('path');
-const fs = require('fs');
 const defineGrammar = require('../lib/grammar');
 
 
@@ -15,10 +13,19 @@ test("calculator",
       },
       operators: {
         '+': {
-          precedence: 1,
-          parseWithPrefix: function (prefix) {
-            console.log(`+ parseWithPrefix: ${prefix}`);
-            return prefix;
+          precedence: 50,
+          parseWithPrefix: function (prefix,expression) {
+            const right = expression(50);
+            console.log(`${prefix} + ${right}`);
+            return Object.create(prefix,{ value: { value: prefix.value + right.value }});
+          }
+        },
+        '*': {
+          precedence: 60,
+          parseWithPrefix: function (prefix,expression) {
+            const right = expression(60);
+            console.log(`${prefix} * ${right}`);
+            return Object.create(prefix,{ value: { value: prefix.value * right.value }});
           }
         }
       }
@@ -26,5 +33,5 @@ test("calculator",
 
     expect(1);
 
-    equal(myGrammar.parse("1 + 41 ;"), 42);
+    equal(myGrammar.parse("1 + 41 * 3 ").value, 124);
   });
