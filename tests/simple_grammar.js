@@ -14,16 +14,16 @@ test("calculator",
       operators: {
         '+': {
           precedence: 50,
-          parseWithPrefix: function (prefix,expression) {
-            const right = expression(50);
+          parseWithPrefix: function (prefix,grammar) {
+            const right = grammar.expression(50);
             console.log(`${prefix} + ${right}`);
             return Object.create(prefix,{ value: { value: prefix.value + right.value }});
           }
         },
         '*': {
           precedence: 60,
-          parseWithPrefix: function (prefix,expression) {
-            const right = expression(60);
+          parseWithPrefix: function (prefix,grammar) {
+            const right = grammar.expression(60);
             console.log(`${prefix} * ${right}`);
             return Object.create(prefix,{ value: { value: prefix.value * right.value }});
           }
