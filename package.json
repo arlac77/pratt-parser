@@ -1,15 +1,15 @@
 {
-  "name": "de.mfelten.expression",
+  "name": "pratt-parser",
   "description": "TDOP parser",
-  "version": "0.0.1",
   "engines": {
-    "iojs": ">= 1.0"
+    "iojs": ">= 3.0.0"
   },
-  "author": {
-    "name": "Markus Felten",
-    "email": "Markus.Felten@gmx.de",
-    "url": "http://mfelten.de/projects/de.mfelten.expression"
+  "author": "Markus Felten <markus.felten@gmx.de>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/arlac77/pratt-parser/issues"
   },
+  "homepage": "https://github.com/arlac77/pratt-parser#readme",
   "license": "BSD-2-Clause",
   "dependencies": {},
   "devDependencies": {
@@ -18,9 +18,12 @@
   "scripts": {
     "test": "qunit -c lib/grammar.js -t tests/simple_grammar.js"
   },
+  "release": {
+    "debug": false
+  },
   "repository": {
     "type": "git",
-    "url": "ssh://mf-lex2.dyndns.org/Groups/dvlp/git/de.mfelten.expression"
+    "url": "https://github.com/arlac77/pratt-parser.git"
   },
   "main": "lib/parser.js"
 }
