@@ -10,16 +10,17 @@
     "url": "https://github.com/arlac77/pratt-parser/issues"
   },
   "homepage": "https://github.com/arlac77/pratt-parser#readme",
-  "license": "BSD-2-Clause",
   "dependencies": {},
   "devDependencies": {
+    "chai": "^3.2.0",
     "coveralls": "^2.11.4",
     "istanbul-harmony": "0.3.16",
-    "qunit": "0.7.6"
+    "mocha": "^2.2.5"
   },
   "scripts": {
     "cover": "node --harmony ./node_modules/istanbul-harmony/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports test",
-    "test": "qunit -c lib/grammar.js -t tests/simple_grammar.js"
+    "doc": "./node_modules/.bin/jsdoc index.js",
+    "test": "mocha --harmony_shipping test/*.js"
   },
   "release": {
     "debug": false
