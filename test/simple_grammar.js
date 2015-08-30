@@ -8,7 +8,7 @@ const assert = chai.assert;
 const expect = chai.expect;
 const should = chai.should();
 
-const defineGrammar = require('../lib/grammar');
+const defineGrammar = require('../src/grammar');
 
 
 describe("calculator",
@@ -43,7 +43,7 @@ describe("calculator",
       }
     });
 
-    it("evaluaetes", function () {
+    it("evaluates", function () {
       assert.equal(myGrammar.parse("1 + 41 * 3 ").value, 124);
     });
   });

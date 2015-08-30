@@ -10,7 +10,7 @@ const should = chai.should();
 
 const path = require('path');
 const fs = require('fs');
-const defineGrammar = require('../lib/grammar');
+const defineGrammar = require('../src/grammar');
 
 describe("Kitchen sink of tokens", function () {
   const tokens = [{
