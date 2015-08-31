@@ -13,16 +13,19 @@ const rootToken = {
 	}
 };
 
+/**
+ * token representing "end of file"
+ */
+const EOF = Object.create(rootToken, {
+	type: {
+		value: 'EOF'
+	}
+});
+
 function defineGrammar(options) {
 	const operators = options.operators;
 	const maxOperatorLengthForFirstChar = {};
 	const registeredTokens = {};
-
-	const EOF = Object.create(rootToken, {
-		type: {
-			value: 'EOF'
-		}
-	});
 
 	function registerOperator(id, options) {
 		const props = {
