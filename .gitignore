@@ -1,10 +1,10 @@
 coverage
 node_modules
 dist
+lib
 *.log
 *.dump
 .DS_Store
 .nyc_output
 .test
 .tmp
-
