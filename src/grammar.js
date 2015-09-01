@@ -168,7 +168,7 @@ function defineGrammar(options) {
 			} else if (c >= '0' && c <= '9') {
 				str = c;
 				i += 1;
-				for (;;) {
+				for (; i < chunk.length;) {
 					c = chunk[i];
 					if (c < '0' || c > '9') {
 						break;
@@ -271,9 +271,10 @@ function defineGrammar(options) {
 				}
 
 				const n = tokens.next();
+
 				if (n.done) {
 					token = EOF;
-					return;
+					return token;
 				}
 				token = n.value;
 				return token;

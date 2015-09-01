@@ -44,7 +44,7 @@ describe("calculator",
     });
 
     it("evaluates", function () {
-      assert.equal(myGrammar.parse("1 + 41 * 3 ").value, 124);
+      assert.equal(myGrammar.parse("1 + 41 * 3").value, 124);
     });
   });
 

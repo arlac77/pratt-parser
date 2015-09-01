@@ -11,16 +11,24 @@ let myGrammar = defineGrammar({
   operators: {
     '+': {
       precedence: 50,
-      parseWithPrefix: function (prefix,grammar) {
+      parseWithPrefix: function (prefix, grammar) {
         const right = grammar.expression(50);
-        return Object.create(prefix,{ value: { value: prefix.value + right.value }});
+        return Object.create(prefix, {
+          value: {
+            value: prefix.value + right.value
+          }
+        });
       }
     },
     '*': {
       precedence: 60,
-      parseWithPrefix: function (prefix,grammar) {
+      parseWithPrefix: function (prefix, grammar) {
         const right = grammar.expression(60);
-        return Object.create(prefix,{ value: { value: prefix.value * right.value }});
+        return Object.create(prefix, {
+          value: {
+            value: prefix.value * right.value
+          }
+        });
       }
     }
   }
@@ -28,4 +36,4 @@ let myGrammar = defineGrammar({
 
 debugger;
 
-console.log(myGrammar.parse("1 + 41 * 3 ").value);
+console.log(myGrammar.parse("1 + 41 * 3").value);
