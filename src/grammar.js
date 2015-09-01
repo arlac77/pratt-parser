@@ -141,6 +141,7 @@ function defineGrammar(options) {
 		let firstCharInLine = 0;
 		let i = 0;
 		let op, operatorLength;
+		const length = chunk.length;
 
 		while (c = chunk[i]) {
 			if (c <= ' ') {
@@ -168,7 +169,7 @@ function defineGrammar(options) {
 			} else if (c >= '0' && c <= '9') {
 				str = c;
 				i += 1;
-				for (; i < chunk.length;) {
+				for (; i < length;) {
 					c = chunk[i];
 					if (c < '0' || c > '9') {
 						break;
@@ -181,9 +182,11 @@ function defineGrammar(options) {
 			} else if (c === '"') {
 				i += 1;
 				str = '';
-				for (;;) {
+				for (; i < length;) {
 					c = chunk[i];
 					if (c === '"') {
+						i += 1;
+						yield makeString(str);
 						break;
 					} else if (c === '\\') {
 						i += 1;
@@ -222,8 +225,9 @@ function defineGrammar(options) {
 						i += 1;
 					}
 				}
-				i += 1;
-				yield makeString(str);
+				/*error("Unterminated string", {
+					value: c
+				});*/
 			} else if (operatorLength = maxOperatorLengthForFirstChar[c]) {
 				c = chunk.substring(i, i + operatorLength);
 				if (operators[c]) {

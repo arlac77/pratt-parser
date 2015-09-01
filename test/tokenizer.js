@@ -79,6 +79,38 @@ describe("tokens", function () {
     }
   });
 
+  describe("trailing identifier", function () {
+    const tokens = [{
+      type: "identifier",
+      value: "ABC"
+    }];
+
+    let i = 0;
+
+    for (let token of myGrammar.tokenizer('ABC')) {
+      const refToken = tokens[i];
+
+      it(`tokens ${refToken.type}`, function () {
+        assert.equal(token.type, refToken.type, "type: " + refToken.type);
+        assert.equal(token.value, refToken.value, "value: " + refToken.value);
+      });
+    }
+  });
+
+  /*
+    describe("unterminated string", function () {
+      const tokens = [{
+        type: "string",
+        value: "ABCD"
+      }];
+
+      it(`should fail`, function () {
+        try {
+          const tokens = myGrammar.tokenizer("\"ABCD");
+        } catch (e) {}
+      });
+    });
+  */
   describe("Kitchen sink", function () {
     const tokens = [{
       type: "number",
