@@ -138,6 +138,10 @@ describe("tokens", function () {
       line: 3
     }, {
       type: "identifier",
+      value: "_name3",
+      line: 3
+    }, {
+      type: "identifier",
       value: "n",
       line: 4
     }, {

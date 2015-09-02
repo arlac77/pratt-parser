@@ -151,7 +151,7 @@ function defineGrammar(options) {
 				}
 				i += 1;
 				c = chunk[i];
-			} else if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+			} else if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c === '_') {
 				str = c;
 				i += 1;
 				for (;;) {
