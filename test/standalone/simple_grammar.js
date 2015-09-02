@@ -9,28 +9,32 @@ let myGrammar = defineGrammar({
     'number': {}
   },
   operators: {
+    '-': {
+      precedence: 50,
+      parseExpression: function (grammar, left, right) {
+        return Object.create(left, {
+          value: {
+            value: left.value - right.value
+          }
+        });
+      }
+    },
     '+': {
       precedence: 50,
-      parseRigth: function (grammar) {
-        return grammar.expression(50);
-      },
-      parseWithPrefix: function (grammar, prefix, right) {
-        return Object.create(prefix, {
+      parseExpression: function (grammar, left, right) {
+        return Object.create(left, {
           value: {
-            value: prefix.value + right.value
+            value: left.value + right.value
           }
         });
       }
     },
     '*': {
       precedence: 60,
-      parseRigth: function (grammar) {
-        return grammar.expression(60);
-      },
-      parseWithPrefix: function (grammar, prefix, right) {
-        return Object.create(prefix, {
+      parseExpression: function (grammar, left, right) {
+        return Object.create(left, {
           value: {
-            value: prefix.value * right.value
+            value: left.value * right.value
           }
         });
       }

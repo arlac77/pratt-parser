@@ -321,7 +321,9 @@ function defineGrammar(options) {
 				while (precedence < token.precedence) {
 					t = token;
 					grammar.advance();
-					if (t.parseRigth) {
+					if (t.parseExpression) {
+						left = t.parseExpression(grammar, left, grammar.expression(t.precedence));
+					} else if (t.parseRigth) {
 						left = t.parseWithPrefix(grammar, left, t.parseRigth(grammar));
 					} else {
 						left = t.parseWithPrefix(grammar, left);
