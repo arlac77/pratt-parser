@@ -1,0 +1,23 @@
+
+image:https://img.shields.io/npm/v/pratt-parser.svg[npm,link=https://www.npmjs.com/package/pratt-parser]
+image:https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg[semantic-release,link=https://github.com/arlac77/pratt-parser]
+image:https://secure.travis-ci.org/arlac77/pratt-parser.png[Build Status,link=http://travis-ci.org/arlac77/pratt-parser]
+image:https://coveralls.io/repos/arlac77/pratt-parser/badge.svg[Coverage Status,link=https://coveralls.io/r/arlac77/pratt-parser]
+image:https://img.shields.io/github/issues/arlac77/pratt-parser.svg?style=flat-square[GitHub Issues,link=https://github.com/arlac77/pratt-parser/issues]
+image:https://david-dm.org/arlac77/pratt-parser.svg[Dependency Status,link=https://david-dm.org/arlac77/pratt-parser]
+image:https://david-dm.org/arlac77/pratt-parser/dev-status.svg[devDependency Status,link=https://david-dm.org/arlac77/pratt-parser#info=devDependencies]
+image:http://inch-ci.org/github/arlac77/pratt-parser.svg?branch=master[docs,link=http://inch-ci.org/github/arlac77/pratt-parser]
+
+== Pratt Parser
+
+
+.Usage example
+[source,js]
+----
+const pp = require('pratt-parser');
+
+----
+
+
+=== License
+BSD-2-Clause
