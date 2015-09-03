@@ -4,6 +4,14 @@
 
 const defineGrammar = require('../../lib/grammar');
 
+function Value(value) {
+  return Object.create(null, {
+    value: {
+      value: value
+    }
+  });
+}
+
 let myGrammar = defineGrammar({
   terminals: {
     'number': {}
@@ -12,31 +20,25 @@ let myGrammar = defineGrammar({
     '-': {
       precedence: 50,
       parseExpression: function (grammar, left, right) {
-        return Object.create(left, {
-          value: {
-            value: left.value - right.value
-          }
-        });
+        return Value(left.value - right.value);
       }
     },
     '+': {
       precedence: 50,
       parseExpression: function (grammar, left, right) {
-        return Object.create(left, {
-          value: {
-            value: left.value + right.value
-          }
-        });
+        return Value(left.value + right.value);
       }
     },
     '*': {
       precedence: 60,
       parseExpression: function (grammar, left, right) {
-        return Object.create(left, {
-          value: {
-            value: left.value * right.value
-          }
-        });
+        return Value(left.value * right.value);
+      }
+    },
+    '/': {
+      precedence: 60,
+      parseExpression: function (grammar, left, right) {
+        return Value(left.value / right.value);
       }
     }
   }
