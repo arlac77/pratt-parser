@@ -14,7 +14,7 @@ const defineGrammar = require('../src/grammar');
 
 describe("tokens", function () {
   const myGrammar = defineGrammar({
-    operators: {
+    infix: {
       '=': {
         precedence: 77
       },

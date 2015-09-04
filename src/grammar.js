@@ -40,7 +40,10 @@ const rootToken = {
 	toString() {
 		return `${this.type}: ${this.value} [${this.precedence}]`;
 	},
-	parseWithPrefix(token) {
+	led(left) {
+		return 0;
+	},
+	combine() {
 		return 0;
 	}
 };
@@ -55,17 +58,38 @@ const EOF = Object.create(rootToken, {
 });
 
 function defineGrammar(options) {
-	const operators = options.operators;
 	const maxOperatorLengthForFirstChar = {};
 	const registeredTokens = {};
 
-	function registerOperator(id, options) {
+	const operatorTypes = {
+		"prefix": {
+			"nud": function () {}
+		},
+		"infix": {
+			"led": function (left) {
+				//console.log(`infix led ${this}`);
+				return this.combine(left, grammar.expression(this.precedence));
+
+				//left = token.parse(grammar, left, expression(token.precedence));
+			}
+		},
+		"infixr": {
+			"led": function (left) {
+				return this.combine(left, grammar.expression(this.precedence - 1));
+			}
+		}
+	};
+
+	function registerOperator(id, options, operatorType) {
 		const props = {
 			type: {
 				value: 'operator'
 			},
 			value: {
 				value: id
+			},
+			led: {
+				value: operatorType.led
 			}
 		};
 
@@ -76,14 +100,19 @@ function defineGrammar(options) {
 		return op;
 	}
 
-	for (let c in operators) {
-		const firstChar = c[0];
-		const maxLength = maxOperatorLengthForFirstChar[firstChar] || 0;
+	for (let operatorTypeName in operatorTypes) {
+		const ops = options[operatorTypeName];
+		const operatorType = operatorTypes[operatorTypeName];
 
-		if (maxLength < c.length) {
-			maxOperatorLengthForFirstChar[firstChar] = c.length;
+		for (let c in ops) {
+			const firstChar = c[0];
+			const maxLength = maxOperatorLengthForFirstChar[firstChar] || 0;
+
+			if (maxLength < c.length) {
+				maxOperatorLengthForFirstChar[firstChar] = c.length;
+			}
+			registerOperator(c, ops[c], operatorType);
 		}
-		registerOperator(c, operators[c]);
 	}
 
 	const tokenizer = function* (chunk) {
@@ -258,19 +287,19 @@ function defineGrammar(options) {
 				});*/
 			} else if (operatorLength = maxOperatorLengthForFirstChar[c]) {
 				c = chunk.substring(i, i + operatorLength);
-				if (operators[c]) {
+				if (registeredTokens[c]) {
 					yield makeOperator(c);
 					i += operatorLength;
 				} else {
 					operatorLength -= 1;
 					c = chunk.substring(i, i + operatorLength);
-					if (operators[c]) {
+					if (registeredTokens[c]) {
 						yield makeOperator(c);
 						i += operatorLength;
 					} else {
 						operatorLength -= 1;
 						c = chunk.substring(i, i + operatorLength);
-						if (operators[c]) {
+						if (registeredTokens[c]) {
 							yield makeOperator(c);
 							i += operatorLength;
 						} else {
@@ -321,13 +350,7 @@ function defineGrammar(options) {
 				while (precedence < token.precedence) {
 					t = token;
 					grammar.advance();
-					if (t.parseExpression) {
-						left = t.parseExpression(grammar, left, grammar.expression(t.precedence));
-					} else if (t.parseRigth) {
-						left = t.parseWithPrefix(grammar, left, t.parseRigth(grammar));
-					} else {
-						left = t.parseWithPrefix(grammar, left);
-					}
+					left = t.led(left);
 				}
 				return left;
 			};

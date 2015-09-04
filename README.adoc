@@ -11,6 +11,8 @@ image:http://inch-ci.org/github/arlac77/pratt-parser.svg?branch=master[docs,link
 == Pratt Parser
 
 
+https://github.com/douglascrockford/TDOP[Douglas Crockford TDOP]
+
 .Usage example
 [source,js]
 ----
