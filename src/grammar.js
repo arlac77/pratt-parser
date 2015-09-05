@@ -63,14 +63,13 @@ function defineGrammar(options) {
 
 	const operatorTypes = {
 		"prefix": {
-			"nud": function () {}
+			"nud": function () {
+				return this.combine(grammar.expression(this.precedence));
+			}
 		},
 		"infix": {
 			"led": function (left) {
-				//console.log(`infix led ${this}`);
 				return this.combine(left, grammar.expression(this.precedence));
-
-				//left = token.parse(grammar, left, expression(token.precedence));
 			}
 		},
 		"infixr": {
