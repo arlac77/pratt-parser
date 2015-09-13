@@ -25,31 +25,40 @@ describe("calculator",
       terminals: {
         'number': {}
       },
-      infix: {
+      prefix: {
         '(': {
+           led: function(grammar,left) {
+              const e = grammar.expression(0);
+              grammar.advance(')');
+              return e; 
+           }
+         }
+      },
+      infix: {
+        /*'(': {
           precedence: 80
-        },
+        },*/
         '+': {
           precedence: 50,
-          combine: function (left, right) {
+          combine: function (grammar, left, right) {
             return Value(left.value + right.value);
           }
         },
         '-': {
           precedence: 50,
-          combine: function (left, right) {
+          combine: function (grammar, left, right) {
             return Value(left.value - right.value);
           }
         },
         '*': {
           precedence: 60,
-          combine: function (left, right) {
+          combine: function (grammar, left, right) {
             return Value(left.value * right.value);
           }
         },
         '/': {
           precedence: 60,
-          combine: function (left, right) {
+          combine: function (grammar, left, right) {
             return Value(left.value / right.value);
           }
         }
