@@ -69,13 +69,8 @@ describe("calculator",
       assert.equal(myGrammar.parse("1 + 41 * 3 - 2").value, 122);
     });
 
-    /*
-        it("evaluates 2", function () {
-          assert.equal(myGrammar.parse("(1 + 41) * 3 - 2").value, 124);
+        it("evaluates with prefix op", function () {
+          assert.equal(myGrammar.parse("(1 + 41)").value, 42);
         });
-    */
   });
 
-/*
- att1.att2[name='herbert'].att3
-*/
