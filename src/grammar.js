@@ -30,17 +30,17 @@ function defineGrammar(options) {
 
 	const operatorTypes = {
 		"prefix": {
-			"nud": function () {
+			"nud": function (grammar) {
 				return this.combine(grammar.expression(this.precedence));
 			}
 		},
 		"infix": {
-			"led": function (left) {
+			"led": function (grammar,left) {
 				return this.combine(left, grammar.expression(this.precedence));
 			}
 		},
 		"infixr": {
-			"led": function (left) {
+			"led": function (grammar,left) {
 				return this.combine(left, grammar.expression(this.precedence - 1));
 			}
 		}
@@ -317,7 +317,7 @@ function defineGrammar(options) {
 				while (precedence < token.precedence) {
 					t = token;
 					grammar.advance();
-					left = t.led(left);
+					left = t.led(grammar,left);
 				}
 				return left;
 			};
