@@ -40,25 +40,25 @@ describe("calculator",
         },*/
         '+': {
           precedence: 50,
-          combine: function (grammar, left, right) {
+          combine: function (left, right) {
             return Value(left.value + right.value);
           }
         },
         '-': {
           precedence: 50,
-          combine: function (grammar, left, right) {
+          combine: function (left, right) {
             return Value(left.value - right.value);
           }
         },
         '*': {
           precedence: 60,
-          combine: function (grammar, left, right) {
+          combine: function (left, right) {
             return Value(left.value * right.value);
           }
         },
         '/': {
           precedence: 60,
-          combine: function (grammar, left, right) {
+          combine: function (left, right) {
             return Value(left.value / right.value);
           }
         }
