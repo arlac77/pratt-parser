@@ -226,12 +226,39 @@ describe("tokens", function () {
       value: "=",
       line: 16,
       precedence: 77
+    }, {
+      type: "number",
+      value: 2,
+      line: 17
+    }, {
+      type: "operator",
+      value: "+",
+      line: 17
+    }, {
+      type: "operator",
+      value: "(",
+      line: 17
+    }, {
+      type: "number",
+      value: 3,
+      line: 17
+    }, {
+      type: "operator",
+      value: "*",
+      line: 17
+    }, {
+      type: "number",
+      value: 17,
+      line: 17
+    }, {
+      type: "operator",
+      value: ")",
+      line: 17
     }];
 
     const s = fs.readFileSync(path.join(__dirname, 'fixtures', 'tokens1.txt'), {
       encoding: 'utf8'
     });
-
 
     let i = 0;
 
