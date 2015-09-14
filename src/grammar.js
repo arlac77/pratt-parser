@@ -35,12 +35,12 @@ function defineGrammar(options) {
 			}
 		},
 		"infix": {
-			"led": function (grammar,left) {
+			"led": function (grammar, left) {
 				return this.combine(left, grammar.expression(this.precedence));
 			}
 		},
 		"infixr": {
-			"led": function (grammar,left) {
+			"led": function (grammar, left) {
 				return this.combine(left, grammar.expression(this.precedence - 1));
 			}
 		}
@@ -286,7 +286,6 @@ function defineGrammar(options) {
 		}
 	}; // tokenizer
 
-
 	const grammar = Object.create({
 		tokenizer: tokenizer,
 		parse(chunk) {
@@ -314,11 +313,13 @@ function defineGrammar(options) {
 				let t = token;
 				grammar.advance();
 				let left = t;
+
 				while (precedence < token.precedence) {
 					t = token;
 					grammar.advance();
-					left = t.led(grammar,left);
+					left = t.led(grammar, left);
 				}
+
 				return left;
 			};
 

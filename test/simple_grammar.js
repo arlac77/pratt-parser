@@ -27,17 +27,16 @@ describe("calculator",
       },
       prefix: {
         '(': {
-           led: function(grammar,left) {
-              const e = grammar.expression(0);
-              grammar.advance(')');
-              return e; 
-           }
-         }
+          led: function (grammar, left) {
+            console.log(`C ( ${left}`);
+            const e = grammar.expression(0);
+            grammar.advance(')');
+            return e;
+          }
+        }
       },
       infix: {
-        /*'(': {
-          precedence: 80
-        },*/
+        ')': {},
         '+': {
           precedence: 50,
           combine: function (left, right) {
@@ -69,8 +68,7 @@ describe("calculator",
       assert.equal(myGrammar.parse("1 + 41 * 3 - 2").value, 122);
     });
 
-        it("evaluates with prefix op", function () {
-          assert.equal(myGrammar.parse("(1 + 41)").value, 42);
-        });
+    it("evaluates with prefix op", function () {
+      assert.equal(myGrammar.parse("(1 + 41)").value, 42);
+    });
   });
-
