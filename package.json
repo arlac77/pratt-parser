@@ -29,5 +29,5 @@
     "type": "git",
     "url": "https://github.com/arlac77/pratt-parser.git"
   },
-  "main": "src/parser.js"
+  "main": "lib/parser.js"
 }
