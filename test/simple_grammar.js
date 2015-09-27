@@ -27,8 +27,7 @@ describe("calculator",
       },
       prefix: {
         '(': {
-          led: function (grammar, left) {
-            console.log(`C ( ${left}`);
+          nud: function (grammar) {
             const e = grammar.expression(0);
             grammar.advance(')');
             return e;
