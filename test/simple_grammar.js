@@ -70,4 +70,8 @@ describe("calculator",
     it("evaluates with prefix op", function () {
       assert.equal(myGrammar.parse("(1 + 41)").value, 42);
     });
+
+    it("evaluates with prefix op 2", function () {
+      assert.equal(myGrammar.parse("(1 + 41) * 2").value, 84);
+    });
   });
