@@ -1,6 +1,7 @@
 coverage
 node_modules
 dist
+out
 *.log
 *.dump
 .DS_Store

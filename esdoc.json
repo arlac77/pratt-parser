@@ -1,0 +1,4 @@
+{
+  "source": "./lib",
+  "destination": "./out/esdoc"
+}
