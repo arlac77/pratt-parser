@@ -12,7 +12,7 @@ const defineGrammar = require('../lib/grammar');
 
 
 describe("calculator",
-  function () {
+  function() {
     function Value(value) {
       return Object.create(null, {
         value: {
@@ -27,7 +27,7 @@ describe("calculator",
       },
       prefix: {
         '(': {
-          nud: function (grammar) {
+          nud(grammar) {
             const e = grammar.expression(0);
             grammar.advance(')');
             return e;
@@ -38,40 +38,49 @@ describe("calculator",
         ')': {},
         '+': {
           precedence: 50,
-          combine: function (left, right) {
+          combine(left, right) {
             return Value(left.value + right.value);
           }
         },
         '-': {
           precedence: 50,
-          combine: function (left, right) {
+          combine(left, right) {
             return Value(left.value - right.value);
           }
         },
         '*': {
           precedence: 60,
-          combine: function (left, right) {
+          combine(left, right) {
             return Value(left.value * right.value);
           }
         },
         '/': {
           precedence: 60,
-          combine: function (left, right) {
+          combine(left, right) {
             return Value(left.value / right.value);
           }
         }
       }
     });
 
-    it("evaluates", function () {
+    it("evaluates", function() {
       assert.equal(myGrammar.parse("1 + 41 * 3 - 2").value, 122);
     });
 
-    it("evaluates with prefix op", function () {
+    it("evaluates with prefix op", function() {
       assert.equal(myGrammar.parse("(1 + 41)").value, 42);
     });
 
-    it("evaluates with prefix op 2", function () {
+    it("evaluates with prefix op 2", function() {
       assert.equal(myGrammar.parse("(1 + 41) * 2").value, 84);
+    });
+
+    it("evaluates with prefix op 3", function() {
+      assert.equal(myGrammar.parse("(1 + 1) * (2 + 7)").value, 18);
+    });
+
+    it("evaluates with prefix op 4", function() {
+      assert.equal(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value,
+        42);
     });
   });
