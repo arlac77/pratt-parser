@@ -1,6 +1,12 @@
 {
   "name": "pratt-parser",
   "description": "TDOP parser",
+  "keywords": [
+    "tokenizer",
+    "parser",
+    "PRATT",
+    "TDOP"
+  ],
   "engines": {
     "node": ">= 4.0.0"
   },
@@ -16,7 +22,8 @@
     "coveralls": "2.11.4",
     "esdoc": "^0.3.1",
     "istanbul-harmony": "0.3.16",
-    "mocha": "2.3.3"
+    "mocha": "2.3.3",
+    "semantic-release": "6.0.3"
   },
   "scripts": {
     "cover": "node --harmony ./node_modules/istanbul-harmony/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports test",

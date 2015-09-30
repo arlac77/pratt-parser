@@ -11,14 +11,65 @@ image:http://inch-ci.org/github/arlac77/pratt-parser.svg?branch=master[docs,link
 
 == Pratt Parser
 
+Based on
+https://github.com/douglascrockford/TDOP[Douglas Crockford TDOP].
 
-https://github.com/douglascrockford/TDOP[Douglas Crockford TDOP]
-
-.Usage example
+.Calculator example
 [source,js]
 ----
-const pp = require('pratt-parser');
+const createGrammar = require('pratt-parser').createGrammar;
 
+function Value(value) {
+  return Object.create(null, {
+    value: {
+      value: value
+    }
+  });
+}
+
+let myGrammar = createGrammar({
+  terminals: {
+    'number': {}
+  },
+  prefix: {
+    '(': {
+      nud(grammar) {
+        const e = grammar.expression(0);
+        grammar.advance(')');
+        return e;
+      }
+    }
+  },
+  infix: {
+    ')': {},
+    '+': {
+      precedence: 50,
+      combine(left, right) {
+        return Value(left.value + right.value);
+      }
+    },
+    '-': {
+      precedence: 50,
+      combine(left, right) {
+        return Value(left.value - right.value);
+      }
+    },
+    '*': {
+      precedence: 60,
+      combine(left, right) {
+        return Value(left.value * right.value);
+      }
+    },
+    '/': {
+      precedence: 60,
+      combine(left, right) {
+        return Value(left.value / right.value);
+      }
+    }
+  }
+});
+
+console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
 ----
 
 
