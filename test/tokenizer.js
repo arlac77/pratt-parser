@@ -10,10 +10,10 @@ const should = chai.should();
 
 const path = require('path');
 const fs = require('fs');
-const defineGrammar = require('../lib/grammar');
+const createGrammar = require('../lib/grammar').createGrammar;
 
 describe("tokens", function () {
-  const myGrammar = defineGrammar({
+  const myGrammar = createGrammar({
     infix: {
       '=': {
         precedence: 77
