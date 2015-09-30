@@ -72,6 +72,5 @@ let myGrammar = createGrammar({
 console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
 ----
 
-
 === License
 BSD-2-Clause

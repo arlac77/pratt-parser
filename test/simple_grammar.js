@@ -8,11 +8,10 @@ const assert = chai.assert;
 const expect = chai.expect;
 const should = chai.should();
 
-const defineGrammar = require('../lib/grammar');
-
+const createGrammar = require('../lib/grammar').createGrammar;
 
 describe("calculator",
-  function() {
+  function () {
     function Value(value) {
       return Object.create(null, {
         value: {
@@ -21,7 +20,7 @@ describe("calculator",
       });
     }
 
-    let myGrammar = defineGrammar({
+    let myGrammar = createGrammar({
       terminals: {
         'number': {}
       },
@@ -63,23 +62,23 @@ describe("calculator",
       }
     });
 
-    it("evaluates", function() {
+    it("evaluates", function () {
       assert.equal(myGrammar.parse("1 + 41 * 3 - 2").value, 122);
     });
 
-    it("evaluates with prefix op", function() {
+    it("evaluates with prefix op", function () {
       assert.equal(myGrammar.parse("(1 + 41)").value, 42);
     });
 
-    it("evaluates with prefix op 2", function() {
+    it("evaluates with prefix op 2", function () {
       assert.equal(myGrammar.parse("(1 + 41) * 2").value, 84);
     });
 
-    it("evaluates with prefix op 3", function() {
+    it("evaluates with prefix op 3", function () {
       assert.equal(myGrammar.parse("(1 + 1) * (2 + 7)").value, 18);
     });
 
-    it("evaluates with prefix op 4", function() {
+    it("evaluates with prefix op 4", function () {
       assert.equal(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value,
         42);
     });
