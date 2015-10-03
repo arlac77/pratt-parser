@@ -20,7 +20,7 @@
   "devDependencies": {
     "chai": "3.3.0",
     "coveralls": "2.11.4",
-    "esdoc": "^0.3.1",
+    "esdoc": "1.0.0",
     "istanbul-harmony": "0.3.16",
     "mocha": "2.3.3",
     "semantic-release": "6.0.3"
