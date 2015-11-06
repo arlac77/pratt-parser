@@ -26,7 +26,8 @@ describe("mini_lang",
 
     let myGrammar = createGrammar({
       terminals: {
-        'number': {}
+        'number': {},
+        'identifier': {}
       },
       prefix: {
         '(': {
@@ -41,10 +42,12 @@ describe("mini_lang",
         ')': {},
         ']': {},
         '[': {
-          precedence: 50,
-          combine(left, right) {
+          precedence: 40,
+          led(grammar, left) {
+            const right = grammar.expression(0);
             const array = identifiers[left.value];
-            //console.log(`left: ${array}  [${right.value}]`);
+            //console.log(`led: left: ${array} ${right.value}`);
+            grammar.advance(']');
             return Value(array[right.value]);
           }
         },
@@ -76,6 +79,6 @@ describe("mini_lang",
     });
 
     it("evaluates", function () {
-      assert.equal(myGrammar.parse("array[3 * 2]").value, 7);
+      assert.equal(myGrammar.parse("array[3 * 2] + 2").value, 9);
     });
   });
