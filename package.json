@@ -18,7 +18,7 @@
   "homepage": "https://github.com/arlac77/pratt-parser#readme",
   "dependencies": {},
   "devDependencies": {
-    "chai": "3.4.0",
+    "chai": "3.4.1",
     "coveralls": "2.11.4",
     "istanbul-harmony": "0.3.16",
     "jsdoc": "^3.3.3",
