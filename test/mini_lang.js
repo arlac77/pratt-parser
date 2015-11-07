@@ -46,7 +46,6 @@ describe("mini_lang",
           led(grammar, left) {
             const right = grammar.expression(0);
             const array = identifiers[left.value];
-            //console.log(`led: left: ${array} ${right.value}`);
             grammar.advance(']');
             return Value(array[right.value]);
           }
@@ -78,7 +77,11 @@ describe("mini_lang",
       }
     });
 
-    it("evaluates", function () {
+    it("evaluates array", function () {
       assert.equal(myGrammar.parse("array[3 * 2] + 2").value, 9);
+    });
+
+    xit("evaluates function", function () {
+      assert.equal(myGrammar.parse("concat('prefix','postfix')").value, 'prefixpostfix');
     });
   });
