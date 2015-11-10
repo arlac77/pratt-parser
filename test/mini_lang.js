@@ -31,10 +31,15 @@ describe("mini_lang",
       },
       prefix: {
         '(': {
-          nud(grammar) {
-            const e = grammar.expression(0);
-            grammar.advance(')');
-            return e;
+          precedence: 80,
+          nud(grammar, left) {
+            if (left.type === 'identifier') {
+              console.log(`function call: ${left}`);
+            } else {
+              const e = grammar.expression(0);
+              grammar.advance(')');
+              return e;
+            }
           }
         }
       },
@@ -82,6 +87,6 @@ describe("mini_lang",
     });
 
     xit("evaluates function", function () {
-      assert.equal(myGrammar.parse("concat('prefix','postfix')").value, 'prefixpostfix');
+      assert.equal(myGrammar.parse('concat("prefix","postfix")').value, 'prefixpostfix');
     });
   });
