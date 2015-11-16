@@ -22,7 +22,7 @@
     "coveralls": "2.11.4",
     "istanbul-harmony": "0.3.16",
     "jsdoc": "^3.3.3",
-    "mocha": "2.3.3",
+    "mocha": "2.3.4",
     "semantic-release": "6.0.3"
   },
   "scripts": {
