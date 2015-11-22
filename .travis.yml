@@ -9,7 +9,7 @@ notifications:
   email:
     - markus.felten@gmx.de
 before_install:
-  - npm i -g npm@^2.0.0
+  - npm i -g npm@latest
 before_script:
   - npm prune
 script:
