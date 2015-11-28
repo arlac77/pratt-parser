@@ -20,19 +20,16 @@
   "devDependencies": {
     "chai": "3.4.1",
     "coveralls": "2.11.4",
-    "istanbul-harmony": "0.3.16",
+    "istanbul": "1.0.0-alpha.2",
     "jsdoc": "3.4.0",
     "mocha": "2.3.4",
     "semantic-release": "6.0.3"
   },
   "scripts": {
-    "cover": "node --harmony ./node_modules/istanbul-harmony/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports test",
+    "cover": "node --harmony ./node_modules/istanbul/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports test",
     "doc": "./node_modules/.bin/jsdoc -r lib/*.js",
     "test": "mocha --harmony_shipping test/*.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
-  },
-  "release": {
-    "debug": false
   },
   "repository": {
     "type": "git",
