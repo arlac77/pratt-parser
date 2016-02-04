@@ -8,7 +8,7 @@
     "TDOP"
   ],
   "engines": {
-    "node": ">= 4.0.0"
+    "node": ">=5"
   },
   "author": "Markus Felten <markus.felten@gmx.de>",
   "license": "BSD-2-Clause",
@@ -20,16 +20,16 @@
   "devDependencies": {
     "chai": "3.5.0",
     "coveralls": "2.11.6",
-    "istanbul": "1.0.0-alpha.2",
+    "istanbul": "0.4.2",
     "jsdoc": "3.4.0",
     "mocha": "2.4.5",
     "mocha-lcov-reporter": "^1.0.0",
-    "semantic-release": "6.0.3"
+    "semantic-release": "6.2.0"
   },
   "scripts": {
-    "cover": "node --harmony ./node_modules/istanbul/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports test",
-    "doc": "./node_modules/.bin/jsdoc -r lib/*.js",
-    "test": "mocha --harmony_shipping test/*.js",
+    "cover": "node ./node_modules/istanbul/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports tests/*_test.js",
+    "doc": "jsdoc lib/*.js",
+    "test": "mocha tests/*_test.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
