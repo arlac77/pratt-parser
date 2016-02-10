@@ -1,5 +1,6 @@
 coverage
 node_modules
+build
 *.log
 *.tmp
 .DS_Store
@@ -7,4 +8,6 @@ node_modules
 .tmp
 .gitignore
 .npmrc
+.travis.yml
 .npmignore
+.vscode
