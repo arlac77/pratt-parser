@@ -57,36 +57,23 @@ describe("mini_lang",
         },
         '+': {
           precedence: 50,
-          combine(left, right) {
-            return Value(left.value + right.value);
-          }
+          combine: (left, right) => Value(left.value + right.value)
         },
         '-': {
           precedence: 50,
-          combine(left, right) {
-            return Value(left.value - right.value);
-          }
+          combine: (left, right) => Value(left.value - right.value)
         },
         '*': {
           precedence: 60,
-          combine(left, right) {
-            return Value(left.value * right.value);
-          }
+          combine: (left, right) => Value(left.value * right.value)
         },
         '/': {
           precedence: 60,
-          combine(left, right) {
-            return Value(left.value / right.value);
-          }
+          combine: (left, right) => Value(left.value / right.value)
         }
       }
     });
 
-    it("evaluates array", function () {
-      assert.equal(myGrammar.parse("array[3 * 2] + 2").value, 9);
-    });
-
-    xit("evaluates function", function () {
-      assert.equal(myGrammar.parse('concat("prefix","postfix")').value, 'prefixpostfix');
-    });
+    it("evaluates array", () => assert.equal(myGrammar.parse("array[3 * 2] + 2").value, 9));
+    xit("evaluates function", () => assert.equal(myGrammar.parse('concat("prefix","postfix")').value, 'prefixpostfix'));
   });

@@ -12,38 +12,27 @@ function Value(value) {
   });
 }
 
-let myGrammar = defineGrammar({
+let myGrammar = createGrammar({
   terminals: {
     'number': {}
   },
   infix: {
-    '(': {
-      precedence: 80,
-      parse(left) {}
-    },
+    ')': {},
     '+': {
       precedence: 50,
-      combine: function (left, right) {
-        return Value(left.value + right.value);
-      }
+      combine: (left, right) => Value(left.value + right.value)
     },
     '-': {
       precedence: 50,
-      combine: function (left, right) {
-        return Value(left.value - right.value);
-      }
+      ccombine: (left, right) => Value(left.value - right.value)
     },
     '*': {
       precedence: 60,
-      combine: function (left, right) {
-        return Value(left.value * right.value);
-      }
+      combine: (left, right) => Value(left.value * right.value)
     },
     '/': {
       precedence: 60,
-      combine: function (left, right) {
-        return Value(left.value / right.value);
-      }
+      combine: (left, right) => Value(left.value / right.value)
     }
   }
 });

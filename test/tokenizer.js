@@ -12,7 +12,7 @@ const path = require('path');
 const fs = require('fs');
 const createGrammar = require('../lib/grammar').createGrammar;
 
-describe("tokens", function () {
+describe("tokens", () => {
   const myGrammar = createGrammar({
     infix: {
       '=': {
@@ -43,7 +43,7 @@ describe("tokens", function () {
     }
   });
 
-  describe("trailing space", function () {
+  describe("trailing space", () => {
     const tokens = [{
       type: "identifier",
       value: 'A'
@@ -54,7 +54,7 @@ describe("tokens", function () {
     for (let token of myGrammar.tokenizer('A ')) {
       const refToken = tokens[i];
 
-      it(`tokens ${refToken.type}`, function () {
+      it(`tokens ${refToken.type}`, () => {
         assert.equal(token.type, refToken.type, "type: " + refToken.type);
         assert.equal(token.value, refToken.value, "value: " + refToken.value);
       });
@@ -72,14 +72,14 @@ describe("tokens", function () {
     for (let token of myGrammar.tokenizer('123')) {
       const refToken = tokens[i];
 
-      it(`tokens ${refToken.type}`, function () {
+      it(`tokens ${refToken.type}`, () => {
         assert.equal(token.type, refToken.type, "type: " + refToken.type);
         assert.equal(token.value, refToken.value, "value: " + refToken.value);
       });
     }
   });
 
-  describe("trailing identifier", function () {
+  describe("trailing identifier", () => {
     const tokens = [{
       type: "identifier",
       value: "ABC"
@@ -90,7 +90,7 @@ describe("tokens", function () {
     for (let token of myGrammar.tokenizer('ABC')) {
       const refToken = tokens[i];
 
-      it(`tokens ${refToken.type}`, function () {
+      it(`tokens ${refToken.type}`, () => {
         assert.equal(token.type, refToken.type, "type: " + refToken.type);
         assert.equal(token.value, refToken.value, "value: " + refToken.value);
       });
@@ -264,7 +264,7 @@ describe("tokens", function () {
 
     for (let token of myGrammar.tokenizer(s)) {
       const refToken = tokens[i];
-      it(`tokens ${refToken.type}`, function () {
+      it(`tokens ${refToken.type}`, () => {
         assert.equal(token.type, refToken.type, "type: " + refToken.type);
         assert.equal(token.value, refToken.value, "value: " + refToken.value);
         assert.equal(token.lineNumber, refToken.line, "lineNumber: " + refToken.line);
