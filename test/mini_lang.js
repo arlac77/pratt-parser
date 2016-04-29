@@ -1,7 +1,7 @@
 /* global describe, it, xit */
 /* jslint node: true, esnext: true */
 
-"use strict";
+'use strict';
 
 const chai = require('chai');
 const assert = chai.assert;
@@ -10,7 +10,7 @@ const should = chai.should();
 
 const createGrammar = require('../lib/grammar').createGrammar;
 
-describe("mini_lang",
+describe('mini_lang',
   function () {
     function Value(value) {
       return Object.create(null, {
@@ -26,8 +26,8 @@ describe("mini_lang",
 
     let myGrammar = createGrammar({
       terminals: {
-        'number': {},
-        'identifier': {}
+        number: {},
+        identifier: {}
       },
       prefix: {
         '(': {
@@ -74,6 +74,6 @@ describe("mini_lang",
       }
     });
 
-    it("evaluates array", () => assert.equal(myGrammar.parse("array[3 * 2] + 2").value, 9));
-    xit("evaluates function", () => assert.equal(myGrammar.parse('concat("prefix","postfix")').value, 'prefixpostfix'));
+    it('evaluates array', () => assert.equal(myGrammar.parse('array[3 * 2] + 2').value, 9));
+    xit('evaluates function', () => assert.equal(myGrammar.parse('concat("prefix","postfix")').value, 'prefixpostfix'));
   });
