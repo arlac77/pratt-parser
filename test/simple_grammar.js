@@ -1,7 +1,7 @@
 /* global describe, it, xit */
 /* jslint node: true, esnext: true */
 
-"use strict";
+'use strict';
 
 const chai = require('chai');
 const assert = chai.assert;
@@ -10,7 +10,7 @@ const should = chai.should();
 
 const createGrammar = require('../lib/grammar').createGrammar;
 
-describe("calculator",
+describe('calculator',
   function () {
     function Value(value) {
       return Object.create(null, {
@@ -22,7 +22,7 @@ describe("calculator",
 
     let myGrammar = createGrammar({
       terminals: {
-        'number': {}
+        number: {}
       },
       prefix: {
         '(': {
@@ -54,9 +54,9 @@ describe("calculator",
       }
     });
 
-    xit("evaluates", () => assert.equal(myGrammar.parse("1 + 41 * 3 - 2").value, 122));
-    it("evaluates with prefix op", () => assert.equal(myGrammar.parse("(1 + 41)").value, 42));
-    it("evaluates with prefix op 2", () => assert.equal(myGrammar.parse("(1 + 41) * 2").value, 84));
-    it("evaluates with prefix op 3", () => assert.equal(myGrammar.parse("(1 + 1) * (2 + 7)").value, 18));
-    it("evaluates with prefix op 4", () => assert.equal(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value, 42));
+    xit('evaluates', () => assert.equal(myGrammar.parse('1 + 41 * 3 - 2').value, 122));
+    it('evaluates with prefix op', () => assert.equal(myGrammar.parse('(1 + 41)').value, 42));
+    it('evaluates with prefix op 2', () => assert.equal(myGrammar.parse('(1 + 41) * 2').value, 84));
+    it('evaluates with prefix op 3', () => assert.equal(myGrammar.parse('(1 + 1) * (2 + 7)').value, 18));
+    it('evaluates with prefix op 4', () => assert.equal(myGrammar.parse('(1 + (1 + 4 * 3)) * (2 + 1)').value, 42));
   });
