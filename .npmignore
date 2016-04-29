@@ -11,3 +11,4 @@ build
 .travis.yml
 .npmignore
 .vscode
+.markdown-doctest-setup.js
