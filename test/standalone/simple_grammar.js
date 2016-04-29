@@ -1,6 +1,6 @@
 /* jslint node: true, esnext: true */
 
-"use strict";
+'use strict';
 
 const createGrammar = require('../../lib/grammar').createGrammar;
 
@@ -37,4 +37,4 @@ let myGrammar = createGrammar({
   }
 });
 
-console.log(myGrammar.parse("1 + 41 * 3").value);
+console.log(myGrammar.parse('1 + 41 * 3').value);
