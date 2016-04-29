@@ -1,7 +1,7 @@
 /* global describe, it, xit */
 /* jslint node: true, esnext: true */
 
-"use strict";
+'use strict';
 
 const chai = require('chai');
 const assert = chai.assert;
@@ -12,7 +12,7 @@ const path = require('path');
 const fs = require('fs');
 const createGrammar = require('../lib/grammar').createGrammar;
 
-describe("tokens", () => {
+describe('tokens', () => {
   const myGrammar = createGrammar({
     infix: {
       '=': {
@@ -43,9 +43,9 @@ describe("tokens", () => {
     }
   });
 
-  describe("trailing space", () => {
+  describe('trailing space', () => {
     const tokens = [{
-      type: "identifier",
+      type: 'identifier',
       value: 'A'
     }];
 
@@ -55,15 +55,15 @@ describe("tokens", () => {
       const refToken = tokens[i];
 
       it(`tokens ${refToken.type}`, () => {
-        assert.equal(token.type, refToken.type, "type: " + refToken.type);
-        assert.equal(token.value, refToken.value, "value: " + refToken.value);
+        assert.equal(token.type, refToken.type, 'type: ' + refToken.type);
+        assert.equal(token.value, refToken.value, 'value: ' + refToken.value);
       });
     }
   });
 
-  describe("trailing number", function () {
+  describe('trailing number', function () {
     const tokens = [{
-      type: "number",
+      type: 'number',
       value: 123
     }];
 
@@ -73,16 +73,16 @@ describe("tokens", () => {
       const refToken = tokens[i];
 
       it(`tokens ${refToken.type}`, () => {
-        assert.equal(token.type, refToken.type, "type: " + refToken.type);
-        assert.equal(token.value, refToken.value, "value: " + refToken.value);
+        assert.equal(token.type, refToken.type, 'type: ' + refToken.type);
+        assert.equal(token.value, refToken.value, 'value: ' + refToken.value);
       });
     }
   });
 
-  describe("trailing identifier", () => {
+  describe('trailing identifier', () => {
     const tokens = [{
-      type: "identifier",
-      value: "ABC"
+      type: 'identifier',
+      value: 'ABC'
     }];
 
     let i = 0;
@@ -91,168 +91,168 @@ describe("tokens", () => {
       const refToken = tokens[i];
 
       it(`tokens ${refToken.type}`, () => {
-        assert.equal(token.type, refToken.type, "type: " + refToken.type);
-        assert.equal(token.value, refToken.value, "value: " + refToken.value);
+        assert.equal(token.type, refToken.type, 'type: ' + refToken.type);
+        assert.equal(token.value, refToken.value, 'value: ' + refToken.value);
       });
     }
   });
 
   /*
-    describe("unterminated string", function () {
+    describe('unterminated string', function () {
       const tokens = [{
-        type: "string",
-        value: "ABCD"
+        type: 'string',
+        value: 'ABCD'
       }];
 
       it(`should fail`, function () {
         try {
-          const tokens = myGrammar.tokenizer("\"ABCD");
+          const tokens = myGrammar.tokenizer('\"ABCD');
         } catch (e) {}
       });
     });
   */
-  describe("Kitchen sink", function () {
+  describe('Kitchen sink', function () {
     const tokens = [{
-      type: "number",
+      type: 'number',
       value: 4711,
       line: 1
     }, {
-      type: "string",
-      value: "str2",
+      type: 'string',
+      value: 'str2',
       line: 2
     }, {
-      type: "string",
-      value: "str3",
+      type: 'string',
+      value: 'str3',
       line: 2
     }, {
-      type: "string",
-      value: "\b\f\n\r\t\"\'A",
+      type: 'string',
+      value: '\b\f\n\r\t\"\'A',
       line: 2
     }, {
-      type: "identifier",
-      value: "name1",
+      type: 'identifier',
+      value: 'name1',
       line: 3
     }, {
-      type: "identifier",
-      value: "name_2",
+      type: 'identifier',
+      value: 'name_2',
       line: 3
     }, {
-      type: "identifier",
-      value: "_name3",
+      type: 'identifier',
+      value: '_name3',
       line: 3
     }, {
-      type: "identifier",
-      value: "n",
+      type: 'identifier',
+      value: 'n',
       line: 4
     }, {
-      type: "operator",
-      value: "+",
+      type: 'operator',
+      value: '+',
       line: 5
     }, {
-      type: "operator",
-      value: "-",
+      type: 'operator',
+      value: '-',
       line: 6
     }, {
-      type: "operator",
-      value: "*",
+      type: 'operator',
+      value: '*',
       line: 7,
       precedence: 42
     }, {
-      type: "operator",
-      value: "/",
+      type: 'operator',
+      value: '/',
       line: 8
     }, {
-      type: "operator",
-      value: "(",
+      type: 'operator',
+      value: '(',
       line: 9
     }, {
-      type: "operator",
-      value: ")",
+      type: 'operator',
+      value: ')',
       line: 9
     }, {
-      type: "operator",
-      value: "{",
+      type: 'operator',
+      value: '{',
       line: 10
     }, {
-      type: "operator",
-      value: "}",
+      type: 'operator',
+      value: '}',
       line: 10
     }, {
-      type: "operator",
-      value: "[",
+      type: 'operator',
+      value: '[',
       line: 11
     }, {
-      type: "operator",
-      value: "]",
+      type: 'operator',
+      value: ']',
       line: 11
     }, {
-      type: "operator",
-      value: ":",
+      type: 'operator',
+      value: ':',
       line: 12
     }, {
-      type: "operator",
-      value: ",",
+      type: 'operator',
+      value: ',',
       line: 12
     }, {
-      type: "operator",
-      value: ";",
+      type: 'operator',
+      value: ';',
       line: 12
     }, {
-      type: "operator",
-      value: ".",
+      type: 'operator',
+      value: '.',
       line: 12
     }, {
-      type: "operator",
-      value: "<",
+      type: 'operator',
+      value: '<',
       line: 13
     }, {
-      type: "operator",
-      value: "===",
+      type: 'operator',
+      value: '===',
       line: 13
     }, {
-      type: "operator",
-      value: ">",
+      type: 'operator',
+      value: '>',
       line: 13
     }, {
-      type: "operator",
-      value: "<=",
+      type: 'operator',
+      value: '<=',
       line: 14
     }, {
-      type: "operator",
-      value: ">=",
+      type: 'operator',
+      value: '>=',
       line: 15
     }, {
-      type: "operator",
-      value: "=",
+      type: 'operator',
+      value: '=',
       line: 16,
       precedence: 77
     }, {
-      type: "number",
+      type: 'number',
       value: 2,
       line: 17
     }, {
-      type: "operator",
-      value: "+",
+      type: 'operator',
+      value: '+',
       line: 17
     }, {
-      type: "operator",
-      value: "(",
+      type: 'operator',
+      value: '(',
       line: 17
     }, {
-      type: "number",
+      type: 'number',
       value: 3,
       line: 17
     }, {
-      type: "operator",
-      value: "*",
+      type: 'operator',
+      value: '*',
       line: 17
     }, {
-      type: "number",
+      type: 'number',
       value: 17,
       line: 17
     }, {
-      type: "operator",
-      value: ")",
+      type: 'operator',
+      value: ')',
       line: 17
     }];
 
@@ -265,10 +265,10 @@ describe("tokens", () => {
     for (let token of myGrammar.tokenizer(s)) {
       const refToken = tokens[i];
       it(`tokens ${refToken.type}`, () => {
-        assert.equal(token.type, refToken.type, "type: " + refToken.type);
-        assert.equal(token.value, refToken.value, "value: " + refToken.value);
-        assert.equal(token.lineNumber, refToken.line, "lineNumber: " + refToken.line);
-        if (refToken.precedence) assert.equal(token.precedence, refToken.precedence, "precedence: " +
+        assert.equal(token.type, refToken.type, 'type: ' + refToken.type);
+        assert.equal(token.value, refToken.value, 'value: ' + refToken.value);
+        assert.equal(token.lineNumber, refToken.line, 'lineNumber: ' + refToken.line);
+        if (refToken.precedence) assert.equal(token.precedence, refToken.precedence, 'precedence: ' +
           refToken.precedence);
       });
       i++;
