@@ -3,10 +3,10 @@
 
 'use strict';
 
-const chai = require('chai');
-const assert = chai.assert;
-const expect = chai.expect;
-const should = chai.should();
+const chai = require('chai'),
+  assert = chai.assert,
+  expect = chai.expect,
+  should = chai.should();
 
 const createGrammar = require('../lib/grammar').createGrammar;
 

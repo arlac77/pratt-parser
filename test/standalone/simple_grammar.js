@@ -14,7 +14,7 @@ function Value(value) {
 
 let myGrammar = createGrammar({
   terminals: {
-    'number': {}
+    number: {}
   },
   infix: {
     ')': {},

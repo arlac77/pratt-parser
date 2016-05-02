@@ -3,13 +3,12 @@
 
 'use strict';
 
-const chai = require('chai');
-const assert = chai.assert;
-const expect = chai.expect;
-const should = chai.should();
-
-const path = require('path');
-const fs = require('fs');
+const chai = require('chai'),
+  assert = chai.assert,
+  expect = chai.expect,
+  should = chai.should(),
+  path = require('path'),
+  fs = require('fs');
 const createGrammar = require('../lib/grammar').createGrammar;
 
 describe('tokens', () => {
