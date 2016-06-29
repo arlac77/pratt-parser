@@ -32,9 +32,32 @@ describe('mini_lang',
       prefix: {
         '(': {
           precedence: 80,
-          nud(grammar, left) {
+          led(grammar, left) {
             if (left.type === 'identifier') {
-              console.log(`function call: ${left}`);
+              const args = [];
+
+              if (grammar.token.id !== ')') {
+                while (true) {
+                  args.push(grammar.expression(0));
+                  console.log(`1 ${args} ${grammar.token.id}`);
+
+                  if (grammar.token.id !== ',') {
+                    console.log(`2 ${grammar.token.id}`);
+
+                    break;
+                  }
+                  grammar.advance(',');
+                  console.log(`3 ${grammar.token.id}`);
+                }
+              }
+
+              console.log(`4 ${grammar.token.id}`);
+
+              grammar.advance(')');
+
+              if (left.value === 'concat') {
+                return Value(args.map(a => a.value).join(''));
+              }
             } else {
               const e = grammar.expression(0);
               grammar.advance(')');
@@ -44,6 +67,7 @@ describe('mini_lang',
         }
       },
       infix: {
+        ',': {},
         ')': {},
         ']': {},
         '[': {
@@ -75,5 +99,5 @@ describe('mini_lang',
     });
 
     it('evaluates array', () => assert.equal(myGrammar.parse('array[3 * 2] + 2').value, 9));
-    xit('evaluates function', () => assert.equal(myGrammar.parse('concat("prefix","postfix")').value, 'prefixpostfix'));
+    it('evaluates function', () => assert.equal(myGrammar.parse('concat("A","B")').value, 'AB'));
   });
