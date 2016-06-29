@@ -15,7 +15,9 @@ Pratt Parser
 =====
 
 Based on
-https://github.com/douglascrockford/TDOP[Douglas Crockford TDOP].
+[Top Down Operator Precedence](https://tdop.github.io) and
+[Douglas Crockford TDOP](https://github.com/douglascrockford/TDOP)
+
 
 ```javascript
 const createGrammar = require('pratt-parser').createGrammar;
