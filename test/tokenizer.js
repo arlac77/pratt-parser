@@ -55,7 +55,7 @@ describe('tokens', () => {
 
       it(`tokens ${refToken.type}`, () => {
         assert.equal(token.type, refToken.type, 'type: ' + refToken.type);
-        assert.equal(token.value, refToken.value, 'value: ' + refToken.value);
+        assert.equal(token.id, refToken.id, 'id: ' + refToken.id);
       });
     }
   });
@@ -265,7 +265,7 @@ describe('tokens', () => {
       const refToken = tokens[i];
       it(`tokens ${refToken.type}`, () => {
         assert.equal(token.type, refToken.type, 'type: ' + refToken.type);
-        assert.equal(token.value, refToken.value, 'value: ' + refToken.value);
+        assert.equal(token.id, refToken.id, 'value: ' + refToken.id);
         assert.equal(token.lineNumber, refToken.line, 'lineNumber: ' + refToken.line);
         if (refToken.precedence) assert.equal(token.precedence, refToken.precedence, 'precedence: ' +
           refToken.precedence);

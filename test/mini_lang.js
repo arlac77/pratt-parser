@@ -36,27 +36,27 @@ describe('mini_lang',
             if (left.type === 'identifier') {
               const args = [];
 
-              if (grammar.token.id !== ')') {
+              if (grammar.token.value !== ')') {
                 while (true) {
                   args.push(grammar.expression(0));
-                  console.log(`1 ${args} ${grammar.token.id}`);
 
-                  if (grammar.token.id !== ',') {
-                    console.log(`2 ${grammar.token.id}`);
-
+                  if (grammar.token.value !== ',') {
                     break;
                   }
                   grammar.advance(',');
-                  console.log(`3 ${grammar.token.id}`);
                 }
               }
-
-              console.log(`4 ${grammar.token.id}`);
 
               grammar.advance(')');
 
               if (left.value === 'concat') {
                 return Value(args.map(a => a.value).join(''));
+              }
+              if (left.value === 'noargs') {
+                return Value('-- no args --');
+              }
+              if (left.value === 'onearg') {
+                return args[0];
               }
             } else {
               const e = grammar.expression(0);
@@ -99,5 +99,7 @@ describe('mini_lang',
     });
 
     it('evaluates array', () => assert.equal(myGrammar.parse('array[3 * 2] + 2').value, 9));
+    it('evaluates function no args', () => assert.equal(myGrammar.parse('noargs()').value, '-- no args --'));
+    it('evaluates function one arg', () => assert.equal(myGrammar.parse('onearg("the arg")').value, 'the arg'));
     it('evaluates function', () => assert.equal(myGrammar.parse('concat("A","B")').value, 'AB'));
   });
