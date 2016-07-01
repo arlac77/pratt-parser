@@ -128,6 +128,14 @@ describe('tokens', () => {
       value: '\b\f\n\r\t\"\'A',
       line: 2
     }, {
+      type: 'string',
+      value: 'str2',
+      line: 2
+    }, {
+      type: 'string',
+      value: 'str3',
+      line: 2
+    }, {
       type: 'identifier',
       value: 'name1',
       line: 3
