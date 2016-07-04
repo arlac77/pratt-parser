@@ -21,9 +21,6 @@ describe('calculator',
     }
 
     let myGrammar = createGrammar({
-      terminals: {
-        number: {}
-      },
       prefix: {
         '(': {
           nud(grammar) {

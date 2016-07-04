@@ -25,10 +25,6 @@ describe('mini_lang',
     };
 
     let myGrammar = createGrammar({
-      terminals: {
-        number: {},
-        identifier: {}
-      },
       prefix: {
         '(': {
           precedence: 80,
