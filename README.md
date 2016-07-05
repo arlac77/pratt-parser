@@ -30,10 +30,7 @@ function Value(value) {
   });
 }
 
-let myGrammar = createGrammar({
-  terminals: {
-    'number': {}
-  },
+const myGrammar = createGrammar({
   prefix: {
     '(': {
       nud(grammar) {
