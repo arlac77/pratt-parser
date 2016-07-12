@@ -19,7 +19,7 @@
   "dependencies": {},
   "devDependencies": {
     "chai": "3.5.0",
-    "coveralls": "2.11.9",
+    "coveralls": "2.11.10",
     "istanbul": "1.0.0-alpha.2",
     "jsdoc": "3.4.0",
     "markdown-doctest": "^0.8.1",
