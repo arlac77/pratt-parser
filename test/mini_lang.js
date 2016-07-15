@@ -25,77 +25,84 @@ describe('mini_lang',
     };
 
     let myGrammar = createGrammar({
-      prefix: {
-        '(': {
-          precedence: 80,
-          led(grammar, left) {
-            if (left.type === 'identifier') {
-              const args = [];
+      identifier(value, properties, context) {
+          if (value === 'concat' || value === 'noargs' ||  value === 'onearg') {
+            properties.type.value = 'function';
+          }
+          //console.log(`create identifier: ${value} ${context}`);
+        },
+        prefix: {
+          '(': {
+            precedence: 80,
+            led(grammar, left) {
+              if (left.type === 'function') {
+                const args = [];
 
-              if (grammar.token.value !== ')') {
-                while (true) {
-                  args.push(grammar.expression(0));
+                if (grammar.token.value !== ')') {
+                  while (true) {
+                    args.push(grammar.expression(0));
 
-                  if (grammar.token.value !== ',') {
-                    break;
+                    if (grammar.token.value !== ',') {
+                      break;
+                    }
+                    grammar.advance(',');
                   }
-                  grammar.advance(',');
                 }
-              }
 
-              grammar.advance(')');
+                grammar.advance(')');
 
-              if (left.value === 'concat') {
-                return Value(args.map(a => a.value).join(''));
+                if (left.value === 'concat') {
+                  return Value(args.map(a => a.value).join(''));
+                }
+                if (left.value === 'noargs') {
+                  return Value('-- no args --');
+                }
+                if (left.value === 'onearg') {
+                  return args[0];
+                }
+              } else {
+                const e = grammar.expression(0);
+                grammar.advance(')');
+                return e;
               }
-              if (left.value === 'noargs') {
-                return Value('-- no args --');
-              }
-              if (left.value === 'onearg') {
-                return args[0];
-              }
-            } else {
-              const e = grammar.expression(0);
-              grammar.advance(')');
-              return e;
             }
           }
-        }
-      },
-      infix: {
-        ',': {},
-        ')': {},
-        ']': {},
-        '[': {
-          precedence: 40,
-          led(grammar, left) {
-            const right = grammar.expression(0);
-            const array = identifiers[left.value];
-            grammar.advance(']');
-            return Value(array[right.value]);
+        },
+        infix: {
+          ',': {},
+          ')': {},
+          ']': {},
+          '[': {
+            precedence: 40,
+            led(grammar, left) {
+              const right = grammar.expression(0);
+              const array = identifiers[left.value];
+              grammar.advance(']');
+              return Value(array[right.value]);
+            }
+          },
+          '+': {
+            precedence: 50,
+            combine: (left, right) => Value(left.value + right.value)
+          },
+          '-': {
+            precedence: 50,
+            combine: (left, right) => Value(left.value - right.value)
+          },
+          '*': {
+            precedence: 60,
+            combine: (left, right) => Value(left.value * right.value)
+          },
+          '/': {
+            precedence: 60,
+            combine: (left, right) => Value(left.value / right.value)
           }
-        },
-        '+': {
-          precedence: 50,
-          combine: (left, right) => Value(left.value + right.value)
-        },
-        '-': {
-          precedence: 50,
-          combine: (left, right) => Value(left.value - right.value)
-        },
-        '*': {
-          precedence: 60,
-          combine: (left, right) => Value(left.value * right.value)
-        },
-        '/': {
-          precedence: 60,
-          combine: (left, right) => Value(left.value / right.value)
         }
-      }
     });
 
     it('evaluates array', () => assert.equal(myGrammar.parse('array[3 * 2] + 2').value, 9));
-    it('evaluates function no args', () => assert.equal(myGrammar.parse('noargs()').value, '-- no args --'));
+    it('evaluates function no args', () => assert.equal(myGrammar.parse('noargs()', 'norags context').value,
+      '-- no args --'));
     it('evaluates function one arg', () => assert.equal(myGrammar.parse('onearg("the arg")').value, 'the arg'));
     it('evaluates function', () => assert.equal(myGrammar.parse('concat("A","B")').value, 'AB'));
   });
