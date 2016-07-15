@@ -114,15 +114,18 @@ describe('tokens', () => {
     const tokens = [{
       type: 'number',
       value: 4711,
-      line: 1
+      line: 1,
+      pos: 4
     }, {
       type: 'string',
       value: 'str2',
-      line: 2
+      line: 2,
+      pos: 7
     }, {
       type: 'string',
       value: 'str3',
-      line: 2
+      line: 2,
+      pos: 13
     }, {
       type: 'string',
       value: '\b\f\n\r\t\"\'A',
@@ -275,6 +278,9 @@ describe('tokens', () => {
         assert.equal(token.type, refToken.type, 'type: ' + refToken.type);
         assert.equal(token.id, refToken.id, 'value: ' + refToken.id);
         assert.equal(token.lineNumber, refToken.line, 'lineNumber: ' + refToken.line);
+        if (refToken.pos !== undefined) {
+          assert.equal(token.positionInLine, refToken.pos, 'pos: ' + refToken.pos);
+        }
         if (refToken.precedence) assert.equal(token.precedence, refToken.precedence, 'precedence: ' +
           refToken.precedence);
       });
