@@ -1,5 +1,6 @@
 {
   "name": "pratt-parser",
+  "version": "0.0.0-semantic-release",
   "description": "TDOP parser",
   "keywords": [
     "tokenizer",
@@ -8,7 +9,7 @@
     "TDOP"
   ],
   "engines": {
-    "node": ">= 6.2.0"
+    "node": ">=6.2.0"
   },
   "author": "Markus Felten <markus.felten@gmx.de>",
   "license": "BSD-2-Clause",
@@ -37,6 +38,5 @@
     "type": "git",
     "url": "https://github.com/arlac77/pratt-parser.git"
   },
-  "main": "lib/grammar.js",
-  "version": "1.4.3"
+  "main": "lib/grammar.js"
 }
