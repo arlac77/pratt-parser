@@ -38,5 +38,5 @@
     "url": "https://github.com/arlac77/pratt-parser.git"
   },
   "main": "lib/grammar.js",
-  "version": "1.4.0"
+  "version": "1.4.1"
 }
