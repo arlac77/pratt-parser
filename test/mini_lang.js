@@ -24,10 +24,19 @@ describe('mini_lang',
       array: [1, 2, 3, 4, 5, 6, 7]
     };
 
+    const functions = {
+      concat: args => Value(args.map(a => a.value).join('')),
+      noargs: args => Value('-- no args --'),
+      onearg: args => args[0]
+    };
+
     let myGrammar = createGrammar({
       identifier(value, properties, context) {
-          if (value === 'concat' || value === 'noargs' ||  value === 'onearg') {
+          if (functions[value]) {
             properties.type.value = 'function';
+            properties.value.value = functions[value];
+          } else if (identifiers[value]) {
+            properties.value.value = identifiers[value];
           }
           //console.log(`create identifier: ${value} ${context}`);
         },
@@ -51,15 +60,7 @@ describe('mini_lang',
 
                 grammar.advance(')');
 
-                if (left.value === 'concat') {
-                  return Value(args.map(a => a.value).join(''));
-                }
-                if (left.value === 'noargs') {
-                  return Value('-- no args --');
-                }
-                if (left.value === 'onearg') {
-                  return args[0];
-                }
+                return left.value(args);
               } else {
                 const e = grammar.expression(0);
                 grammar.advance(')');
@@ -76,9 +77,8 @@ describe('mini_lang',
             precedence: 40,
             led(grammar, left) {
               const right = grammar.expression(0);
-              const array = identifiers[left.value];
               grammar.advance(']');
-              return Value(array[right.value]);
+              return Value(left.value[right.value]);
             }
           },
           '+': {
