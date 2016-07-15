@@ -105,4 +105,5 @@ describe('mini_lang',
       '-- no args --'));
     it('evaluates function one arg', () => assert.equal(myGrammar.parse('onearg("the arg")').value, 'the arg'));
     it('evaluates function', () => assert.equal(myGrammar.parse('concat("A","B")').value, 'AB'));
+    it('evaluates function 2', () => assert.equal(myGrammar.parse('concat(concat("A","B"),"C")').value, 'ABC'));
   });
