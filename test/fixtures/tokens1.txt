@@ -1,4 +1,4 @@
-4711
+4711 0.23 12345.0
 "str2""str3" "\b\f\n\r\t\"\'\u0041" 'str2''str3'
 name1 name_2 _name3
 n

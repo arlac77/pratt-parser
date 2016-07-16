@@ -117,6 +117,16 @@ describe('tokens', () => {
       line: 1,
       pos: 4
     }, {
+      type: 'number',
+      value: 0.23,
+      line: 1,
+      pos: 9
+    }, {
+      type: 'number',
+      value: 12345.0,
+      line: 1,
+      pos: 17
+    }, {
       type: 'string',
       value: 'str2',
       line: 2,
