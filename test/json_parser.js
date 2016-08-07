@@ -40,15 +40,42 @@ describe('json',
             return Value(values);
           }
         },
+        '{': {
+          nud(grammar, left) {
+            const object = {};
+
+            if (grammar.token.value !== '}') {
+              while (true) {
+                const key = grammar.expression(0).value;
+
+                if (grammar.token.value !== ':') {
+                  break;
+                }
+                grammar.advance(':');
+
+                const value = grammar.expression(0).value;
+                object[key] = value;
+                if (grammar.token.value === '}') {
+                  break;
+                }
+                grammar.advance(',');
+              }
+            }
+            grammar.advance('}');
+            return Value(object);
+          }
+        }
       },
       infix: {
         ',': {},
         ':': {},
-        '{': {},
         '}': {},
         ']': {}
       }
     });
 
-    it('simple array', () => assert.deepEqual(myGrammar.parse('[1,"b",[4]]').value, [1, "b", [4]]));
+    it('simple array', () => assert.deepEqual(myGrammar.parse('[1,"b",[4],{ "c" : 5, "d" : 6}]').value, [1, "b", [4], {
+      "c": 5,
+      "d": 6
+    }]));
   });
