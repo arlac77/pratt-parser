@@ -29,9 +29,9 @@
     "semantic-release": "6.3.0"
   },
   "scripts": {
-    "cover": "node --harmony ./node_modules/istanbul/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports test",
+    "cover": "node --harmony ./node_modules/istanbul/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports tests",
     "doc": "./node_modules/.bin/jsdoc -r lib/*.js",
-    "test": "mocha --harmony_shipping test/*.js && markdown-doctest",
+    "test": "mocha --harmony_shipping tests/*.js && markdown-doctest",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
