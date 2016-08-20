@@ -21,6 +21,15 @@ describe('json',
     }
 
     let myGrammar = createGrammar({
+      identifier(value, properties, context) {
+          if (value === 'true') {
+            properties.type.value = 'constant';
+            properties.value.value = true;
+          } else if (value === 'false') {
+            properties.type.value = 'constant';
+            properties.value.value = false;
+          }
+        },
       prefix: {
         '[': {
           nud(grammar, left) {
@@ -74,8 +83,9 @@ describe('json',
       }
     });
 
-    it('simple array', () => assert.deepEqual(myGrammar.parse('[1,"b",[4],{ "c" : 5, "d" : 6}]').value, [1, "b", [4], {
+    it('simple array', () => assert.deepEqual(myGrammar.parse('[1,"b",[4],{ "c" : 5, "d" : true, "e": false}]').value, [1, "b", [4], {
       "c": 5,
-      "d": 6
+      "d": true,
+      "e": false
     }]));
   });
