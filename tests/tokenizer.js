@@ -96,20 +96,23 @@ describe('tokens', () => {
     }
   });
 
-  /*
-    describe('unterminated string', function () {
-      const tokens = [{
-        type: 'string',
-        value: 'ABCD'
-      }];
 
-      it(`should fail`, function () {
-        try {
-          const tokens = myGrammar.tokenizer('\"ABCD');
-        } catch (e) {}
-      });
+  describe('unterminated string', () => {
+    it('thows', () => {
+      try {
+        for (let token of myGrammar.tokenizer('\"abc')) {
+          console.log(`XX: ${token}`);
+        }
+        assert.ok(false);
+      } catch (e) {
+        if (e.message !== 'Unterminated string,1,4: {"value":"abc"}') {
+          throw e;
+        }
+      }
     });
-  */
+  });
+
+
   describe('Kitchen sink', function () {
     const tokens = [{
       type: 'number',
@@ -152,11 +155,11 @@ describe('tokens', () => {
       line: 2
     }, {
       type: 'string',
-      value: 'str2',
+      value: 'str4',
       line: 2
     }, {
       type: 'string',
-      value: 'str3',
+      value: 'str5',
       line: 2
     }, {
       type: 'identifier',
