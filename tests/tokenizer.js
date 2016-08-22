@@ -100,12 +100,25 @@ describe('tokens', () => {
   describe('unterminated string', () => {
     it('thows', () => {
       try {
-        for (let token of myGrammar.tokenizer('\"abc')) {
-          console.log(`XX: ${token}`);
+        for (const token of myGrammar.tokenizer('\"abc')) {
+          console.log(token);
         }
         assert.ok(false);
       } catch (e) {
         if (e.message !== 'Unterminated string,1,4: {"value":"abc"}') {
+          throw e;
+        }
+      }
+    });
+
+    it('thows when in \\u', () => {
+      try {
+        for (const token of myGrammar.tokenizer('\"\\u\"')) {
+          console.log(token);
+        }
+        assert.ok(false);
+      } catch (e) {
+        if (e.message !== 'Unterminated string,1,2: {"value":""}') {
           throw e;
         }
       }
