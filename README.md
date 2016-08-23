@@ -44,27 +44,19 @@ const myGrammar = createGrammar({
     ')': {},
     '+': {
       precedence: 50,
-      combine(left, right) {
-        return Value(left.value + right.value);
-      }
+      combine: (left, right) => Value(left.value + right.value)
     },
     '-': {
       precedence: 50,
-      combine(left, right) {
-        return Value(left.value - right.value);
-      }
+      combine: (left, right) => Value(left.value - right.value)
     },
     '*': {
       precedence: 60,
-      combine(left, right) {
-        return Value(left.value * right.value);
-      }
+      combine: (left, right) => Value(left.value * right.value)
     },
     '/': {
       precedence: 60,
-      combine(left, right) {
-        return Value(left.value / right.value);
-      }
+      combine: (left, right) => Value(left.value / right.value)
     }
   }
 });
