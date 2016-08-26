@@ -99,12 +99,12 @@ describe('tokens', () => {
   describe('unknown char', () => {
     it('thows', () => {
       try {
-        for (const token of myGrammar.tokenizer('= %')) {
+        for (const token of myGrammar.tokenizer('%')) {
           console.log(token);
         }
         assert.ok(false);
       } catch (e) {
-        if (e.message !== 'Unknown char,1,3: {"value":"%"}') {
+        if (e.message !== 'Unknown char,1,1: {"value":"%"}') {
           throw e;
         }
       }
