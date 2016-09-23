@@ -20,7 +20,7 @@ describe('calculator',
       });
     }
 
-    let myGrammar = createGrammar({
+    const myGrammar = createGrammar({
       prefix: {
         '(': {
           nud(grammar) {
@@ -56,4 +56,18 @@ describe('calculator',
     it('evaluates with prefix op 2', () => assert.equal(myGrammar.parse('(1 + 41) * 2').value, 84));
     it('evaluates with prefix op 3', () => assert.equal(myGrammar.parse('(1 + 1) * (2 + 7)').value, 18));
     it('evaluates with prefix op 4', () => assert.equal(myGrammar.parse('(1 + (1 + 4 * 3)) * (2 + 1)').value, 42));
+
+    describe('unexpected token', () => {
+      it('thows', () => {
+        try {
+          myGrammar.parse('(1 + %');
+          assert.ok(false);
+        } catch (e) {
+          if (e.message !== 'Unknown char,1,6: {"value":"%"}') {
+            throw e;
+          }
+        }
+      });
+    });
+
   });
