@@ -32,7 +32,7 @@ const EOF = Object.create(rootToken, {
  * @param {Object} options
  * @return {Object} parser
  */
-function createGrammar(options) {
+function create(options) {
 	const maxOperatorLengthForFirstChar = {};
 	const registeredTokens = {};
 
@@ -351,4 +351,6 @@ function createGrammar(options) {
 	});
 }
 
-exports.createGrammar = createGrammar;
+export {
+	create
+};

@@ -1,5 +1,5 @@
 module.exports = {
   require: {
-    'pratt-parser': require('./lib/grammar')
+    'pratt-parser': require('./dist/parser')
   }
 }

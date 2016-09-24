@@ -2,7 +2,7 @@
 
 'use strict';
 
-const createGrammar = require('../../lib/grammar').createGrammar;
+const createGrammar = require('../dist/parser').create;
 
 function Value(value) {
   return Object.create(null, {

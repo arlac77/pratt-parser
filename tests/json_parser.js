@@ -8,7 +8,7 @@ const chai = require('chai'),
   expect = chai.expect,
   should = chai.should();
 
-const createGrammar = require('../lib/grammar').createGrammar;
+const createGrammar = require('../dist/parser').create;
 
 describe('json',
   function () {
@@ -30,62 +30,64 @@ describe('json',
             properties.value.value = false;
           }
         },
-      prefix: {
-        '[': {
-          nud(grammar, left) {
-            const values = [];
+        prefix: {
+          '[': {
+            nud(grammar, left) {
+              const values = [];
 
-            if (grammar.token.value !== ']') {
-              while (true) {
-                values.push(grammar.expression(0).value);
+              if (grammar.token.value !== ']') {
+                while (true) {
+                  values.push(grammar.expression(0).value);
 
-                if (grammar.token.value !== ',') {
-                  break;
+                  if (grammar.token.value !== ',') {
+                    break;
+                  }
+                  grammar.advance(',');
                 }
-                grammar.advance(',');
               }
+              grammar.advance(']');
+              return Value(values);
             }
-            grammar.advance(']');
-            return Value(values);
+          },
+          '{': {
+            nud(grammar, left) {
+              const object = {};
+
+              if (grammar.token.value !== '}') {
+                while (true) {
+                  const key = grammar.expression(0).value;
+
+                  if (grammar.token.value !== ':') {
+                    break;
+                  }
+                  grammar.advance(':');
+
+                  const value = grammar.expression(0).value;
+                  object[key] = value;
+                  if (grammar.token.value === '}') {
+                    break;
+                  }
+                  grammar.advance(',');
+                }
+              }
+              grammar.advance('}');
+              return Value(object);
+            }
           }
         },
-        '{': {
-          nud(grammar, left) {
-            const object = {};
-
-            if (grammar.token.value !== '}') {
-              while (true) {
-                const key = grammar.expression(0).value;
-
-                if (grammar.token.value !== ':') {
-                  break;
-                }
-                grammar.advance(':');
-
-                const value = grammar.expression(0).value;
-                object[key] = value;
-                if (grammar.token.value === '}') {
-                  break;
-                }
-                grammar.advance(',');
-              }
-            }
-            grammar.advance('}');
-            return Value(object);
-          }
+        infix: {
+          ',': {},
+          ':': {},
+          '}': {},
+          ']': {}
         }
-      },
-      infix: {
-        ',': {},
-        ':': {},
-        '}': {},
-        ']': {}
-      }
     });
 
-    it('simple array', () => assert.deepEqual(myGrammar.parse('[1,"b",[4],{ "c" : 5, "d" : true, "e": false}]').value, [1, "b", [4], {
-      "c": 5,
-      "d": true,
-      "e": false
-    }]));
+    it('simple array', () => assert.deepEqual(myGrammar.parse('[1,"b",[4],{ "c" : 5, "d" : true, "e": false}]').value, [
+      1, "b", [4], {
+        "c": 5,
+        "d": true,
+        "e": false
+      }
+    ]));
   });

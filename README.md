@@ -20,7 +20,7 @@ Based on
 
 
 ```javascript
-const createGrammar = require('pratt-parser').createGrammar;
+const createGrammar = require('pratt-parser').create;
 
 function Value(value) {
   return Object.create(null, {

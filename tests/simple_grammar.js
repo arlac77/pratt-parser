@@ -8,7 +8,7 @@ const chai = require('chai'),
   expect = chai.expect,
   should = chai.should();
 
-const createGrammar = require('../lib/grammar').createGrammar;
+const createGrammar = require('../dist/parser').create;
 
 describe('calculator',
   function () {

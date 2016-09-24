@@ -1,6 +1,9 @@
 {
   "name": "pratt-parser",
   "version": "0.0.0-semantic-release",
+  "main": "dist/parser.js",
+  "jsnext:main": "src/parser.js",
+  "module": "src/parser.js",
   "description": "TDOP parser",
   "keywords": [
     "tokenizer",
@@ -9,7 +12,7 @@
     "TDOP"
   ],
   "engines": {
-    "node": ">=6.2.0"
+    "node": ">=6.3.0"
   },
   "author": "Markus Felten <markus.felten@gmx.de>",
   "license": "BSD-2-Clause",
@@ -26,17 +29,18 @@
     "markdown-doctest": "^0.8.1",
     "mocha": "3.0.2",
     "mocha-lcov-reporter": "^1.2.0",
+    "rollup": "^0.36.0",
     "semantic-release": "6.3.0"
   },
   "scripts": {
-    "cover": "node --harmony ./node_modules/istanbul/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports tests",
-    "doc": "./node_modules/.bin/jsdoc -r lib/*.js",
-    "test": "mocha --harmony_shipping tests/*.js && markdown-doctest",
+    "cover": "npm run build && node --harmony ./node_modules/istanbul/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports tests",
+    "doc": "npm run build &&  ./node_modules/.bin/jsdoc -r src/*.js",
+    "build": "./node_modules/rollup/bin/rollup --format=cjs --output=dist/parser.js -- src/parser.js",
+    "test": "npm run build && mocha --harmony_shipping tests/*.js && markdown-doctest",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/arlac77/pratt-parser.git"
-  },
-  "main": "lib/grammar.js"
+  }
 }

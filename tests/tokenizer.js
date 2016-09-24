@@ -9,7 +9,8 @@ const chai = require('chai'),
   should = chai.should(),
   path = require('path'),
   fs = require('fs');
-const createGrammar = require('../lib/grammar').createGrammar;
+
+const createGrammar = require('../dist/parser').create;
 
 describe('tokens', () => {
   const myGrammar = createGrammar({
