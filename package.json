@@ -12,7 +12,7 @@
     "TDOP"
   ],
   "engines": {
-    "node": ">=6.3.0"
+    "node": ">=6.9.1"
   },
   "author": "Markus Felten <markus.felten@gmx.de>",
   "license": "BSD-2-Clause",
