@@ -135,40 +135,6 @@ function create(options) {
 			});
 		}
 
-		function makeNumber(value) {
-			return Object.create(rootToken, {
-				type: {
-					value: 'number'
-				},
-				value: {
-					value: value
-				},
-				lineNumber: {
-					value: lineNumber
-				},
-				positionInLine: {
-					value: i - firstCharInLine
-				}
-			});
-		}
-
-		function makeString(value) {
-			return Object.create(rootToken, {
-				type: {
-					value: 'string'
-				},
-				value: {
-					value: value
-				},
-				lineNumber: {
-					value: lineNumber
-				},
-				positionInLine: {
-					value: i - firstCharInLine
-				}
-			});
-		}
-
 		function makeToken(type, value) {
 			return Object.create(rootToken, {
 				type: {
@@ -184,6 +150,14 @@ function create(options) {
 					value: i - firstCharInLine
 				}
 			});
+		}
+
+		function makeString(value) {
+			return makeToken('string', value);
+		}
+
+		function makeNumber(value) {
+			return makeToken('number', value);
 		}
 
 		let c, str;
