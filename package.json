@@ -22,25 +22,39 @@
   "homepage": "https://github.com/arlac77/pratt-parser#readme",
   "dependencies": {},
   "devDependencies": {
-    "chai": "3.5.0",
+    "chai": "^3.5.0",
     "coveralls": "2.11.14",
-    "istanbul": "1.0.0-alpha.2",
+    "istanbul": "^0.4.5",
     "jsdoc": "3.4.2",
     "markdown-doctest": "^0.9.0",
-    "mocha": "3.1.2",
+    "mocha": "^3.1.2",
     "mocha-lcov-reporter": "^1.2.0",
     "rollup": "^0.36.3",
-    "semantic-release": "^6.3.1"
+    "semantic-release": "^6.3.1",
+    "cz-conventional-changelog": "^1.2.0",
+    "jsdoc-to-markdown": "^2.0.1"
   },
   "scripts": {
-    "cover": "npm run build && node --harmony ./node_modules/istanbul/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports tests",
+    "cover": "npm run build && ./node_modules/istanbul/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports tests",
     "doc": "npm run build &&  ./node_modules/.bin/jsdoc -r src/*.js",
     "build": "./node_modules/rollup/bin/rollup --format=cjs --output=dist/parser.js -- src/parser.js",
-    "test": "npm run build && mocha --harmony_shipping tests/*.js && markdown-doctest",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "test": "npm run build && mocha tests/*_test.js && markdown-doctest",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "docs": "jsdoc2md -l off -t README.hbs -f src/parser.js > README.md"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/arlac77/pratt-parser.git"
+  },
+  "contributors": [
+    {
+      "name": "Markus Felten",
+      "email": "markus.felten@gmx.de"
+    }
+  ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
