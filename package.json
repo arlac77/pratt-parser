@@ -39,7 +39,7 @@
     "build": "./node_modules/rollup/bin/rollup --format=cjs --output=dist/parser.js -- src/parser.js",
     "test": "npm run build && mocha tests/*_test.js && markdown-doctest",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "docs": "jsdoc2md -l off -t README.hbs -f src/parser.js > README.md"
+    "docs": "jsdoc2md -l off -t doc/README.hbs -f src/parser.js > README.md"
   },
   "repository": {
     "type": "git",
