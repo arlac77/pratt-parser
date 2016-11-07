@@ -14,7 +14,6 @@
   "engines": {
     "node": ">=6.9.1"
   },
-  "author": "Markus Felten <markus.felten@gmx.de>",
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/arlac77/pratt-parser/issues"
