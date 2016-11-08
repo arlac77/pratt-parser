@@ -4,6 +4,7 @@
 [![bithound](https://www.bithound.io/github/arlac77/pratt-parser/badges/score.svg)](https://www.bithound.io/github/arlac77/pratt-parser)
 [![codecov.io](http://codecov.io/github/arlac77/pratt-parser/coverage.svg?branch=master)](http://codecov.io/github/arlac77/pratt-parser?branch=master)
 [![Code Climate](https://codeclimate.com/github/arlac77/pratt-parser/badges/gpa.svg)](https://codeclimate.com/github/arlac77/pratt-parser)
+[![Known Vulnerabilities](https://snyk.io/test/github/arlac77/pratt-parser/badge.svg)](https://snyk.io/test/github/arlac77/pratt-parser)
 [![GitHub Issues](https://img.shields.io/github/issues/arlac77/pratt-parser.svg?style=flat-square)](https://github.com/arlac77/pratt-parser/issues)
 [![Dependency Status](https://david-dm.org/arlac77/pratt-parser.svg)](https://david-dm.org/arlac77/pratt-parser)
 [![devDependency Status](https://david-dm.org/arlac77/pratt-parser/dev-status.svg)](https://david-dm.org/arlac77/pratt-parser#info=devDependencies)
