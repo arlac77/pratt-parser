@@ -28,7 +28,7 @@
     "mocha": "^3.1.2",
     "mocha-lcov-reporter": "^1.2.0",
     "rollup": "^0.36.3",
-    "semantic-release": "^6.3.1",
+    "semantic-release": "^6.3.2",
     "cz-conventional-changelog": "^1.2.0",
     "jsdoc-to-markdown": "^2.0.1"
   },
