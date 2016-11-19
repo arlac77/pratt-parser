@@ -32,11 +32,13 @@
     "mocha": "^3.1.2",
     "mocha-lcov-reporter": "^1.2.0",
     "rollup": "^0.36.3",
-    "semantic-release": "^6.3.2"
+    "semantic-release": "^6.3.2",
+    "rollup-plugin-commonjs": "^5.0.5",
+    "rollup-plugin-node-resolve": "^2.0.0"
   },
   "scripts": {
     "cover": "npm run build && ./node_modules/istanbul/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports tests/*_test.js",
-    "build": "./node_modules/rollup/bin/rollup --format=cjs --output=dist/parser.js -- src/parser.js",
+    "build": "./node_modules/rollup/bin/rollup --output=dist/parser.js -c -- src/parser.js",
     "test": "npm run build && mocha tests/*_test.js && markdown-doctest",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "docs": "jsdoc2md -l off -t doc/README.hbs -f src/parser.js > README.md"
