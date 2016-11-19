@@ -13,8 +13,10 @@
 [![downloads](http://img.shields.io/npm/dm/pratt-parser.svg?style=flat-square)](https://npmjs.org/package/pratt-parser)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
+
+pratt-parser
+==============
 Pratt Parser
-=====
 
 Based on
 [Top Down Operator Precedence](https://tdop.github.io) and
