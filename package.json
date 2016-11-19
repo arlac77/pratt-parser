@@ -2,7 +2,6 @@
   "name": "pratt-parser",
   "version": "0.0.0-semantic-release",
   "main": "dist/parser.js",
-  "jsnext:main": "src/parser.js",
   "module": "src/parser.js",
   "description": "TDOP parser",
   "keywords": [
@@ -43,12 +42,10 @@
     "type": "git",
     "url": "https://github.com/arlac77/pratt-parser.git"
   },
-  "contributors": [
-    {
-      "name": "Markus Felten",
-      "email": "markus.felten@gmx.de"
-    }
-  ],
+  "contributors": [{
+    "name": "Markus Felten",
+    "email": "markus.felten@gmx.de"
+  }],
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
