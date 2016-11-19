@@ -18,18 +18,21 @@
     "url": "https://github.com/arlac77/pratt-parser/issues"
   },
   "homepage": "https://github.com/arlac77/pratt-parser#readme",
-  "dependencies": {},
+  "dependencies": {
+    "expression-expander": "^5.2.4",
+    "js-yaml": "^3.7.0"
+  },
   "devDependencies": {
     "chai": "^3.5.0",
     "coveralls": "2.11.15",
+    "cz-conventional-changelog": "^1.2.0",
     "istanbul": "^0.4.5",
+    "jsdoc-to-markdown": "^2.0.1",
     "markdown-doctest": "^0.9.0",
     "mocha": "^3.1.2",
     "mocha-lcov-reporter": "^1.2.0",
     "rollup": "^0.36.3",
-    "semantic-release": "^6.3.2",
-    "cz-conventional-changelog": "^1.2.0",
-    "jsdoc-to-markdown": "^2.0.1"
+    "semantic-release": "^6.3.2"
   },
   "scripts": {
     "cover": "npm run build && ./node_modules/istanbul/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports tests/*_test.js",
@@ -42,10 +45,12 @@
     "type": "git",
     "url": "https://github.com/arlac77/pratt-parser.git"
   },
-  "contributors": [{
-    "name": "Markus Felten",
-    "email": "markus.felten@gmx.de"
-  }],
+  "contributors": [
+    {
+      "name": "Markus Felten",
+      "email": "markus.felten@gmx.de"
+    }
+  ],
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
