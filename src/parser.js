@@ -29,10 +29,10 @@ const EOF = Object.create(rootToken, {
 
 /**
  * Creates a grammar for later parsing
- * @param {Object} options
+ * @param {Object} grammar definition of the grmmar with operators...
  * @return {Object} parser
  */
-function create(options) {
+function create(grammar) {
 	const maxOperatorLengthForFirstChar = {};
 	const registeredTokens = {};
 
@@ -78,7 +78,7 @@ function create(options) {
 	}
 
 	for (const operatorTypeName in operatorTypes) {
-		const ops = options[operatorTypeName];
+		const ops = grammar[operatorTypeName];
 		const operatorType = operatorTypes[operatorTypeName];
 
 		for (const c in ops) {
@@ -118,8 +118,8 @@ function create(options) {
 					value: i - firstCharInLine
 				}
 			};
-			if (options.identifier) {
-				options.identifier(value, properties, context);
+			if (grammar.identifier) {
+				grammar.identifier(value, properties, context);
 			}
 			return Object.create(rootToken, properties);
 		}
