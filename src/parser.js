@@ -246,7 +246,7 @@ function create(grammar) {
 						i += 1;
 					}
 				}
-				if (i == length) {
+				if (i === length && c !== tc) {
 					error('Unterminated string', {
 						value: str
 					});

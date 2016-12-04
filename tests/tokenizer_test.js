@@ -79,6 +79,24 @@ describe('tokens', () => {
     }
   });
 
+  describe('trailing string', () => {
+    const tokens = [{
+      type: 'string',
+      value: 'ABC'
+    }];
+
+    let i = 0;
+
+    for (let token of myGrammar.tokenizer('"ABC"')) {
+      const refToken = tokens[i];
+
+      it(`tokens ${refToken.type}`, () => {
+        assert.equal(token.type, refToken.type, 'type: ' + refToken.type);
+        assert.equal(token.value, refToken.value, 'value: ' + refToken.value);
+      });
+    }
+  });
+
   describe('trailing identifier', () => {
     const tokens = [{
       type: 'identifier',
