@@ -30,7 +30,7 @@
     "mocha-lcov-reporter": "^1.2.0",
     "semantic-release": "^6.3.3",
     "rollup": "^0.37.0",
-    "rollup-plugin-commonjs": "^5.0.5",
+    "rollup-plugin-commonjs": "^6.0.0",
     "rollup-plugin-node-resolve": "^2.0.0"
   },
   "scripts": {
