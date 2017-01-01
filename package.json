@@ -32,11 +32,11 @@
     "rollup": "^0.39.2"
   },
   "scripts": {
-    "cover": "npm run prepublish && node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- -u exports tests/*_test.js",
-    "test": "node_modules/.bin/mocha tests/*_test.js",
+    "cover": "npm run prepublish && istanbul cover node_modules/.bin/_mocha -- -u exports tests/*_test.js",
+    "test": "mocha tests/*_test.js",
     "docs": "jsdoc2md -l off -t doc/README.hbs -f src/*.js > README.md",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "prepublish": "node_modules/rollup/bin/rollup --output=dist/parser.js -c -- src/parser.js",
+    "prepublish": "rollup --output=dist/parser.js -c -- src/parser.js",
     "pretest": "npm run prepublish",
     "posttest": "markdown-doctest"
   },
