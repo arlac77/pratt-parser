@@ -2,37 +2,21 @@
 
 'use strict';
 
-const rootToken = {
-	precedence: 0,
-	toString() {
-		return `${this.type}: ${this.value} [${this.precedence}]`;
-	},
-	led(grammar, left) {
-		return left;
-	},
-	nud(grammar) {
-		return this;
-	},
-	combine() {
-		return 0;
-	}
-};
+import {
+	EOF, rootToken
+}
+from './util';
 
 /**
- * Token representing 'end of file'
+ * @module pratt-parser
  */
-const EOF = Object.create(rootToken, {
-	type: {
-		value: 'EOF'
-	}
-});
 
 /**
  * Creates a grammar for later parsing
  * @param {Object} grammar definition of the grmmar with operators...
  * @return {Object} parser
  */
-function create(grammar) {
+export function create(grammar) {
 	const maxOperatorLengthForFirstChar = {};
 	const registeredTokens = {};
 
@@ -324,7 +308,3 @@ function create(grammar) {
 		}
 	});
 }
-
-export {
-	create
-};

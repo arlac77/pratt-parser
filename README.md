@@ -14,7 +14,6 @@
 [![downloads](http://img.shields.io/npm/dm/pratt-parser.svg?style=flat-square)](https://npmjs.org/package/pratt-parser)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-
 pratt-parser
 ==============
 Pratt Parser
@@ -68,6 +67,37 @@ const myGrammar = createGrammar({
 
 console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
 ```
+
+# API Reference
+- pratt-parser
+- pratt-parser
+
+  <a name="module_pratt-parser.create"></a>
+
+## pratt-parser.create(grammar) ⇒ <code>Object</code>
+Creates a grammar for later parsing
+
+**Kind**: static method of <code>[pratt-parser](#module_pratt-parser)</code>  
+**Returns**: <code>Object</code> - parser  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| grammar | <code>Object</code> | definition of the grmmar with operators... |
+
+  <a name="module_pratt-parser..parse"></a>
+
+## pratt-parser~parse(chunk, context) ⇒ <code>Object</code>
+Parses the input and delivers the outermoost expression.
+
+**Kind**: inner method of <code>[pratt-parser](#module_pratt-parser)</code>  
+**Returns**: <code>Object</code> - evaluated input  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| chunk | <code>String</code> | input text |
+| context | <code>Object</code> | object transparently passed to tokenizer |
+
+* * *
 
 install
 =======
