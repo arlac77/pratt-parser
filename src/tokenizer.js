@@ -11,9 +11,21 @@ from './util';
  * @module pratt-parser
  */
 
+/*
+ class Tokenizer {
+ 	constructor(grammar) {
+ 	}
+ 	
+ 	error(message) {}
+
+ 	*tokens() {
+ 	}
+ }
+*/
+
 /**
  * Creates a tokenizer for later parsing
- * @param {object} grammar definition of the grmmar with operators...
+ * @param {object} grammar definition of the grammar with operators...
  * @return {function} tokenizer
  */
 export function createTokenizer(grammar) {
