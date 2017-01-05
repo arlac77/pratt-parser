@@ -13,8 +13,8 @@ from './util';
 
 /**
  * Creates a grammar for later parsing
- * @param {Object} grammar definition of the grmmar with operators...
- * @return {Object} parser
+ * @param {object} grammar definition of the grmmar with operators...
+ * @return {object} parser
  */
 export function create(grammar) {
 	const maxOperatorLengthForFirstChar = {};
@@ -269,9 +269,9 @@ export function create(grammar) {
 
 		/**
 		 * Parses the input and delivers the outermoost expression.
-		 * @param {String} chunk input text
-		 * @param {Object} context object transparently passed to tokenizer
-		 * @return {Object} evaluated input
+		 * @param {string} chunk input text
+		 * @param {object} context object transparently passed to tokenizer
+		 * @return {object} evaluated input
 		 */
 		parse(chunk, context) {
 			this.context = context;
