@@ -29,7 +29,7 @@
     "mocha": "^3.2.0",
     "mocha-lcov-reporter": "^1.2.0",
     "semantic-release": "^6.3.5",
-    "rollup": "^0.40.1"
+    "rollup": "^0.40.2"
   },
   "scripts": {
     "cover": "npm run prepublish && istanbul cover node_modules/.bin/_mocha -- -u exports tests/*_test.js",
