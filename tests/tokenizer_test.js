@@ -10,10 +10,12 @@ const chai = require('chai'),
   path = require('path'),
   fs = require('fs');
 
-const createGrammar = require('../dist/parser').create;
+const {
+  Tokenizer
+} = require('../dist/parser');
 
 describe('tokens', () => {
-  const myGrammar = createGrammar({
+  const tokenizer = new Tokenizer({
     infix: {
       '=': {
         precedence: 77
@@ -51,7 +53,7 @@ describe('tokens', () => {
 
     let i = 0;
 
-    for (let token of myGrammar.tokenizer('A ')) {
+    for (let token of tokenizer.tokens('A ')) {
       const refToken = tokens[i];
 
       it(`tokens ${refToken.type}`, () => {
@@ -69,7 +71,7 @@ describe('tokens', () => {
 
     let i = 0;
 
-    for (let token of myGrammar.tokenizer('123')) {
+    for (let token of tokenizer.tokens('123')) {
       const refToken = tokens[i];
 
       it(`tokens ${refToken.type}`, () => {
@@ -87,7 +89,7 @@ describe('tokens', () => {
 
     let i = 0;
 
-    for (let token of myGrammar.tokenizer('"ABC"')) {
+    for (let token of tokenizer.tokens('"ABC"')) {
       const refToken = tokens[i];
 
       it(`tokens ${refToken.type}`, () => {
@@ -105,7 +107,7 @@ describe('tokens', () => {
 
     let i = 0;
 
-    for (let token of myGrammar.tokenizer('ABC')) {
+    for (let token of tokenizer.tokens('ABC')) {
       const refToken = tokens[i];
 
       it(`tokens ${refToken.type}`, () => {
@@ -118,7 +120,7 @@ describe('tokens', () => {
   describe('unknown char', () => {
     it('thows', () => {
       try {
-        for (const token of myGrammar.tokenizer('%')) {
+        for (const token of tokenizer.tokens('%')) {
           console.log(token);
         }
         assert.ok(false);
@@ -133,7 +135,7 @@ describe('tokens', () => {
   describe('unterminated string', () => {
     it('thows', () => {
       try {
-        for (const token of myGrammar.tokenizer('\"abc')) {
+        for (const token of tokenizer.tokens('\"abc')) {
           console.log(token);
         }
         assert.ok(false);
@@ -146,7 +148,7 @@ describe('tokens', () => {
 
     it('thows when in \\u', () => {
       try {
-        for (const token of myGrammar.tokenizer('\"\\u\"')) {
+        for (const token of tokenizer.tokens('\"\\u\"')) {
           console.log(token);
         }
         assert.ok(false);
@@ -341,7 +343,7 @@ describe('tokens', () => {
 
     let i = 0;
 
-    for (let token of myGrammar.tokenizer(s)) {
+    for (let token of tokenizer.tokens(s)) {
       const refToken = tokens[i];
       it(`tokens ${refToken.type}`, () => {
         assert.equal(token.type, refToken.type, 'type: ' + refToken.type);

@@ -24,7 +24,7 @@ Based on
 
 
 ```javascript
-const createGrammar = require('pratt-parser').create;
+const {Parser} = require('pratt-parser');
 
 function Value(value) {
   return Object.create(null, {
@@ -34,7 +34,7 @@ function Value(value) {
   });
 }
 
-const myGrammar = createGrammar({
+const myGrammar = new Parser({
   prefix: {
     '(': {
       nud(grammar) {

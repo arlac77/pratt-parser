@@ -8,7 +8,9 @@ const chai = require('chai'),
   expect = chai.expect,
   should = chai.should();
 
-const createGrammar = require('../dist/parser').create;
+const {
+  Parser
+} = require('../dist/parser');
 
 describe('calculator',
   function () {
@@ -20,7 +22,7 @@ describe('calculator',
       });
     }
 
-    const myGrammar = createGrammar({
+    const myGrammar = new Parser({
       prefix: {
         '(': {
           nud(grammar) {

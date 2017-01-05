@@ -6,7 +6,7 @@
  * @module pratt-parser
  */
 
-export const rootToken = {
+export const RootToken = {
 	precedence: 0,
 	toString() {
 		return `${this.type}: ${this.value} [${this.precedence}]`;
@@ -22,10 +22,34 @@ export const rootToken = {
 	}
 };
 
+export const IdentifierToken = Object.create(RootToken, {
+	type: {
+		value: 'identifier'
+	}
+});
+
+export const StringToken = Object.create(RootToken, {
+	type: {
+		value: 'string'
+	}
+});
+
+export const NumberToken = Object.create(RootToken, {
+	type: {
+		value: 'number'
+	}
+});
+
+export const OperatorToken = Object.create(RootToken, {
+	type: {
+		value: 'operator'
+	}
+});
+
 /**
  * Token representing 'end of file'
  */
-export const EOF = Object.create(rootToken, {
+export const EOFToken = Object.create(RootToken, {
 	type: {
 		value: 'EOF'
 	}

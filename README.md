@@ -24,7 +24,7 @@ Based on
 
 
 ```javascript
-const createGrammar = require('pratt-parser').create;
+const {Parser} = require('pratt-parser');
 
 function Value(value) {
   return Object.create(null, {
@@ -34,7 +34,7 @@ function Value(value) {
   });
 }
 
-const myGrammar = createGrammar({
+const myGrammar = new Parser({
   prefix: {
     '(': {
       nud(grammar) {
@@ -71,31 +71,20 @@ console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
 # API Reference
 - pratt-parser
 - pratt-parser
+- pratt-parser
 
-  <a name="module_pratt-parser.create"></a>
+  <a name="module_pratt-parser..Parser+parse"></a>
 
-## pratt-parser.create(grammar) ⇒ <code>Object</code>
-Creates a grammar for later parsing
-
-**Kind**: static method of <code>[pratt-parser](#module_pratt-parser)</code>  
-**Returns**: <code>Object</code> - parser  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| grammar | <code>Object</code> | definition of the grmmar with operators... |
-
-  <a name="module_pratt-parser..parse"></a>
-
-## pratt-parser~parse(chunk, context) ⇒ <code>Object</code>
+## module:pratt-parser~Parser.parse(chunk, context) ⇒ <code>object</code>
 Parses the input and delivers the outermoost expression.
 
-**Kind**: inner method of <code>[pratt-parser](#module_pratt-parser)</code>  
-**Returns**: <code>Object</code> - evaluated input  
+**Kind**: instance method of <code>module:pratt-parser~Parser</code>  
+**Returns**: <code>object</code> - evaluated input  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| chunk | <code>String</code> | input text |
-| context | <code>Object</code> | object transparently passed to tokenizer |
+| chunk | <code>string</code> | input text |
+| context | <code>object</code> | object transparently passed to tokenizer |
 
 * * *
 

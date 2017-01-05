@@ -3,12 +3,12 @@
 'use strict';
 
 import {
-	EOF, rootToken
+	EOFToken
 }
-from './util';
+from './known_tokens';
 
 import {
-	createTokenizer
+	Tokenizer
 }
 from './tokenizer';
 
@@ -16,55 +16,64 @@ from './tokenizer';
  * @module pratt-parser
  */
 
-/**
- * Creates a grammar for later parsing
- * @param {object} grammar definition of the grammar with operators...
- * @return {object} parser
- */
-export function create(grammar) {
-	const tokenizer = createTokenizer(grammar);
+export class Parser {
 
-	return Object.create({
-		tokenizer: tokenizer,
+	/**
+	 * Creates a grammar for later parsing
+	 * @param {object} grammar definition of the grammar with operators...
+	 * @return {object} parser
+	 */
+	constructor(grammar, options = {}) {
+		Object.defineProperty(this, 'tokenizer', {
+			value: options.tokenizer ||  new Tokenizer(grammar)
+		});
+	}
 
-		/**
-		 * Parses the input and delivers the outermoost expression.
-		 * @param {string} chunk input text
-		 * @param {object} context object transparently passed to tokenizer
-		 * @return {object} evaluated input
-		 */
-		parse(chunk, context) {
-			this.context = context;
+	error(message, context) {
+		return this.tokenizer.error(message, context);
+	}
 
-			const tokens = tokenizer(chunk, context);
+	/**
+	 * Parses the input and delivers the outermoost expression.
+	 * @param {string} chunk input text
+	 * @param {object} context object transparently passed to tokenizer
+	 * @return {object} evaluated input
+	 */
+	parse(chunk, context) {
+		this.context = context;
 
-			this.advance = id => {
-				if (id !== undefined && this.token.value !== undefined && this.token.value !== id) {
-					throw new Error(`Got ${this.token.value} expected ${id}`);
-				}
+		const tokens = this.tokenizer.tokens(chunk, context);
 
-				const n = tokens.next();
-				this.token = n.done ? EOF : n.value;
-				return this.token;
-			};
+		this.advance = id => {
+			if (id !== undefined && this.token.value !== undefined && this.token.value !== id) {
+				this.error(`Got ${this.token.value} expected ${id}`, this.token);
+			}
 
-			this.token = this.advance();
+			const n = tokens.next();
+			this.token = n.done ? EOFToken : n.value;
+			return this.token;
+		};
 
-			this.expression = precedence => {
-				let t = this.token;
+		this.token = this.advance();
+
+		this.expression = precedence => {
+			let t = this.token;
+			this.advance();
+			let left = t.nud(this);
+
+			while (precedence < this.token.precedence) {
+				t = this.token;
 				this.advance();
-				let left = t.nud(this);
+				left = t.led(this, left);
+			}
 
-				while (precedence < this.token.precedence) {
-					t = this.token;
-					this.advance();
-					left = t.led(this, left);
-				}
+			return left;
+		};
 
-				return left;
-			};
-
-			return this.expression(this.token.precedence);
-		}
-	});
+		return this.expression(this.token.precedence);
+	}
 }
+
+export {
+	Tokenizer
+};

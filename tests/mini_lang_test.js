@@ -8,7 +8,9 @@ const chai = require('chai'),
   expect = chai.expect,
   should = chai.should();
 
-const createGrammar = require('../dist/parser').create;
+const {
+  Parser
+} = require('../dist/parser');
 
 describe('mini_lang',
   function () {
@@ -30,10 +32,9 @@ describe('mini_lang',
       onearg: args => args[0]
     };
 
-    let myGrammar = createGrammar({
+    const myGrammar = new Parser({
       identifier(value, properties, context) {
           if (functions[value]) {
-            properties.type.value = 'function';
             properties.value.value = functions[value];
           } else if (identifiers[value]) {
             properties.value.value = identifiers[value];
@@ -44,7 +45,7 @@ describe('mini_lang',
           '(': {
             precedence: 80,
             led(grammar, left) {
-              if (left.type === 'function') {
+              if (left.type === 'identifier') {
                 const args = [];
 
                 if (grammar.token.value !== ')') {

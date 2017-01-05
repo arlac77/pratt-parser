@@ -8,7 +8,9 @@ const chai = require('chai'),
   expect = chai.expect,
   should = chai.should();
 
-const createGrammar = require('../dist/parser').create;
+const {
+  Parser
+} = require('../dist/parser');
 
 describe('json',
   function () {
@@ -20,13 +22,11 @@ describe('json',
       });
     }
 
-    let myGrammar = createGrammar({
+    const myGrammar = new Parser({
       identifier(value, properties, context) {
           if (value === 'true') {
-            properties.type.value = 'constant';
             properties.value.value = true;
           } else if (value === 'false') {
-            properties.type.value = 'constant';
             properties.value.value = false;
           }
         },

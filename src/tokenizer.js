@@ -3,110 +3,114 @@
 'use strict';
 
 import {
-	EOF, rootToken
+	EOFToken, StringToken, NumberToken, OperatorToken, IdentifierToken
 }
-from './util';
+from './known_tokens';
 
 /**
  * @module pratt-parser
  */
 
-/*
- class Tokenizer {
- 	constructor(grammar) {
- 	}
- 	
- 	error(message) {}
+export class Tokenizer {
 
- 	*tokens() {
- 	}
- }
-*/
+	/**
+	 * Creates a tokenizer for later parsing
+	 * @param {object} grammar definition of the grammar with operators...
+	 */
+	constructor(grammar) {
+		const maxOperatorLengthForFirstChar = {};
+		const registeredTokens = {};
 
-/**
- * Creates a tokenizer for later parsing
- * @param {object} grammar definition of the grammar with operators...
- * @return {function} tokenizer
- */
-export function createTokenizer(grammar) {
-	const maxOperatorLengthForFirstChar = {};
-	const registeredTokens = {};
-
-	const operatorTypes = {
-		prefix: {
-			nud(grammar) {
-				return this.combine(grammar.expression(this.precedence));
-			}
-		},
-		infix: {
-			led(grammar, left) {
-				return this.combine(left, grammar.expression(this.precedence));
-			}
-		},
-		infixr: {
-			led(grammar, left) {
-				return this.combine(left, grammar.expression(this.precedence - 1));
-			}
-		}
-	};
-
-	function registerOperator(id, options, operatorType) {
-		const props = {
-			type: {
-				value: 'operator'
+		const operatorTypes = {
+			prefix: {
+				nud(grammar) {
+					return this.combine(grammar.expression(this.precedence));
+				}
 			},
-			value: {
-				value: id
+			infix: {
+				led(grammar, left) {
+					return this.combine(left, grammar.expression(this.precedence));
+				}
+			},
+			infixr: {
+				led(grammar, left) {
+					return this.combine(left, grammar.expression(this.precedence - 1));
+				}
 			}
 		};
 
-		if (operatorType.led) {
-			props.led = {
-				value: operatorType.led,
-				writable: true
+		function registerOperator(id, options, operatorType) {
+			const props = {
+				value: {
+					value: id
+				}
 			};
-		}
 
-		const op = Object.assign(Object.create(rootToken, props), options);
-
-		registeredTokens[id] = op;
-		return op;
-	}
-
-	for (const operatorTypeName in operatorTypes) {
-		const ops = grammar[operatorTypeName];
-		const operatorType = operatorTypes[operatorTypeName];
-
-		for (const c in ops) {
-			const firstChar = c[0];
-			const maxLength = maxOperatorLengthForFirstChar[firstChar] || 0;
-
-			if (maxLength < c.length) {
-				maxOperatorLengthForFirstChar[firstChar] = c.length;
+			if (operatorType.led) {
+				props.led = {
+					value: operatorType.led,
+					writable: true
+				};
 			}
-			registerOperator(c, ops[c], operatorType);
+
+			const op = Object.assign(Object.create(OperatorToken, props), options);
+
+			registeredTokens[id] = op;
+			return op;
 		}
+
+		for (const operatorTypeName in operatorTypes) {
+			const ops = grammar[operatorTypeName];
+			const operatorType = operatorTypes[operatorTypeName];
+
+			for (const c in ops) {
+				const firstChar = c[0];
+				const maxLength = maxOperatorLengthForFirstChar[firstChar] || 0;
+
+				if (maxLength < c.length) {
+					maxOperatorLengthForFirstChar[firstChar] = c.length;
+				}
+				registerOperator(c, ops[c], operatorType);
+			}
+		}
+
+		Object.defineProperty(this, 'maxOperatorLengthForFirstChar', {
+			value: maxOperatorLengthForFirstChar
+		});
+		Object.defineProperty(this, 'registeredTokens', {
+			value: registeredTokens
+		});
+
+		this._identifier = grammar.identifier || function () {};
 	}
 
-	return function* (chunk, context) {
+	error(message, context, values) {
+		message += `,${context.lineNumber},${context.positionInLine}`;
+		if (values) message += ': ' + JSON.stringify(values);
+		throw new Error(message);
+	}
+
+	makeIdentifier(value, context, contextProperties) {
+		contextProperties.value = {
+			value: value
+		};
+		this._identifier(value, contextProperties, context);
+		return Object.create(IdentifierToken, contextProperties);
+	}
+
+	* tokens(chunk, context) {
 		let lineNumber = 1;
 		let firstCharInLine = 0;
 		let i = 0;
 
-		function error(message, values) {
-			message += `,${lineNumber},${i - firstCharInLine}`;
-			if (values) message += ': ' + JSON.stringify(values);
-			throw new Error(message);
-		}
+		const getContext = () => {
+			return {
+				lineNumber, positionInLine: i - firstCharInLine
+			};
+		};
 
-		function makeIdentifier(value) {
-			const properties = {
-				type: {
-					value: 'identifier'
-				},
-				value: {
-					value: value
-				},
+		const getContextProperties = () => {
+			return {
 				lineNumber: {
 					value: lineNumber
 				},
@@ -114,47 +118,7 @@ export function createTokenizer(grammar) {
 					value: i - firstCharInLine
 				}
 			};
-			if (grammar.identifier) {
-				grammar.identifier(value, properties, context);
-			}
-			return Object.create(rootToken, properties);
-		}
-
-		function makeOperator(value) {
-			return Object.create(registeredTokens[value], {
-				lineNumber: {
-					value: lineNumber
-				},
-				positionInLine: {
-					value: i - firstCharInLine
-				}
-			});
-		}
-
-		function makeToken(type, value) {
-			return Object.create(rootToken, {
-				type: {
-					value: type
-				},
-				value: {
-					value: value
-				},
-				lineNumber: {
-					value: lineNumber
-				},
-				positionInLine: {
-					value: i - firstCharInLine
-				}
-			});
-		}
-
-		function makeString(value) {
-			return makeToken('string', value);
-		}
-
-		function makeNumber(value) {
-			return makeToken('number', value);
-		}
+		};
 
 		let c, str;
 		let op, operatorLength;
@@ -182,7 +146,7 @@ export function createTokenizer(grammar) {
 					}
 				}
 
-				yield makeIdentifier(str);
+				yield this.makeIdentifier(str, context, getContextProperties());
 			} else if (c >= '0' && c <= '9') {
 				str = c;
 				i += 1;
@@ -194,7 +158,11 @@ export function createTokenizer(grammar) {
 					i += 1;
 					str += c;
 				}
-				yield makeNumber(+str);
+				yield Object.create(NumberToken, Object.assign(getContextProperties(), {
+					value: {
+						value: +str
+					}
+				}));
 			} else if (c === '"' || c === "'") {
 				const tc = c;
 				i += 1;
@@ -203,7 +171,11 @@ export function createTokenizer(grammar) {
 					c = chunk[i];
 					if (c === tc) {
 						i += 1;
-						yield makeString(str);
+						yield Object.create(StringToken, Object.assign(getContextProperties(), {
+							value: {
+								value: str
+							}
+						}));
 						break;
 					} else if (c === '\\') {
 						i += 1;
@@ -227,7 +199,7 @@ export function createTokenizer(grammar) {
 							case 'u':
 								c = parseInt(chunk.substr(i + 1, 4), 16);
 								if (!isFinite(c) || c < 0) {
-									error('Unterminated string', {
+									this.error('Unterminated string', getContext(), {
 										value: str
 									});
 								}
@@ -243,36 +215,40 @@ export function createTokenizer(grammar) {
 					}
 				}
 				if (i === length && c !== tc) {
-					error('Unterminated string', {
+					this.error('Unterminated string', getContext(), {
 						value: str
 					});
 				}
-			} else if ((operatorLength = maxOperatorLengthForFirstChar[c]) !== undefined) {
+			} else if ((operatorLength = this.maxOperatorLengthForFirstChar[c]) !== undefined) {
+				let t;
 				c = chunk.substring(i, i + operatorLength);
-				if (registeredTokens[c]) {
-					yield makeOperator(c);
+				t = this.registeredTokens[c];
+				if (t) {
+					yield Object.create(t, getContextProperties());
 					i += operatorLength;
 				} else {
 					operatorLength -= 1;
 					c = chunk.substring(i, i + operatorLength);
-					if (registeredTokens[c]) {
-						yield makeOperator(c);
+					t = this.registeredTokens[c];
+					if (t) {
+						yield Object.create(t, getContextProperties());
 						i += operatorLength;
 					} else {
 						operatorLength -= 1;
 						c = chunk.substring(i, i + operatorLength);
-						if (registeredTokens[c]) {
-							yield makeOperator(c);
+						t = this.registeredTokens[c];
+						if (t) {
+							yield Object.create(t, getContextProperties());
 							i += operatorLength;
 						}
 					}
 				}
 			} else {
 				i += 1;
-				error('Unknown char', {
+				this.error('Unknown char', getContext(), {
 					value: c
 				});
 			}
 		}
-	}; // tokenizer
+	}
 }
