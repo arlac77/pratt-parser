@@ -84,8 +84,14 @@ export class Tokenizer {
 		this._identifier = grammar.identifier || function () {};
 	}
 
+	/**
+	 * @param {string} message
+	 * @param {object} context token initiating the error
+	 * @param {object} [values]
+	 * @return {Object} error
+	 */
 	error(message, context, values) {
-		message += `,${context.lineNumber},${context.positionInLine}`;
+		message = `${context.lineNumber},${context.positionInLine}: ${message}`;
 		if (values) message += ': ' + JSON.stringify(values);
 		throw new Error(message);
 	}

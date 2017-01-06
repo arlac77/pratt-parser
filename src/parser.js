@@ -29,6 +29,11 @@ export class Parser {
 		});
 	}
 
+	/**
+	 * @param {string} message
+	 * @param {object} context
+	 * @return {Object} error
+	 */
 	error(message, context) {
 		return this.tokenizer.error(message, context);
 	}

@@ -125,7 +125,7 @@ describe('tokens', () => {
         }
         assert.ok(false);
       } catch (e) {
-        if (e.message !== 'Unknown char,1,1: {"value":"%"}') {
+        if (e.message !== '1,1: Unknown char: {"value":"%"}') {
           throw e;
         }
       }
@@ -140,7 +140,7 @@ describe('tokens', () => {
         }
         assert.ok(false);
       } catch (e) {
-        if (e.message !== 'Unterminated string,1,4: {"value":"abc"}') {
+        if (e.message !== '1,4: Unterminated string: {"value":"abc"}') {
           throw e;
         }
       }
@@ -153,7 +153,7 @@ describe('tokens', () => {
         }
         assert.ok(false);
       } catch (e) {
-        if (e.message !== 'Unterminated string,1,2: {"value":""}') {
+        if (e.message !== '1,2: Unterminated string: {"value":""}') {
           throw e;
         }
       }

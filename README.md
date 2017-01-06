@@ -73,6 +73,17 @@ console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
 - pratt-parser
 - pratt-parser
 
+  <a name="module_pratt-parser..Parser+error"></a>
+
+## module:pratt-parser~Parser.error(message, context) ⇒ <code>Object</code>
+**Kind**: instance method of <code>module:pratt-parser~Parser</code>  
+**Returns**: <code>Object</code> - error  
+
+| Param | Type |
+| --- | --- |
+| message | <code>string</code> | 
+| context | <code>object</code> | 
+
   <a name="module_pratt-parser..Parser+parse"></a>
 
 ## module:pratt-parser~Parser.parse(chunk, context) ⇒ <code>object</code>
@@ -85,6 +96,18 @@ Parses the input and delivers the outermoost expression.
 | --- | --- | --- |
 | chunk | <code>string</code> | input text |
 | context | <code>object</code> | object transparently passed to tokenizer |
+
+  <a name="module_pratt-parser..Tokenizer+error"></a>
+
+## module:pratt-parser~Tokenizer.error(message, context, [values]) ⇒ <code>Object</code>
+**Kind**: instance method of <code>module:pratt-parser~Tokenizer</code>  
+**Returns**: <code>Object</code> - error  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>string</code> |  |
+| context | <code>object</code> | token initiating the error |
+| [values] | <code>object</code> |  |
 
 * * *
 
