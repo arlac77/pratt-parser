@@ -28,7 +28,7 @@
     "markdown-doctest": "^0.9.1",
     "mocha": "^3.2.0",
     "mocha-lcov-reporter": "^1.2.0",
-    "rollup": "^0.41.0",
+    "rollup": "^0.41.1",
     "semantic-release": "^6.3.5"
   },
   "scripts": {
