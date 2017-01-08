@@ -12,11 +12,10 @@ cache:
 notifications:
   email:
     - markus.felten@gmx.de
-before_install:
-  - npm i -g npm@latest
 before_script:
   - npm prune
   - npm install -g codecov
+  - npm install coveralls
 script:
   - npm run cover
 after_script:
