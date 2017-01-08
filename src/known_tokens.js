@@ -8,6 +8,9 @@
 
 export const RootToken = {
 	precedence: 0,
+	type: 'unknown',
+	value: undefined,
+
 	toString() {
 		return `${this.type}: ${this.value} [${this.precedence}]`;
 	},

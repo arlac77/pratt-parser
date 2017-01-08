@@ -41,7 +41,8 @@ describe('tokens', () => {
       '<=': {},
       '>=': {},
       '=>': {},
-      '===': {}
+      '===': {},
+      '!===': {}
     }
   });
 
@@ -292,6 +293,11 @@ describe('tokens', () => {
       line: 13
     }, {
       type: 'operator',
+      value: '!===',
+      line: 13,
+      //      pos: 22
+    }, {
+      type: 'operator',
       value: '>',
       line: 13
     }, {
@@ -343,9 +349,9 @@ describe('tokens', () => {
 
     let i = 0;
 
-    for (let token of tokenizer.tokens(s)) {
+    for (const token of tokenizer.tokens(s)) {
       const refToken = tokens[i];
-      it(`tokens ${refToken.type}`, () => {
+      it(`tokens ${refToken.type} ${refToken.type === 'string' ? '' : refToken.value}`, () => {
         assert.equal(token.type, refToken.type, 'type: ' + refToken.type);
         assert.equal(token.id, refToken.id, 'value: ' + refToken.id);
         assert.equal(token.lineNumber, refToken.line, 'lineNumber: ' + refToken.line);

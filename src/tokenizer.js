@@ -127,7 +127,7 @@ export class Tokenizer {
 		};
 
 		let c, str;
-		let op, operatorLength;
+		let operatorLength;
 		const length = chunk.length;
 
 		while ((c = chunk[i]) !== undefined) {
@@ -226,29 +226,15 @@ export class Tokenizer {
 					});
 				}
 			} else if ((operatorLength = this.maxOperatorLengthForFirstChar[c]) !== undefined) {
-				let t;
-				c = chunk.substring(i, i + operatorLength);
-				t = this.registeredTokens[c];
-				if (t) {
-					yield Object.create(t, getContextProperties());
-					i += operatorLength;
-				} else {
-					operatorLength -= 1;
-					c = chunk.substring(i, i + operatorLength);
-					t = this.registeredTokens[c];
+				do {
+					const c = chunk.substring(i, i + operatorLength);
+					const t = this.registeredTokens[c];
 					if (t) {
-						yield Object.create(t, getContextProperties());
 						i += operatorLength;
-					} else {
-						operatorLength -= 1;
-						c = chunk.substring(i, i + operatorLength);
-						t = this.registeredTokens[c];
-						if (t) {
-							yield Object.create(t, getContextProperties());
-							i += operatorLength;
-						}
+						yield Object.create(t, getContextProperties());
+						break;
 					}
-				}
+				} while (--operatorLength > 0);
 			} else {
 				i += 1;
 				this.error('Unknown char', getContext(), {
