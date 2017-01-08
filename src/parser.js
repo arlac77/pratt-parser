@@ -3,7 +3,7 @@
 'use strict';
 
 import {
-	EOFToken, StringToken, NumberToken, OperatorToken, IdentifierToken
+	EOFToken, StringToken, NumberToken, OperatorToken, IdentifierToken, KeywordToken
 }
 from './known_tokens';
 
