@@ -121,7 +121,6 @@ export class Tokenizer {
 	* tokens(chunk, context) {
 		let lineNumber = 1;
 		let firstCharInLine = 0;
-		let i = 0;
 
 		const getContext = () => {
 			return {
@@ -140,10 +139,12 @@ export class Tokenizer {
 			};
 		};
 
-		let c;
 		const length = chunk.length;
 
-		while ((c = chunk[i]) !== undefined) {
+		let i = 0;
+
+		do {
+			let c = chunk[i];
 			switch (c) {
 				case '_':
 				case 'A':
@@ -198,9 +199,11 @@ export class Tokenizer {
 				case 'x':
 				case 'y':
 				case 'z':
-					const [t, l] = this.makeIdentifier(chunk, i, context, getContextProperties());
-					i += l;
-					yield t;
+					{
+						const [t, l] = this.makeIdentifier(chunk, i, context, getContextProperties());
+						i += l;
+						yield t;
+					}
 					break;
 
 				case '0':
@@ -310,19 +313,21 @@ export class Tokenizer {
 					c = chunk[i];
 					break;
 
+				case undefined:
+					return Object.create(EOFToken, getContextProperties());
+
 				default:
-					let operatorLength = this.maxOperatorLengthForFirstChar[c];
-					if (operatorLength > 0) {
-						do {
-							const c = chunk.substring(i, i + operatorLength);
-							const t = this.registeredTokens[c];
-							if (t) {
-								i += operatorLength;
-								yield Object.create(t, getContextProperties());
-								break;
-							}
-						} while (--operatorLength > 0);
-					} else {
+					let t;
+					for (let operatorLength = this.maxOperatorLengthForFirstChar[c]; operatorLength > 0; operatorLength--) {
+						const c = chunk.substring(i, i + operatorLength);
+						t = this.registeredTokens[c];
+						if (t) {
+							i += operatorLength;
+							yield Object.create(t, getContextProperties());
+							break;
+						}
+					}
+					if (!t) {
 						i += 1;
 						this.error('Unknown char', getContext(), {
 							value: c
@@ -330,5 +335,6 @@ export class Tokenizer {
 					}
 			}
 		}
+		while (true);
 	}
 }
