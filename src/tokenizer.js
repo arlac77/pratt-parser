@@ -96,12 +96,26 @@ export class Tokenizer {
 		throw new Error(message);
 	}
 
-	makeIdentifier(value, context, contextProperties) {
+	makeIdentifier(chunk, offset, context, contextProperties) {
+		let i = offset;
+		i += 1;
+		for (;;) {
+			const c = chunk[i];
+			if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+				(c >= '0' && c <= '9') || c === '_') {
+				i += 1;
+			} else {
+				break;
+			}
+		}
+
+		const value = chunk.substring(offset, i);
+
 		contextProperties.value = {
 			value: value
 		};
 		this._identifier(value, contextProperties, context);
-		return Object.create(IdentifierToken, contextProperties);
+		return [Object.create(IdentifierToken, contextProperties), i - offset];
 	}
 
 	* tokens(chunk, context) {
@@ -126,7 +140,7 @@ export class Tokenizer {
 			};
 		};
 
-		let c, str;
+		let c;
 		const length = chunk.length;
 
 		while ((c = chunk[i]) !== undefined) {
@@ -184,20 +198,9 @@ export class Tokenizer {
 				case 'x':
 				case 'y':
 				case 'z':
-					str = c;
-					i += 1;
-					for (;;) {
-						c = chunk[i];
-						if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
-							(c >= '0' && c <= '9') || c === '_') {
-							str += c;
-							i += 1;
-						} else {
-							break;
-						}
-					}
-
-					yield this.makeIdentifier(str, context, getContextProperties());
+					const [t, l] = this.makeIdentifier(chunk, i, context, getContextProperties());
+					i += l;
+					yield t;
 					break;
 
 				case '0':
@@ -210,79 +213,84 @@ export class Tokenizer {
 				case '7':
 				case '8':
 				case '9':
-					str = c;
-					i += 1;
-					for (; i < length;) {
-						c = chunk[i];
-						if ((c < '0' || c > '9') && c !== '.' && c !== 'e' && c !== 'E') {
-							break;
-						}
+					{
+						let str = c;
 						i += 1;
-						str += c;
-					}
-					yield Object.create(NumberToken, Object.assign(getContextProperties(), {
-						value: {
-							value: +str
+						for (; i < length;) {
+							c = chunk[i];
+							if ((c < '0' || c > '9') && c !== '.' && c !== 'e' && c !== 'E') {
+								break;
+							}
+							i += 1;
+							str += c;
 						}
-					}));
+						yield Object.create(NumberToken, Object.assign(getContextProperties(), {
+							value: {
+								value: +str
+							}
+						}));
+					}
 					break;
 
 				case '"':
 				case "'":
-					const tc = c;
-					i += 1;
-					str = '';
-					for (; i < length;) {
-						c = chunk[i];
-						if (c === tc) {
-							i += 1;
-							yield Object.create(StringToken, Object.assign(getContextProperties(), {
-								value: {
-									value: str
-								}
-							}));
-							break;
-						} else if (c === '\\') {
-							i += 1;
+					{
+						const tc = c;
+						let str = '';
+
+						i += 1;
+						for (; i < length;) {
 							c = chunk[i];
-							switch (c) {
-								case 'b':
-									c = '\b';
-									break;
-								case 'f':
-									c = '\f';
-									break;
-								case 'n':
-									c = '\n';
-									break;
-								case 'r':
-									c = '\r';
-									break;
-								case 't':
-									c = '\t';
-									break;
-								case 'u':
-									c = parseInt(chunk.substr(i + 1, 4), 16);
-									if (!isFinite(c) || c < 0) {
-										this.error('Unterminated string', getContext(), {
-											value: str
-										});
+							if (c === tc) {
+								i += 1;
+								yield Object.create(StringToken, Object.assign(getContextProperties(), {
+									value: {
+										value: str
 									}
-									c = String.fromCharCode(c);
-									i += 4;
-									break;
+								}));
+								break;
+							} else if (c === '\\') {
+								i += 1;
+								c = chunk[i];
+								switch (c) {
+									case 'b':
+										c = '\b';
+										break;
+									case 'f':
+										c = '\f';
+										break;
+									case 'n':
+										c = '\n';
+										break;
+									case 'r':
+										c = '\r';
+										break;
+									case 't':
+										c = '\t';
+										break;
+									case 'u':
+										c = parseInt(chunk.substr(i + 1, 4), 16);
+										if (!isFinite(c) || c < 0) {
+											this.error('Unterminated string', getContext(), {
+												value: str
+											});
+										}
+										c = String.fromCharCode(c);
+										i += 4;
+										break;
+								}
+								str += c;
+								i += 1;
+							} else {
+								str += c;
+								i += 1;
 							}
-							str += c;
-							i += 1;
-						} else {
-							str += c;
-							i += 1;
 						}
-					}
-					if (i === length && c !== tc) {
-						this.error('Unterminated string', getContext(), {
-							value: str
-						});
+						if (i === length && c !== tc) {
+							this.error('Unterminated string', getContext(), {
+								value: str
+							});
+						}
 					}
 					break;
 
