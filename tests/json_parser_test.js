@@ -9,7 +9,7 @@ const chai = require('chai'),
   should = chai.should();
 
 const {
-  Parser
+  Parser, Tokenizer, IdentifierToken
 } = require('../dist/parser');
 
 describe('json',
@@ -22,65 +22,91 @@ describe('json',
       });
     }
 
-    const myGrammar = new Parser({
-      identifier(value, properties, context) {
-          if (value === 'true') {
-            properties.value.value = true;
-          } else if (value === 'false') {
-            properties.value.value = false;
+    class MyTokenizer extends Tokenizer {
+      makeIdentifier(chunk, offset, context, properties) {
+        let i = offset;
+        i += 1;
+        for (;;) {
+          const c = chunk[i];
+          if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+            (c >= '0' && c <= '9') || c === '_') {
+            i += 1;
+          } else {
+            break;
           }
-        },
-        prefix: {
-          '[': {
-            nud(grammar, left) {
-              const values = [];
-
-              if (grammar.token.value !== ']') {
-                while (true) {
-                  values.push(grammar.expression(0).value);
-
-                  if (grammar.token.value !== ',') {
-                    break;
-                  }
-                  grammar.advance(',');
-                }
-              }
-              grammar.advance(']');
-              return Value(values);
-            }
-          },
-          '{': {
-            nud(grammar, left) {
-              const object = {};
-
-              if (grammar.token.value !== '}') {
-                while (true) {
-                  const key = grammar.expression(0).value;
-
-                  if (grammar.token.value !== ':') {
-                    break;
-                  }
-                  grammar.advance(':');
-
-                  const value = grammar.expression(0).value;
-                  object[key] = value;
-                  if (grammar.token.value === '}') {
-                    break;
-                  }
-                  grammar.advance(',');
-                }
-              }
-              grammar.advance('}');
-              return Value(object);
-            }
-          }
-        },
-        infix: {
-          ',': {},
-          ':': {},
-          '}': {},
-          ']': {}
         }
+
+        const value = chunk.substring(offset, i);
+
+        properties.value = {
+          value: value
+        };
+
+        if (value === 'true') {
+          properties.value.value = true;
+        } else if (value === 'false') {
+          properties.value.value = false;
+        }
+
+        return [Object.create(IdentifierToken, properties), i - offset];
+      }
+    }
+    const g = {
+      prefix: {
+        '[': {
+          nud(grammar, left) {
+            const values = [];
+
+            if (grammar.token.value !== ']') {
+              while (true) {
+                values.push(grammar.expression(0).value);
+
+                if (grammar.token.value !== ',') {
+                  break;
+                }
+                grammar.advance(',');
+              }
+            }
+            grammar.advance(']');
+            return Value(values);
+          }
+        },
+        '{': {
+          nud(grammar, left) {
+            const object = {};
+
+            if (grammar.token.value !== '}') {
+              while (true) {
+                const key = grammar.expression(0).value;
+
+                if (grammar.token.value !== ':') {
+                  break;
+                }
+                grammar.advance(':');
+
+                const value = grammar.expression(0).value;
+                object[key] = value;
+                if (grammar.token.value === '}') {
+                  break;
+                }
+                grammar.advance(',');
+              }
+            }
+            grammar.advance('}');
+            return Value(object);
+          }
+        }
+      },
+      infix: {
+        ',': {},
+        ':': {},
+        '}': {},
+        ']': {}
+      }
+    };
+
+    const myGrammar = new Parser(g, {
+      tokenizer: new MyTokenizer(g)
     });
 
     it('simple array', () => assert.deepEqual(myGrammar.parse('[1,"b",[4],{ "c" : 5, "d" : true, "e": false}]').value, [

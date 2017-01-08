@@ -80,8 +80,6 @@ export class Tokenizer {
 		Object.defineProperty(this, 'registeredTokens', {
 			value: registeredTokens
 		});
-
-		this._identifier = grammar.identifier || function () {};
 	}
 
 	/**
@@ -114,7 +112,6 @@ export class Tokenizer {
 		contextProperties.value = {
 			value: value
 		};
-		this._identifier(value, contextProperties, context);
 		return [Object.create(IdentifierToken, contextProperties), i - offset];
 	}
 
