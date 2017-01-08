@@ -81,5 +81,5 @@ export class Parser {
 
 export {
 	Tokenizer,
-	EOFToken, StringToken, NumberToken, OperatorToken, IdentifierToken
+	EOFToken, StringToken, NumberToken, OperatorToken, IdentifierToken, KeywordToken
 };

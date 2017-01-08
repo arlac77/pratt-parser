@@ -31,6 +31,12 @@ export const IdentifierToken = Object.create(RootToken, {
 	}
 });
 
+export const KeywordToken = Object.create(RootToken, {
+	type: {
+		value: 'keyword'
+	}
+});
+
 export const StringToken = Object.create(RootToken, {
 	type: {
 		value: 'string'

@@ -3,7 +3,7 @@
 'use strict';
 
 import {
-	EOFToken, StringToken, NumberToken, OperatorToken, IdentifierToken
+	EOFToken, StringToken, NumberToken, OperatorToken, IdentifierToken, KeywordToken
 }
 from './known_tokens';
 
@@ -107,14 +107,15 @@ export class Tokenizer {
 			}
 		}
 
-		const value = chunk.substring(offset, i);
-
 		contextProperties.value = {
-			value: value
+			value: chunk.substring(offset, i)
 		};
 		return [Object.create(IdentifierToken, contextProperties), i - offset];
 	}
 
+	/**
+	 * delivers tokens from the input
+	 */
 	* tokens(chunk, context) {
 		let lineNumber = 1;
 		let firstCharInLine = 0;
