@@ -24,41 +24,49 @@ export class Tokenizer {
 		const operatorTypes = {
 			prefix: {
 				token: OperatorToken,
-				nud(grammar) {
-					return this.combine(grammar.expression(this.precedence));
+
+				properties: {
+					nud: {
+						value: function (grammar, left) {
+							return this.combine(left, grammar.expression(this.precedence));
+						},
+						writable: true
+					}
 				}
 			},
 			infix: {
 				token: OperatorToken,
-				led(grammar, left) {
-					return this.combine(left, grammar.expression(this.precedence));
+
+				properties: {
+					led: {
+						value: function (grammar, left) {
+							return this.combine(left, grammar.expression(this.precedence));
+						},
+						writable: true
+					}
 				}
 			},
 			infixr: {
 				token: OperatorToken,
-				led(grammar, left) {
-					return this.combine(left, grammar.expression(this.precedence - 1));
+
+				properties: {
+					led: {
+						value: function (grammar, left) {
+							return this.combine(left, grammar.expression(this.precedence - 1));
+						},
+						writable: true
+					}
 				}
 			}
 		};
 
-		function registerOperator(id, options, operatorType) {
-			const props = {
-				value: {
-					value: id
-				}
+		function registerOperator(id, type, options) {
+
+			type.properties.value = {
+				value: id
 			};
 
-			if (operatorType.led) {
-				props.led = {
-					value: operatorType.led,
-					writable: true
-				};
-			}
-
-			const op = Object.assign(Object.create(operatorType.token, props), options);
-
-			registeredTokens[id] = op;
+			const op = registeredTokens[id] = Object.assign(Object.create(type.token, type.properties), options);
 			return op;
 		}
 
@@ -73,7 +81,7 @@ export class Tokenizer {
 				if (maxLength < c.length) {
 					maxOperatorLengthForFirstChar[firstChar] = c.length;
 				}
-				registerOperator(c, ops[c], operatorType);
+				registerOperator(c, operatorType, ops[c]);
 			}
 		}
 
