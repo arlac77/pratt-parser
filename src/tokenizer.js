@@ -23,16 +23,19 @@ export class Tokenizer {
 
 		const operatorTypes = {
 			prefix: {
+				token: OperatorToken,
 				nud(grammar) {
 					return this.combine(grammar.expression(this.precedence));
 				}
 			},
 			infix: {
+				token: OperatorToken,
 				led(grammar, left) {
 					return this.combine(left, grammar.expression(this.precedence));
 				}
 			},
 			infixr: {
+				token: OperatorToken,
 				led(grammar, left) {
 					return this.combine(left, grammar.expression(this.precedence - 1));
 				}
@@ -53,7 +56,7 @@ export class Tokenizer {
 				};
 			}
 
-			const op = Object.assign(Object.create(OperatorToken, props), options);
+			const op = Object.assign(Object.create(operatorType.token, props), options);
 
 			registeredTokens[id] = op;
 			return op;
