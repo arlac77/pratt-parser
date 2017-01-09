@@ -310,7 +310,6 @@ export class Tokenizer {
 					lineNumber += 1;
 					firstCharInLine = i;
 					i += 1;
-					c = chunk[i];
 					break;
 
 				case '\b':
@@ -319,7 +318,6 @@ export class Tokenizer {
 				case '\t':
 				case ' ':
 					i += 1;
-					c = chunk[i];
 					break;
 
 				case undefined:
