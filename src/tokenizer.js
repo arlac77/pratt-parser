@@ -18,7 +18,7 @@ export class Tokenizer {
 	 * @param {object} grammar definition of the grammar with operators...
 	 */
 	constructor(grammar) {
-		const maxOperatorLengthForFirstChar = {};
+		const maxTokenLengthForFirstChar = {};
 		const registeredTokens = {};
 
 		const operatorTypes = {
@@ -76,34 +76,23 @@ export class Tokenizer {
 
 			for (const c in ops) {
 				const firstChar = c[0];
-				const maxLength = maxOperatorLengthForFirstChar[firstChar] || 0;
+				const maxLength = maxTokenLengthForFirstChar[firstChar] || 0;
 
 				if (maxLength < c.length) {
-					maxOperatorLengthForFirstChar[firstChar] = c.length;
+					maxTokenLengthForFirstChar[firstChar] = c.length;
 				}
 				registerOperator(c, operatorType, ops[c]);
 			}
 		}
 
-		Object.defineProperty(this, 'maxOperatorLengthForFirstChar', {
-			value: maxOperatorLengthForFirstChar
+		Object.defineProperty(this, 'maxTokenLengthForFirstChar', {
+			value: maxTokenLengthForFirstChar
 		});
 		Object.defineProperty(this, 'registeredTokens', {
 			value: registeredTokens
 		});
 	}
 
-	/**
-	 * @param {string} message
-	 * @param {object} context token initiating the error
-	 * @param {object} [values]
-	 * @return {Object} error
-	 */
-	error(message, context, values) {
-		message = `${context.lineNumber},${context.positionInLine}: ${message}`;
-		if (values) message += ': ' + JSON.stringify(values);
-		throw new Error(message);
-	}
 
 	makeIdentifier(chunk, offset, context, contextProperties) {
 		let i = offset;
@@ -324,7 +313,7 @@ export class Tokenizer {
 
 				default:
 					let t;
-					for (let operatorLength = this.maxOperatorLengthForFirstChar[c]; operatorLength > 0; operatorLength--) {
+					for (let operatorLength = this.maxTokenLengthForFirstChar[c]; operatorLength > 0; operatorLength--) {
 						const c = chunk.substring(i, i + operatorLength);
 						t = this.registeredTokens[c];
 						if (t) {
@@ -342,5 +331,17 @@ export class Tokenizer {
 			}
 		}
 		while (true);
+	}
+
+	/**
+	 * @param {string} message
+	 * @param {object} context token initiating the error
+	 * @param {object} [values]
+	 * @return {Object} error
+	 */
+	error(message, context, values) {
+		message = `${context.lineNumber},${context.positionInLine}: ${message}`;
+		if (values) message += ': ' + JSON.stringify(values);
+		throw new Error(message);
 	}
 }
