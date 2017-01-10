@@ -11,7 +11,7 @@
     "TDOP"
   ],
   "engines": {
-    "node": ">=6.9.3"
+    "node": ">=6.9.4"
   },
   "license": "BSD-2-Clause",
   "bugs": {
@@ -37,16 +37,19 @@
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "prepublish": "rollup --output=dist/parser.js -c -- src/parser.js",
     "pretest": "npm run prepublish",
-    "posttest": "markdown-doctest"
+    "posttest": "markdown-doctest",
+    "precover": "npm run prepublish"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/arlac77/pratt-parser.git"
   },
-  "contributors": [{
-    "name": "Markus Felten",
-    "email": "markus.felten@gmx.de"
-  }],
+  "contributors": [
+    {
+      "name": "Markus Felten",
+      "email": "markus.felten@gmx.de"
+    }
+  ],
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
