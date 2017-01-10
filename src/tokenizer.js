@@ -130,6 +130,7 @@ export class Tokenizer {
 	* tokens(chunk, context) {
 		let lineNumber = 1;
 		let firstCharInLine = 0;
+		let i = 0;
 
 		const getContext = () => {
 			return {
@@ -149,8 +150,6 @@ export class Tokenizer {
 		};
 
 		const length = chunk.length;
-
-		let i = 0;
 
 		do {
 			let c = chunk[i];
