@@ -32,37 +32,44 @@ describe('mini_lang',
       onearg: args => args[0]
     };
 
-    class MyTokenizer extends Tokenizer {
-      makeIdentifier(chunk, offset, context, properties) {
-        let i = offset;
-        i += 1;
-        for (;;) {
-          const c = chunk[i];
-          if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
-            (c >= '0' && c <= '9') || c === '_') {
-            i += 1;
-          } else {
-            break;
-          }
-        }
-
-        const value = chunk.substring(offset, i);
-
-        properties.value = {
-          value: value
-        };
-
-        if (functions[value]) {
-          properties.value.value = functions[value];
-        } else if (identifiers[value]) {
-          properties.value.value = identifiers[value];
-        }
-
-        return [Object.create(IdentifierToken, properties), i - offset];
-      }
-    }
-
     const g = {
+      tokens: [{
+        token: Object.create(IdentifierToken, {
+          parseString: {
+            value: function (tokenizer, pp, properties) {
+              let i = pp.offset + 1;
+              for (;;) {
+                const c = pp.chunk[i];
+                if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+                  (c >= '0' && c <= '9') || c === '_') {
+                  i += 1;
+                } else {
+                  break;
+                }
+              }
+              const value = pp.chunk.substring(pp.offset, i);
+
+              if (functions[value]) {
+                properties.value = {
+                  value: functions[value]
+                };
+              } else if (identifiers[value]) {
+                properties.value = {
+                  value: identifiers[value]
+                };
+              } else {
+                properties.value = {
+                  value: value
+                };
+              }
+
+              pp.offset = i;
+              return Object.create(this, properties);
+            }
+          }
+        }),
+        firstChar: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
+      }],
       prefix: {
         '(': {
           precedence: 80,
@@ -123,9 +130,7 @@ describe('mini_lang',
       }
     };
 
-    const myGrammar = new Parser(g, {
-      tokenizer: new MyTokenizer(g)
-    });
+    const myGrammar = new Parser(g);
 
     it('evaluates array', () => assert.equal(myGrammar.parse('array[3 * 2] + 2').value, 9));
     it('evaluates function no args', () => assert.equal(myGrammar.parse('noargs()', 'norags context').value,

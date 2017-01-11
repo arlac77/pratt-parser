@@ -3,7 +3,7 @@
 'use strict';
 
 import {
-	EOFToken, StringToken, NumberToken, OperatorToken, IdentifierToken, KeywordToken
+	EOFToken, WhiteSpaceToken, StringToken, NumberToken, OperatorToken, IdentifierToken, KeywordToken
 }
 from './known_tokens';
 
@@ -61,13 +61,11 @@ export class Tokenizer {
 		};
 
 		function registerOperator(id, type, options) {
-
 			type.properties.value = {
 				value: id
 			};
 
-			const op = registeredTokens[id] = Object.assign(Object.create(type.token, type.properties), options);
-			return op;
+			registeredTokens[id] = Object.assign(Object.create(type.token, type.properties), options);
 		}
 
 		for (const operatorTypeName in operatorTypes) {
@@ -85,6 +83,35 @@ export class Tokenizer {
 			}
 		}
 
+		for (const c of " \f\t\b\r\n") {
+			maxTokenLengthForFirstChar[c] = 1;
+			registeredTokens[c] = WhiteSpaceToken;
+		}
+
+		["'", '"'].forEach(c => {
+			maxTokenLengthForFirstChar[c] = 1;
+			registeredTokens[c] = StringToken;
+		});
+
+		for (const c of "0123456789") {
+			maxTokenLengthForFirstChar[c] = 1;
+			registeredTokens[c] = NumberToken;
+		}
+
+		for (const c of "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_") {
+			maxTokenLengthForFirstChar[c] = 1;
+			registeredTokens[c] = IdentifierToken;
+		}
+
+		if (grammar.tokens) {
+			grammar.tokens.forEach(token => {
+				for (const c of token.firstChar) {
+					maxTokenLengthForFirstChar[c] = 1;
+					registeredTokens[c] = token.token;
+				}
+			});
+		}
+
 		Object.defineProperty(this, 'maxTokenLengthForFirstChar', {
 			value: maxTokenLengthForFirstChar
 		});
@@ -93,241 +120,56 @@ export class Tokenizer {
 		});
 	}
 
-
-	makeIdentifier(chunk, offset, context, contextProperties) {
-		let i = offset;
-		i += 1;
-		for (;;) {
-			const c = chunk[i];
-			if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
-				(c >= '0' && c <= '9') || c === '_') {
-				i += 1;
-			} else {
-				break;
-			}
-		}
-
-		contextProperties.value = {
-			value: chunk.substring(offset, i)
-		};
-		return [Object.create(IdentifierToken, contextProperties), i - offset];
-	}
-
 	/**
 	 * delivers tokens from the input
 	 */
 	* tokens(chunk, context) {
-		let lineNumber = 1;
-		let firstCharInLine = 0;
-		let i = 0;
-
-		const getContext = () => {
-			return {
-				lineNumber, positionInLine: i - firstCharInLine
-			};
+		const pp = {
+			context, chunk, firstCharInLine: 0, lineNumber: 1, offset: 0, get positionInLine() {
+				return this.offset - this.firstCharInLine;
+			}
 		};
 
 		const getContextProperties = () => {
 			return {
 				lineNumber: {
-					value: lineNumber
+					value: pp.lineNumber
 				},
 				positionInLine: {
-					value: i - firstCharInLine
+					value: pp.offset - pp.firstCharInLine
 				}
 			};
 		};
 
-		const length = chunk.length;
-
 		do {
-			let c = chunk[i];
-			switch (c) {
-				case '_':
-				case 'A':
-				case 'B':
-				case 'C':
-				case 'D':
-				case 'E':
-				case 'F':
-				case 'G':
-				case 'H':
-				case 'I':
-				case 'J':
-				case 'K':
-				case 'L':
-				case 'M':
-				case 'N':
-				case 'O':
-				case 'P':
-				case 'Q':
-				case 'R':
-				case 'S':
-				case 'T':
-				case 'U':
-				case 'V':
-				case 'W':
-				case 'X':
-				case 'Y':
-				case 'Z':
-				case 'a':
-				case 'b':
-				case 'c':
-				case 'd':
-				case 'e':
-				case 'f':
-				case 'g':
-				case 'h':
-				case 'i':
-				case 'j':
-				case 'k':
-				case 'l':
-				case 'm':
-				case 'n':
-				case 'o':
-				case 'p':
-				case 'q':
-				case 'r':
-				case 's':
-				case 't':
-				case 'u':
-				case 'v':
-				case 'w':
-				case 'x':
-				case 'y':
-				case 'z':
-					{
-						const [t, l] = this.makeIdentifier(chunk, i, context, getContextProperties());
-						i += l;
-						yield t;
-					}
-					break;
+			let c = pp.chunk[pp.offset];
 
-				case '0':
-				case '1':
-				case '2':
-				case '3':
-				case '4':
-				case '5':
-				case '6':
-				case '7':
-				case '8':
-				case '9':
-					{
-						let str = c;
-						i += 1;
-						for (; i < length;) {
-							c = chunk[i];
-							if ((c < '0' || c > '9') && c !== '.' && c !== 'e' && c !== 'E') {
-								break;
-							}
-							i += 1;
-							str += c;
+			let tokenLength = this.maxTokenLengthForFirstChar[c];
+
+			if (tokenLength) {
+				do {
+					const t = this.registeredTokens[pp.chunk.substring(pp.offset, pp.offset + tokenLength)];
+					if (t) {
+						const l = pp.offset;
+						const rt = t.parseString(this, pp, getContextProperties());
+						//console.log(`${pp.chunk.substring(l, pp.offset)} -> ${rt} ${rt ? rt.value : ''}`);
+
+						if (rt) {
+							yield rt;
 						}
-						yield Object.create(NumberToken, Object.assign(getContextProperties(), {
-							value: {
-								value: +str
-							}
-						}));
+						break;
 					}
-					break;
+				} while (tokenLength-- > 1);
 
-				case '"':
-				case "'":
-					{
-						const tc = c;
-						let str = '';
-
-						i += 1;
-						for (; i < length;) {
-							c = chunk[i];
-							if (c === tc) {
-								i += 1;
-								yield Object.create(StringToken, Object.assign(getContextProperties(), {
-									value: {
-										value: str
-									}
-								}));
-								break;
-							} else if (c === '\\') {
-								i += 1;
-								c = chunk[i];
-								switch (c) {
-									case 'b':
-										c = '\b';
-										break;
-									case 'f':
-										c = '\f';
-										break;
-									case 'n':
-										c = '\n';
-										break;
-									case 'r':
-										c = '\r';
-										break;
-									case 't':
-										c = '\t';
-										break;
-									case 'u':
-										c = parseInt(chunk.substr(i + 1, 4), 16);
-										if (!isFinite(c) || c < 0) {
-											this.error('Unterminated string', getContext(), {
-												value: str
-											});
-										}
-										c = String.fromCharCode(c);
-										i += 4;
-										break;
-								}
-								str += c;
-								i += 1;
-							} else {
-								str += c;
-								i += 1;
-							}
-						}
-						if (i === length && c !== tc) {
-							this.error('Unterminated string', getContext(), {
-								value: str
-							});
-						}
-					}
-					break;
-
-				case '\n':
-					lineNumber += 1;
-					firstCharInLine = i;
-					i += 1;
-					break;
-
-				case '\b':
-				case '\f':
-				case '\r':
-				case '\t':
-				case ' ':
-					i += 1;
-					break;
-
-				case undefined:
+				continue;
+			} else {
+				if (c === undefined) {
 					return Object.create(EOFToken, getContextProperties());
+				}
 
-				default:
-					let t;
-					for (let operatorLength = this.maxTokenLengthForFirstChar[c]; operatorLength > 0; operatorLength--) {
-						const c = chunk.substring(i, i + operatorLength);
-						t = this.registeredTokens[c];
-						if (t) {
-							i += operatorLength;
-							yield Object.create(t, getContextProperties());
-							break;
-						}
-					}
-					if (!t) {
-						i += 1;
-						this.error('Unknown char', getContext(), {
-							value: c
-						});
-					}
+				pp.offset += 1;
+
+				this.error('Unknown char', pp, c);
 			}
 		}
 		while (true);
@@ -336,12 +178,11 @@ export class Tokenizer {
 	/**
 	 * @param {string} message
 	 * @param {object} context token initiating the error
-	 * @param {object} [values]
+	 * @param {object} [value]
 	 * @return {Object} error
 	 */
-	error(message, context, values) {
-		message = `${context.lineNumber},${context.positionInLine}: ${message}`;
-		if (values) message += ': ' + JSON.stringify(values);
+	error(message, context, value) {
+		message = `${context.lineNumber},${context.positionInLine}: ${message} "${value}"`;
 		throw new Error(message);
 	}
 }

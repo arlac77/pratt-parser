@@ -34,8 +34,8 @@ export class Parser {
 	 * @param {object} context
 	 * @return {Object} error
 	 */
-	error(message, context) {
-		return this.tokenizer.error(message, context);
+	error(...args) {
+		return this.tokenizer.error(...args);
 	}
 
 	/**
