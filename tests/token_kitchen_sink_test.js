@@ -51,37 +51,37 @@ describe('tokens', () => {
       type: 'number',
       value: 4711,
       line: 1,
-      pos: 4
+      pos: 0
     }, {
       type: 'number',
       value: 0.23,
       line: 1,
-      pos: 9
+      pos: 5
     }, {
       type: 'number',
       value: 12345.0,
       line: 1,
-      pos: 17
+      pos: 10
     }, {
       type: 'number',
       value: 12.4E20,
       line: 1,
-      pos: 25
+      pos: 18
     }, {
       type: 'number',
       value: 0.4E7,
       line: 1,
-      pos: 31
+      pos: 26
     }, {
       type: 'string',
       value: 'str2',
       line: 2,
-      pos: 7
+      pos: 1
     }, {
       type: 'string',
       value: 'str3',
       line: 2,
-      pos: 13
+      pos: 7
     }, {
       type: 'string',
       value: '\b\f\n\r\t\"\'A',

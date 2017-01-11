@@ -22,36 +22,45 @@ describe('json',
       });
     }
 
-    class MyTokenizer extends Tokenizer {
-      makeIdentifier(chunk, offset, context, properties) {
-        let i = offset;
-        i += 1;
-        for (;;) {
-          const c = chunk[i];
-          if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
-            (c >= '0' && c <= '9') || c === '_') {
-            i += 1;
-          } else {
-            break;
-          }
-        }
-
-        const value = chunk.substring(offset, i);
-
-        properties.value = {
-          value: value
-        };
-
-        if (value === 'true') {
-          properties.value.value = true;
-        } else if (value === 'false') {
-          properties.value.value = false;
-        }
-
-        return [Object.create(IdentifierToken, properties), i - offset];
-      }
-    }
     const g = {
+      tokens: [{
+        token: Object.create(IdentifierToken, {
+          parseString: {
+            value: function (tokenizer, pp, properties) {
+              let i = pp.offset + 1;
+              for (;;) {
+                const c = pp.chunk[i];
+                if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+                  (c >= '0' && c <= '9') || c === '_') {
+                  i += 1;
+                } else {
+                  break;
+                }
+              }
+              const value = pp.chunk.substring(pp.offset, i);
+
+              if (value === 'true') {
+                properties.value = {
+                  value: true
+                };
+              } else if (value === 'false') {
+                properties.value = {
+                  value: false
+                };
+              } else {
+                properties.value = {
+                  value: value
+                };
+              }
+
+              pp.offset = i;
+              return Object.create(this, properties);
+            }
+          }
+        }),
+        firstChar: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
+      }],
+
       prefix: {
         '[': {
           nud(grammar, left) {
@@ -105,9 +114,7 @@ describe('json',
       }
     };
 
-    const myGrammar = new Parser(g, {
-      tokenizer: new MyTokenizer(g)
-    });
+    const myGrammar = new Parser(g);
 
     it('simple array', () => assert.deepEqual(myGrammar.parse('[1,"b",[4],{ "c" : 5, "d" : true, "e": false}]').value, [
       1, "b", [4], {

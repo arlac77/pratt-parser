@@ -83,7 +83,7 @@ export class Tokenizer {
 			}
 		}
 
-		for (const c of " \t\b\r") {
+		for (const c of " \f\t\b\r") {
 			maxTokenLengthForFirstChar[c] = 1;
 			registeredTokens[c] = WhiteSpaceToken;
 		}
@@ -101,6 +101,15 @@ export class Tokenizer {
 		for (const c of "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_") {
 			maxTokenLengthForFirstChar[c] = 1;
 			registeredTokens[c] = IdentifierToken;
+		}
+
+		if (grammar.tokens) {
+			grammar.tokens.forEach(token => {
+				for (const c of token.firstChar) {
+					maxTokenLengthForFirstChar[c] = 1;
+					registeredTokens[c] = token.token;
+				}
+			});
 		}
 
 		Object.defineProperty(this, 'maxTokenLengthForFirstChar', {
@@ -141,7 +150,7 @@ export class Tokenizer {
 					if (t) {
 						const l = pp.offset;
 						const rt = t.parseString(this, pp, getContextProperties());
-						console.log(`${pp.chunk.substring(l, pp.offset)} -> ${rt} ${rt ? rt.value : ''}`);
+						//console.log(`${pp.chunk.substring(l, pp.offset)} -> ${rt} ${rt ? rt.value : ''}`);
 
 						if (rt) {
 							yield rt;
