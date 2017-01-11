@@ -11,7 +11,7 @@ export const RootToken = {
 	type: 'unknown',
 	value: undefined,
 	parseString() {
-		return [undefined, 0];
+		return undefined;
 	},
 	toString() {
 		return `${this.type}: ${this.value} [${this.precedence}]`;
