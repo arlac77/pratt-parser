@@ -21,11 +21,20 @@ export class Tokenizer {
 		const maxTokenLengthForFirstChar = {};
 		const registeredTokens = {};
 
+		const consume = {
+			value: function (tokenizer, chunk, offset, properties) {
+				//console.log(`${chunk.substring(offset, offset+this.length)} -> ${this.value} ${this.length}`);
+				return [Object.create(this, properties), this.value.length];
+			}
+		};
+
+
 		const operatorTypes = {
 			prefix: {
 				token: OperatorToken,
 
 				properties: {
+					consume: consume,
 					nud: {
 						value: function (grammar, left) {
 							return this.combine(left, grammar.expression(this.precedence));
@@ -38,6 +47,7 @@ export class Tokenizer {
 				token: OperatorToken,
 
 				properties: {
+					consume: consume,
 					led: {
 						value: function (grammar, left) {
 							return this.combine(left, grammar.expression(this.precedence));
@@ -50,6 +60,7 @@ export class Tokenizer {
 				token: OperatorToken,
 
 				properties: {
+					consume: consume,
 					led: {
 						value: function (grammar, left) {
 							return this.combine(left, grammar.expression(this.precedence - 1));
@@ -61,13 +72,11 @@ export class Tokenizer {
 		};
 
 		function registerOperator(id, type, options) {
-
 			type.properties.value = {
 				value: id
 			};
 
-			const op = registeredTokens[id] = Object.assign(Object.create(type.token, type.properties), options);
-			return op;
+			registeredTokens[id] = Object.assign(Object.create(type.token, type.properties), options);
 		}
 
 		for (const operatorTypeName in operatorTypes) {
@@ -84,6 +93,68 @@ export class Tokenizer {
 				registerOperator(c, operatorType, ops[c]);
 			}
 		}
+
+		maxTokenLengthForFirstChar['"'] = 1;
+		registeredTokens['"'] = Object.create(StringToken, {
+			consume: {
+				value: function (tokenizer, chunk, offset, properties) {
+					const tc = chunk[offset];
+					let str = '';
+					let i = offset + 1;
+					let c;
+					for (; i < chunk.length;) {
+						c = chunk[i];
+						if (c === tc) {
+							return [Object.create(this, Object.assign({
+								value: {
+									value: str
+								}
+							}, properties)), str.length + 2];
+						} else if (c === '\\') {
+							i += 1;
+							c = chunk[i];
+							switch (c) {
+								case 'b':
+									c = '\b';
+									break;
+								case 'f':
+									c = '\f';
+									break;
+								case 'n':
+									c = '\n';
+									break;
+								case 'r':
+									c = '\r';
+									break;
+								case 't':
+									c = '\t';
+									break;
+								case 'u':
+									c = parseInt(chunk.substr(i + 1, 4), 16);
+									if (!isFinite(c) || c < 0) {
+										tokenizer.error('Unterminated string', properties, {
+											value: str
+										});
+									}
+									c = String.fromCharCode(c);
+									i += 4;
+									break;
+							}
+							str += c;
+							i += 1;
+						} else {
+							str += c;
+							i += 1;
+						}
+					}
+					if (i === chunk.length && c !== tc) {
+						tokenizer.error('Unterminated string', properties, {
+							value: str
+						});
+					}
+				}
+			}
+		});
 
 		Object.defineProperty(this, 'maxTokenLengthForFirstChar', {
 			value: maxTokenLengthForFirstChar
@@ -232,68 +303,6 @@ export class Tokenizer {
 					}
 					break;
 
-				case '"':
-				case "'":
-					{
-						const tc = c;
-						let str = '';
-
-						i += 1;
-						for (; i < length;) {
-							c = chunk[i];
-							if (c === tc) {
-								i += 1;
-								yield Object.create(StringToken, Object.assign(getContextProperties(), {
-									value: {
-										value: str
-									}
-								}));
-								break;
-							} else if (c === '\\') {
-								i += 1;
-								c = chunk[i];
-								switch (c) {
-									case 'b':
-										c = '\b';
-										break;
-									case 'f':
-										c = '\f';
-										break;
-									case 'n':
-										c = '\n';
-										break;
-									case 'r':
-										c = '\r';
-										break;
-									case 't':
-										c = '\t';
-										break;
-									case 'u':
-										c = parseInt(chunk.substr(i + 1, 4), 16);
-										if (!isFinite(c) || c < 0) {
-											this.error('Unterminated string', getContext(), {
-												value: str
-											});
-										}
-										c = String.fromCharCode(c);
-										i += 4;
-										break;
-								}
-								str += c;
-								i += 1;
-							} else {
-								str += c;
-								i += 1;
-							}
-						}
-						if (i === length && c !== tc) {
-							this.error('Unterminated string', getContext(), {
-								value: str
-							});
-						}
-					}
-					break;
-
 				case '\n':
 					lineNumber += 1;
 					firstCharInLine = i;
@@ -317,8 +326,9 @@ export class Tokenizer {
 						const c = chunk.substring(i, i + operatorLength);
 						t = this.registeredTokens[c];
 						if (t) {
-							i += operatorLength;
-							yield Object.create(t, getContextProperties());
+							const [rt, l] = t.consume(this, chunk, i, getContextProperties());
+							i += l;
+							yield rt;
 							break;
 						}
 					}
