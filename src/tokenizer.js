@@ -3,7 +3,7 @@
 'use strict';
 
 import {
-	EOFToken, StringToken, NumberToken, OperatorToken, IdentifierToken, KeywordToken
+	EOFToken, WhiteSpaceToken, StringToken, NumberToken, OperatorToken, IdentifierToken, KeywordToken
 }
 from './known_tokens';
 
@@ -21,20 +21,11 @@ export class Tokenizer {
 		const maxTokenLengthForFirstChar = {};
 		const registeredTokens = {};
 
-		const consume = {
-			value: function (tokenizer, chunk, offset, properties) {
-				//console.log(`${chunk.substring(offset, offset+this.length)} -> ${this.value} ${this.length}`);
-				return [Object.create(this, properties), this.value.length];
-			}
-		};
-
-
 		const operatorTypes = {
 			prefix: {
 				token: OperatorToken,
 
 				properties: {
-					consume: consume,
 					nud: {
 						value: function (grammar, left) {
 							return this.combine(left, grammar.expression(this.precedence));
@@ -47,7 +38,6 @@ export class Tokenizer {
 				token: OperatorToken,
 
 				properties: {
-					consume: consume,
 					led: {
 						value: function (grammar, left) {
 							return this.combine(left, grammar.expression(this.precedence));
@@ -60,7 +50,6 @@ export class Tokenizer {
 				token: OperatorToken,
 
 				properties: {
-					consume: consume,
 					led: {
 						value: function (grammar, left) {
 							return this.combine(left, grammar.expression(this.precedence - 1));
@@ -94,66 +83,24 @@ export class Tokenizer {
 			}
 		}
 
-		maxTokenLengthForFirstChar['"'] = 1;
-		registeredTokens['"'] = Object.create(StringToken, {
-			consume: {
-				value: function (tokenizer, chunk, offset, properties) {
-					const tc = chunk[offset];
-					let str = '';
-					let i = offset + 1;
-					let c;
-					for (; i < chunk.length;) {
-						c = chunk[i];
-						if (c === tc) {
-							return [Object.create(this, Object.assign({
-								value: {
-									value: str
-								}
-							}, properties)), str.length + 2];
-						} else if (c === '\\') {
-							i += 1;
-							c = chunk[i];
-							switch (c) {
-								case 'b':
-									c = '\b';
-									break;
-								case 'f':
-									c = '\f';
-									break;
-								case 'n':
-									c = '\n';
-									break;
-								case 'r':
-									c = '\r';
-									break;
-								case 't':
-									c = '\t';
-									break;
-								case 'u':
-									c = parseInt(chunk.substr(i + 1, 4), 16);
-									if (!isFinite(c) || c < 0) {
-										tokenizer.error('Unterminated string', properties, {
-											value: str
-										});
-									}
-									c = String.fromCharCode(c);
-									i += 4;
-									break;
-							}
-							str += c;
-							i += 1;
-						} else {
-							str += c;
-							i += 1;
-						}
-					}
-					if (i === chunk.length && c !== tc) {
-						tokenizer.error('Unterminated string', properties, {
-							value: str
-						});
-					}
-				}
-			}
+		[' '].forEach(c => {
+			maxTokenLengthForFirstChar[c] = 1;
+			registeredTokens[c] = WhiteSpaceToken;
+		});
+
+		["'", '"'].forEach(c => {
+			maxTokenLengthForFirstChar[c] = 1;
+			registeredTokens[c] = StringToken;
+		});
+
+		['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].forEach(c => {
+			maxTokenLengthForFirstChar[c] = 1;
+			registeredTokens[c] = NumberToken;
+		});
+
+		['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'n'].forEach(c => {
+			maxTokenLengthForFirstChar[c] = 1;
+			registeredTokens[c] = IdentifierToken;
 		});
 
 		Object.defineProperty(this, 'maxTokenLengthForFirstChar', {
@@ -162,26 +109,6 @@ export class Tokenizer {
 		Object.defineProperty(this, 'registeredTokens', {
 			value: registeredTokens
 		});
-	}
-
-
-	makeIdentifier(chunk, offset, context, contextProperties) {
-		let i = offset;
-		i += 1;
-		for (;;) {
-			const c = chunk[i];
-			if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
-				(c >= '0' && c <= '9') || c === '_') {
-				i += 1;
-			} else {
-				break;
-			}
-		}
-
-		contextProperties.value = {
-			value: chunk.substring(offset, i)
-		};
-		return [Object.create(IdentifierToken, contextProperties), i - offset];
 	}
 
 	/**
@@ -214,106 +141,9 @@ export class Tokenizer {
 		do {
 			let c = chunk[i];
 			switch (c) {
-				case '_':
-				case 'A':
-				case 'B':
-				case 'C':
-				case 'D':
-				case 'E':
-				case 'F':
-				case 'G':
-				case 'H':
-				case 'I':
-				case 'J':
-				case 'K':
-				case 'L':
-				case 'M':
-				case 'N':
-				case 'O':
-				case 'P':
-				case 'Q':
-				case 'R':
-				case 'S':
-				case 'T':
-				case 'U':
-				case 'V':
-				case 'W':
-				case 'X':
-				case 'Y':
-				case 'Z':
-				case 'a':
-				case 'b':
-				case 'c':
-				case 'd':
-				case 'e':
-				case 'f':
-				case 'g':
-				case 'h':
-				case 'i':
-				case 'j':
-				case 'k':
-				case 'l':
-				case 'm':
-				case 'n':
-				case 'o':
-				case 'p':
-				case 'q':
-				case 'r':
-				case 's':
-				case 't':
-				case 'u':
-				case 'v':
-				case 'w':
-				case 'x':
-				case 'y':
-				case 'z':
-					{
-						const [t, l] = this.makeIdentifier(chunk, i, context, getContextProperties());
-						i += l;
-						yield t;
-					}
-					break;
-
-				case '0':
-				case '1':
-				case '2':
-				case '3':
-				case '4':
-				case '5':
-				case '6':
-				case '7':
-				case '8':
-				case '9':
-					{
-						let str = c;
-						i += 1;
-						for (; i < length;) {
-							c = chunk[i];
-							if ((c < '0' || c > '9') && c !== '.' && c !== 'e' && c !== 'E') {
-								break;
-							}
-							i += 1;
-							str += c;
-						}
-						yield Object.create(NumberToken, Object.assign(getContextProperties(), {
-							value: {
-								value: +str
-							}
-						}));
-					}
-					break;
-
 				case '\n':
 					lineNumber += 1;
 					firstCharInLine = i;
-					i += 1;
-					break;
-
-				case '\b':
-				case '\f':
-				case '\r':
-				case '\t':
-				case ' ':
 					i += 1;
 					break;
 
@@ -322,11 +152,11 @@ export class Tokenizer {
 
 				default:
 					let t;
-					for (let operatorLength = this.maxTokenLengthForFirstChar[c]; operatorLength > 0; operatorLength--) {
-						const c = chunk.substring(i, i + operatorLength);
+					for (let tokenLength = this.maxTokenLengthForFirstChar[c]; tokenLength > 0; tokenLength--) {
+						const c = chunk.substring(i, i + tokenLength);
 						t = this.registeredTokens[c];
 						if (t) {
-							const [rt, l] = t.consume(this, chunk, i, getContextProperties());
+							const [rt, l] = t.parseString(this, chunk, i, getContextProperties());
 							i += l;
 							yield rt;
 							break;
