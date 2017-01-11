@@ -125,7 +125,7 @@ export class Tokenizer {
 	 */
 	* tokens(chunk, context) {
 		const pp = {
-			chunk, firstCharInLine: 0, lineNumber: 1, offset: 0, get positionInLine() {
+			context, chunk, firstCharInLine: 0, lineNumber: 1, offset: 0, get positionInLine() {
 				return this.offset - this.firstCharInLine;
 			}
 		};
