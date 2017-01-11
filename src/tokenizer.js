@@ -93,15 +93,15 @@ export class Tokenizer {
 			registeredTokens[c] = StringToken;
 		});
 
-		['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].forEach(c => {
+		for (const c of "0123456789") {
 			maxTokenLengthForFirstChar[c] = 1;
 			registeredTokens[c] = NumberToken;
-		});
+		}
 
-		['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'n'].forEach(c => {
+		for (const c of "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_") {
 			maxTokenLengthForFirstChar[c] = 1;
 			registeredTokens[c] = IdentifierToken;
-		});
+		}
 
 		Object.defineProperty(this, 'maxTokenLengthForFirstChar', {
 			value: maxTokenLengthForFirstChar
@@ -133,34 +133,43 @@ export class Tokenizer {
 		do {
 			let c = chunk[i];
 
-			if (c === '\n') {
-				lineNumber += 1;
-				firstCharInLine = i;
-				i += 1;
+			let tokenLength = this.maxTokenLengthForFirstChar[c];
+
+			if (tokenLength) {
+				do {
+					const t = this.registeredTokens[chunk.substring(i, i + tokenLength)];
+					if (t) {
+						const [rt, l] = t.parseString(this, chunk, i, getContextProperties());
+
+						console.log(`${chunk.substring(i, i + tokenLength)} -> ${rt}`);
+						i += l;
+						if (rt) {
+							yield rt;
+						}
+						break;
+					}
+				} while (tokenLength-- > 1);
 
 				continue;
-			}
+			} else {
+				if (c === '\n') {
+					lineNumber += 1;
+					firstCharInLine = i;
+					i += 1;
 
-			for (let tokenLength = this.maxTokenLengthForFirstChar[c]; tokenLength > 0; tokenLength--) {
-				const c = chunk.substring(i, i + tokenLength);
-				const t = this.registeredTokens[c];
-				if (t) {
-					const [rt, l] = t.parseString(this, chunk, i, getContextProperties());
-					i += l;
-					yield rt;
-					break;
+					continue;
 				}
+
+				if (c === undefined) {
+					return Object.create(EOFToken, getContextProperties());
+				}
+
+				i += 1;
+
+				this.error('Unknown char', {
+					lineNumber, positionInLine: i - firstCharInLine, value: c
+				});
 			}
-
-			if (c === undefined) {
-				return Object.create(EOFToken, getContextProperties());
-			}
-
-			i += 1;
-
-			this.error('Unknown char', {
-				lineNumber, positionInLine: i - firstCharInLine, value: c
-			});
 		}
 		while (true);
 	}
