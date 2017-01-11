@@ -119,12 +119,6 @@ export class Tokenizer {
 		let firstCharInLine = 0;
 		let i = 0;
 
-		const getContext = () => {
-			return {
-				lineNumber, positionInLine: i - firstCharInLine
-			};
-		};
-
 		const getContextProperties = () => {
 			return {
 				lineNumber: {
@@ -136,39 +130,37 @@ export class Tokenizer {
 			};
 		};
 
-		const length = chunk.length;
-
 		do {
 			let c = chunk[i];
-			switch (c) {
-				case '\n':
-					lineNumber += 1;
-					firstCharInLine = i;
-					i += 1;
-					break;
 
-				case undefined:
-					return Object.create(EOFToken, getContextProperties());
+			if (c === '\n') {
+				lineNumber += 1;
+				firstCharInLine = i;
+				i += 1;
 
-				default:
-					let t;
-					for (let tokenLength = this.maxTokenLengthForFirstChar[c]; tokenLength > 0; tokenLength--) {
-						const c = chunk.substring(i, i + tokenLength);
-						t = this.registeredTokens[c];
-						if (t) {
-							const [rt, l] = t.parseString(this, chunk, i, getContextProperties());
-							i += l;
-							yield rt;
-							break;
-						}
-					}
-					if (!t) {
-						i += 1;
-						this.error('Unknown char', getContext(), {
-							value: c
-						});
-					}
+				continue;
 			}
+
+			for (let tokenLength = this.maxTokenLengthForFirstChar[c]; tokenLength > 0; tokenLength--) {
+				const c = chunk.substring(i, i + tokenLength);
+				const t = this.registeredTokens[c];
+				if (t) {
+					const [rt, l] = t.parseString(this, chunk, i, getContextProperties());
+					i += l;
+					yield rt;
+					break;
+				}
+			}
+
+			if (c === undefined) {
+				return Object.create(EOFToken, getContextProperties());
+			}
+
+			i += 1;
+
+			this.error('Unknown char', {
+				lineNumber, positionInLine: i - firstCharInLine, value: c
+			});
 		}
 		while (true);
 	}
