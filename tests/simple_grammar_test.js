@@ -65,7 +65,7 @@ describe('calculator',
           myGrammar.parse('(1 + %');
           assert.ok(false);
         } catch (e) {
-          if (e.message !== '1,6: Unknown char: {"value":"%"}') {
+          if (e.message !== '1,6: Unknown char "%"') {
             throw e;
           }
         }

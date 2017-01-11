@@ -125,7 +125,9 @@ export class Tokenizer {
 	 */
 	* tokens(chunk, context) {
 		const pp = {
-			chunk, firstCharInLine: 0, lineNumber: 1, offset: 0
+			chunk, firstCharInLine: 0, lineNumber: 1, offset: 0, get positionInLine() {
+				return this.offset - this.firstCharInLine;
+			}
 		};
 
 		const getContextProperties = () => {
@@ -167,11 +169,7 @@ export class Tokenizer {
 
 				pp.offset += 1;
 
-				this.error('Unknown char', {
-					lineNumber: pp.lineNumber,
-					positionInLine: pp.offset - pp.firstCharInLine,
-					value: c
-				});
+				this.error('Unknown char', pp, c);
 			}
 		}
 		while (true);
@@ -180,12 +178,11 @@ export class Tokenizer {
 	/**
 	 * @param {string} message
 	 * @param {object} context token initiating the error
-	 * @param {object} [values]
+	 * @param {object} [value]
 	 * @return {Object} error
 	 */
-	error(message, context, values) {
-		message = `${context.lineNumber},${context.positionInLine}: ${message}`;
-		if (values) message += ': ' + JSON.stringify(values);
+	error(message, context, value) {
+		message = `${context.lineNumber},${context.positionInLine}: ${message} "${value}"`;
 		throw new Error(message);
 	}
 }

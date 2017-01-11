@@ -98,9 +98,7 @@ export const StringToken = Object.create(RootToken, {
 						case 'u':
 							c = parseInt(pp.chunk.substr(i + 1, 4), 16);
 							if (!isFinite(c) || c < 0) {
-								tokenizer.error('Unterminated string', properties, {
-									value: str
-								});
+								tokenizer.error('Unterminated string', pp, str);
 							}
 							c = String.fromCharCode(c);
 							i += 4;
@@ -114,9 +112,7 @@ export const StringToken = Object.create(RootToken, {
 				}
 			}
 			if (i === pp.chunk.length && c !== tc) {
-				tokenizer.error('Unterminated string', properties, {
-					value: str
-				});
+				tokenizer.error('Unterminated string', pp, str);
 			}
 		}
 	},
