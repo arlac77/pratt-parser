@@ -54,7 +54,7 @@ export const IdentifierToken = Object.create(RootToken, {
 	}
 });
 
-export const KeywordToken = Object.create(RootToken, {
+export const KeywordToken = Object.create(IdentifierToken, {
 	type: {
 		value: 'keyword'
 	}
@@ -168,6 +168,11 @@ export const OperatorToken = Object.create(RootToken, {
 export const WhiteSpaceToken = Object.create(RootToken, {
 	parseString: {
 		value: function (tokenizer, pp, properties) {
+
+			if (pp.chunk[pp.offset] === '\n') {
+				pp.lineNumber += 1;
+				pp.firstCharInLine = pp.offset;
+			}
 			pp.offset += 1;
 			return undefined;
 		}

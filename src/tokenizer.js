@@ -83,7 +83,7 @@ export class Tokenizer {
 			}
 		}
 
-		for (const c of " \f\t\b\r") {
+		for (const c of " \f\t\b\r\n") {
 			maxTokenLengthForFirstChar[c] = 1;
 			registeredTokens[c] = WhiteSpaceToken;
 		}
@@ -161,14 +161,6 @@ export class Tokenizer {
 
 				continue;
 			} else {
-				if (c === '\n') {
-					pp.lineNumber += 1;
-					pp.firstCharInLine = pp.offset;
-					pp.offset += 1;
-
-					continue;
-				}
-
 				if (c === undefined) {
 					return Object.create(EOFToken, getContextProperties());
 				}
