@@ -83,10 +83,10 @@ export class Tokenizer {
 			}
 		}
 
-		[' '].forEach(c => {
+		for (const c of " \t\b\r") {
 			maxTokenLengthForFirstChar[c] = 1;
 			registeredTokens[c] = WhiteSpaceToken;
-		});
+		}
 
 		["'", '"'].forEach(c => {
 			maxTokenLengthForFirstChar[c] = 1;
@@ -115,34 +115,34 @@ export class Tokenizer {
 	 * delivers tokens from the input
 	 */
 	* tokens(chunk, context) {
-		let lineNumber = 1;
-		let firstCharInLine = 0;
-		let i = 0;
+		const pp = {
+			chunk, firstCharInLine: 0, lineNumber: 1, offset: 0
+		};
 
 		const getContextProperties = () => {
 			return {
 				lineNumber: {
-					value: lineNumber
+					value: pp.lineNumber
 				},
 				positionInLine: {
-					value: i - firstCharInLine
+					value: pp.offset - pp.firstCharInLine
 				}
 			};
 		};
 
 		do {
-			let c = chunk[i];
+			let c = pp.chunk[pp.offset];
 
 			let tokenLength = this.maxTokenLengthForFirstChar[c];
 
 			if (tokenLength) {
 				do {
-					const t = this.registeredTokens[chunk.substring(i, i + tokenLength)];
+					const t = this.registeredTokens[pp.chunk.substring(pp.offset, pp.offset + tokenLength)];
 					if (t) {
-						const [rt, l] = t.parseString(this, chunk, i, getContextProperties());
+						const l = pp.offset;
+						const rt = t.parseString(this, pp, getContextProperties());
+						console.log(`${pp.chunk.substring(l, pp.offset)} -> ${rt} ${rt ? rt.value : ''}`);
 
-						console.log(`${chunk.substring(i, i + tokenLength)} -> ${rt}`);
-						i += l;
 						if (rt) {
 							yield rt;
 						}
@@ -153,9 +153,9 @@ export class Tokenizer {
 				continue;
 			} else {
 				if (c === '\n') {
-					lineNumber += 1;
-					firstCharInLine = i;
-					i += 1;
+					pp.lineNumber += 1;
+					pp.firstCharInLine = pp.offset;
+					pp.offset += 1;
 
 					continue;
 				}
@@ -164,10 +164,12 @@ export class Tokenizer {
 					return Object.create(EOFToken, getContextProperties());
 				}
 
-				i += 1;
+				pp.offset += 1;
 
 				this.error('Unknown char', {
-					lineNumber, positionInLine: i - firstCharInLine, value: c
+					lineNumber: pp.lineNumber,
+					positionInLine: pp.offset - pp.firstCharInLine,
+					value: c
 				});
 			}
 		}
