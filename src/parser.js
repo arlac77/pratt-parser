@@ -3,7 +3,7 @@
 'use strict';
 
 import {
-	EOFToken, StringToken, NumberToken, OperatorToken, IdentifierToken, KeywordToken
+	EOFToken, StringToken, NumberToken, OperatorToken, IdentifierToken, KeywordToken, WhiteSpaceToken, LineCommentToken
 }
 from './known_tokens';
 
@@ -81,5 +81,5 @@ export class Parser {
 
 export {
 	Tokenizer,
-	EOFToken, StringToken, NumberToken, OperatorToken, IdentifierToken, KeywordToken
+	EOFToken, StringToken, NumberToken, OperatorToken, IdentifierToken, KeywordToken, WhiteSpaceToken, LineCommentToken
 };

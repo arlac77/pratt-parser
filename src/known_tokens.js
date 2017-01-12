@@ -178,6 +178,25 @@ export const WhiteSpaceToken = Object.create(RootToken, {
 	}
 });
 
+/**
+ * skips until end of line
+ */
+export const LineCommentToken = Object.create(RootToken, {
+	parseString: {
+		value: function (tokenizer, pp, properties) {
+			while (pp.chunk[pp.offset] !== '\n' &&  pp.chunk[pp.offset] !== undefined) {
+				pp.offset += 1;
+			}
+
+			pp.lineNumber += 1;
+			pp.firstCharInLine = pp.offset;
+			return undefined;
+		}
+	},
+	type: {
+		value: 'comment'
+	}
+});
 
 /**
  * Token representing 'end of file'
