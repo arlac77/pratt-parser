@@ -52,7 +52,7 @@ describe('tokens', () => {
 
     let i = 0;
 
-    for (let token of tokenizer.tokens('A ')) {
+    for (const token of tokenizer.tokens('A ')) {
       const refToken = tokens[i];
 
       it(`tokens ${refToken.type}`, () => {
@@ -70,7 +70,7 @@ describe('tokens', () => {
 
     let i = 0;
 
-    for (let token of tokenizer.tokens('123')) {
+    for (const token of tokenizer.tokens('123')) {
       const refToken = tokens[i];
 
       it(`tokens ${refToken.type}`, () => {
@@ -88,7 +88,7 @@ describe('tokens', () => {
 
     let i = 0;
 
-    for (let token of tokenizer.tokens('"ABC"')) {
+    for (const token of tokenizer.tokens('"ABC"')) {
       const refToken = tokens[i];
 
       it(`tokens ${refToken.type}`, () => {
@@ -106,7 +106,7 @@ describe('tokens', () => {
 
     let i = 0;
 
-    for (let token of tokenizer.tokens('ABC')) {
+    for (const token of tokenizer.tokens('ABC')) {
       const refToken = tokens[i];
 
       it(`tokens ${refToken.type}`, () => {

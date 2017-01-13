@@ -174,7 +174,7 @@ export const WhiteSpaceToken = Object.create(RootToken, {
 		}
 	},
 	type: {
-		value: 'number'
+		value: 'space'
 	}
 });
 
