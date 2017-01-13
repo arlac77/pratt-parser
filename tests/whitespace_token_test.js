@@ -17,10 +17,13 @@ describe('tokens', () => {
 
   describe('whitespace', () => {
     const pp = {
-      chunk: '   ',
-      offset: 0
+      chunk: 'x   \n  A',
+      offset: 1,
+      lineNumber: 1
     };
 
-    it('delivers undefined', () => assert.equal(WhiteSpaceToken.parseString(tokenizer, pp, {}), undefined));
+    it('delivers undefined', () => assert.equal(undefined, WhiteSpaceToken.parseString(tokenizer, pp, {})));
+    it('moved forward', () => assert.equal(7, pp.offset));
+    it('increased lineNumber', () => assert.equal(2, pp.lineNumber));
   });
 });

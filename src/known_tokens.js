@@ -164,12 +164,13 @@ export const OperatorToken = Object.create(RootToken, {
 export const WhiteSpaceToken = Object.create(RootToken, {
 	parseString: {
 		value: function (tokenizer, pp, properties) {
-
-			if (pp.chunk[pp.offset] === '\n') {
-				pp.lineNumber += 1;
-				pp.firstCharInLine = pp.offset;
+			while (pp.chunk[pp.offset] <= ' ') {
+				if (pp.chunk[pp.offset] === '\n') {
+					pp.lineNumber += 1;
+					pp.firstCharInLine = pp.offset;
+				}
+				pp.offset += 1;
 			}
-			pp.offset += 1;
 			return undefined;
 		}
 	},
