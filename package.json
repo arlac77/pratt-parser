@@ -27,7 +27,7 @@
     "mocha": "^3.2.0",
     "mocha-lcov-reporter": "^1.2.0",
     "nyc": "^10.0.0",
-    "rollup": "^0.41.1",
+    "rollup": "^0.41.2",
     "semantic-release": "^6.3.5"
   },
   "scripts": {
