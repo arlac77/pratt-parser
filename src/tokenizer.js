@@ -105,12 +105,7 @@ export class Tokenizer {
 		}
 
 		if (grammar.tokens) {
-			grammar.tokens.forEach(token => {
-				for (const c of token.firstChar) {
-					maxTokenLengthForFirstChar[c] = 1;
-					registeredTokens[c] = token.token;
-				}
-			});
+			grammar.tokens.forEach(token => token.register(this));
 		}
 
 		Object.defineProperty(this, 'maxTokenLengthForFirstChar', {

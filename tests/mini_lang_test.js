@@ -35,6 +35,9 @@ describe('mini_lang',
     const g = {
       tokens: [{
         token: Object.create(IdentifierToken, {
+          firstChar: {
+            value: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_"
+          },
           parseString: {
             value: function (tokenizer, pp, properties) {
               let i = pp.offset + 1;
@@ -68,7 +71,6 @@ describe('mini_lang',
             }
           }
         }),
-        firstChar: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
       }],
       prefix: {
         '(': {

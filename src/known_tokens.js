@@ -10,6 +10,7 @@ export const RootToken = {
 	precedence: 0,
 	type: 'unknown',
 	value: undefined,
+	register(tokenizer) {},
 	parseString() {
 		return undefined;
 	},
@@ -28,6 +29,13 @@ export const RootToken = {
 };
 
 export const IdentifierToken = Object.create(RootToken, {
+	register: function (tokenizer) {
+		for (const c of this.firstChar) {
+			tokenizer.maxTokenLengthForFirstChar[c] = 1;
+			tokenizer.registeredTokens[c] = this;
+		}
+	},
+
 	parseString: {
 		value: function (tokenizer, pp, properties) {
 			let i = pp.offset + 1;

@@ -9,7 +9,7 @@ const chai = require('chai'),
   should = chai.should();
 
 const {
-  Parser, Tokenizer, IdentifierToken
+  Parser, Tokenizer, IdentifierToken, KeywordToken
 } = require('../dist/parser');
 
 describe('json',
@@ -23,8 +23,15 @@ describe('json',
     }
 
     const g = {
-      tokens: [{
-        token: Object.create(IdentifierToken, {
+      tokens: [
+        Object.create(KeywordToken, {
+          keywords: {
+            values: ['true', 'false']
+          }
+        }), Object.create(IdentifierToken, {
+          firstChar: {
+            value: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_"
+          },
           parseString: {
             value: function (tokenizer, pp, properties) {
               let i = pp.offset + 1;
@@ -58,8 +65,7 @@ describe('json',
             }
           }
         }),
-        firstChar: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
-      }],
+      ],
 
       prefix: {
         '[': {
