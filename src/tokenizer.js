@@ -22,6 +22,13 @@ export class Tokenizer {
 		const maxTokenLengthForFirstChar = {};
 		const registeredTokens = {};
 
+		Object.defineProperty(this, 'maxTokenLengthForFirstChar', {
+			value: maxTokenLengthForFirstChar
+		});
+		Object.defineProperty(this, 'registeredTokens', {
+			value: registeredTokens
+		});
+
 		const operatorTypes = {
 			prefix: {
 				token: OperatorToken,
@@ -84,36 +91,14 @@ export class Tokenizer {
 			}
 		}
 
-		for (const c of " \f\t\b\r\n") {
-			maxTokenLengthForFirstChar[c] = 1;
-			registeredTokens[c] = WhiteSpaceToken;
-		}
-
-		["'", '"'].forEach(c => {
-			maxTokenLengthForFirstChar[c] = 1;
-			registeredTokens[c] = StringToken;
-		});
-
-		for (const c of "0123456789") {
-			maxTokenLengthForFirstChar[c] = 1;
-			registeredTokens[c] = NumberToken;
-		}
-
-		for (const c of "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_") {
-			maxTokenLengthForFirstChar[c] = 1;
-			registeredTokens[c] = IdentifierToken;
-		}
+		WhiteSpaceToken.registerWithinTokenizer(this);
+		IdentifierToken.registerWithinTokenizer(this);
+		NumberToken.registerWithinTokenizer(this);
+		StringToken.registerWithinTokenizer(this);
 
 		if (grammar.tokens) {
-			grammar.tokens.forEach(token => token.register(this));
+			grammar.tokens.forEach(token => token.registerWithinTokenizer(this));
 		}
-
-		Object.defineProperty(this, 'maxTokenLengthForFirstChar', {
-			value: maxTokenLengthForFirstChar
-		});
-		Object.defineProperty(this, 'registeredTokens', {
-			value: registeredTokens
-		});
 	}
 
 	/**

@@ -33,45 +33,40 @@ describe('mini_lang',
     };
 
     const g = {
-      tokens: [{
-        token: Object.create(IdentifierToken, {
-          firstChar: {
-            value: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_"
-          },
-          parseString: {
-            value: function (tokenizer, pp, properties) {
-              let i = pp.offset + 1;
-              for (;;) {
-                const c = pp.chunk[i];
-                if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
-                  (c >= '0' && c <= '9') || c === '_') {
-                  i += 1;
-                } else {
-                  break;
-                }
-              }
-              const value = pp.chunk.substring(pp.offset, i);
-
-              if (functions[value]) {
-                properties.value = {
-                  value: functions[value]
-                };
-              } else if (identifiers[value]) {
-                properties.value = {
-                  value: identifiers[value]
-                };
+      tokens: [Object.create(IdentifierToken, {
+        parseString: {
+          value: function (tokenizer, pp, properties) {
+            let i = pp.offset + 1;
+            for (;;) {
+              const c = pp.chunk[i];
+              if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+                (c >= '0' && c <= '9') || c === '_') {
+                i += 1;
               } else {
-                properties.value = {
-                  value: value
-                };
+                break;
               }
-
-              pp.offset = i;
-              return Object.create(this, properties);
             }
+            const value = pp.chunk.substring(pp.offset, i);
+
+            if (functions[value]) {
+              properties.value = {
+                value: functions[value]
+              };
+            } else if (identifiers[value]) {
+              properties.value = {
+                value: identifiers[value]
+              };
+            } else {
+              properties.value = {
+                value: value
+              };
+            }
+
+            pp.offset = i;
+            return Object.create(this, properties);
           }
-        }),
-      }],
+        }
+      })],
       prefix: {
         '(': {
           precedence: 80,

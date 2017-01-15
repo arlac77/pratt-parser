@@ -24,14 +24,12 @@ describe('json',
 
     const g = {
       tokens: [
-        Object.create(KeywordToken, {
+        /*Object.create(KeywordToken, {
           keywords: {
             values: ['true', 'false']
           }
-        }), Object.create(IdentifierToken, {
-          firstChar: {
-            value: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_"
-          },
+        }), */
+        Object.create(IdentifierToken, {
           parseString: {
             value: function (tokenizer, pp, properties) {
               let i = pp.offset + 1;
