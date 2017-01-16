@@ -24,7 +24,7 @@ Based on
 
 
 ```javascript
-const {Parser} = require('pratt-parser');
+const {Parser, WhiteSpaceToken, NumberToken} = require('pratt-parser');
 
 function Value(value) {
   return Object.create(null, {
@@ -35,6 +35,10 @@ function Value(value) {
 }
 
 const myGrammar = new Parser({
+  tokens: [
+    WhiteSpaceToken,
+    NumberToken
+  ],
   prefix: {
     '(': {
       nud(grammar) {

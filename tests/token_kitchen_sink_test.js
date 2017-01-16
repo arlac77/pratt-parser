@@ -11,11 +11,17 @@ const chai = require('chai'),
   fs = require('fs');
 
 const {
-  Tokenizer
+  Tokenizer, WhiteSpaceToken, NumberToken, StringToken, IdentifierToken
 } = require('../dist/parser');
 
 describe('tokens', () => {
   const tokenizer = new Tokenizer({
+    tokens: [
+      WhiteSpaceToken,
+      NumberToken,
+      StringToken,
+      IdentifierToken
+    ],
     infix: {
       '=': {
         precedence: 77

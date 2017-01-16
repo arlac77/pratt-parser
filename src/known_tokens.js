@@ -177,13 +177,25 @@ export const NumberToken = Object.create(RootToken, {
 
 
 export const OperatorToken = Object.create(RootToken, {
+	registerWithinTokenizer: {
+		value: function (tokenizer) {
+			const c = this.value;
+			const firstChar = c[0];
+			const maxLength = tokenizer.maxTokenLengthForFirstChar[firstChar] || 0;
+
+			if (maxLength < c.length) {
+				tokenizer.maxTokenLengthForFirstChar[firstChar] = c.length;
+			}
+
+			tokenizer.registeredTokens[c] = this;
+		}
+	},
 	parseString: {
 		value: function (tokenizer, pp, properties) {
 			pp.offset += this.value.length;
 			return Object.create(this, properties);
 		}
 	},
-
 	type: {
 		value: 'operator'
 	}

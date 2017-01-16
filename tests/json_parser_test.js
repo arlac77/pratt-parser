@@ -9,7 +9,7 @@ const chai = require('chai'),
   should = chai.should();
 
 const {
-  Parser, Tokenizer, IdentifierToken, KeywordToken
+  Parser, Tokenizer, IdentifierToken, KeywordToken, WhiteSpaceToken, NumberToken, StringToken
 } = require('../dist/parser');
 
 describe('json',
@@ -24,6 +24,10 @@ describe('json',
 
     const g = {
       tokens: [
+        WhiteSpaceToken,
+        NumberToken,
+        StringToken,
+
         /*Object.create(KeywordToken, {
           keywords: {
             values: ['true', 'false']

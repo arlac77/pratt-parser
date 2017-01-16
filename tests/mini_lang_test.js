@@ -9,7 +9,7 @@ const chai = require('chai'),
   should = chai.should();
 
 const {
-  Parser, Tokenizer, IdentifierToken
+  Parser, Tokenizer, IdentifierToken, WhiteSpaceToken, NumberToken, StringToken
 } = require('../dist/parser');
 
 describe('mini_lang',
@@ -33,40 +33,46 @@ describe('mini_lang',
     };
 
     const g = {
-      tokens: [Object.create(IdentifierToken, {
-        parseString: {
-          value: function (tokenizer, pp, properties) {
-            let i = pp.offset + 1;
-            for (;;) {
-              const c = pp.chunk[i];
-              if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
-                (c >= '0' && c <= '9') || c === '_') {
-                i += 1;
-              } else {
-                break;
+      tokens: [
+        WhiteSpaceToken,
+        NumberToken,
+        StringToken,
+
+        Object.create(IdentifierToken, {
+          parseString: {
+            value: function (tokenizer, pp, properties) {
+              let i = pp.offset + 1;
+              for (;;) {
+                const c = pp.chunk[i];
+                if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+                  (c >= '0' && c <= '9') || c === '_') {
+                  i += 1;
+                } else {
+                  break;
+                }
               }
-            }
-            const value = pp.chunk.substring(pp.offset, i);
+              const value = pp.chunk.substring(pp.offset, i);
 
-            if (functions[value]) {
-              properties.value = {
-                value: functions[value]
-              };
-            } else if (identifiers[value]) {
-              properties.value = {
-                value: identifiers[value]
-              };
-            } else {
-              properties.value = {
-                value: value
-              };
-            }
+              if (functions[value]) {
+                properties.value = {
+                  value: functions[value]
+                };
+              } else if (identifiers[value]) {
+                properties.value = {
+                  value: identifiers[value]
+                };
+              } else {
+                properties.value = {
+                  value: value
+                };
+              }
 
-            pp.offset = i;
-            return Object.create(this, properties);
+              pp.offset = i;
+              return Object.create(this, properties);
+            }
           }
-        }
-      })],
+        })
+      ],
       prefix: {
         '(': {
           precedence: 80,

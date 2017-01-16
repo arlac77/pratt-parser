@@ -68,33 +68,18 @@ export class Tokenizer {
 			}
 		};
 
-		function registerOperator(id, type, options) {
-			type.properties.value = {
-				value: id
-			};
-
-			registeredTokens[id] = Object.assign(Object.create(type.token, type.properties), options);
-		}
-
 		for (const operatorTypeName in operatorTypes) {
 			const ops = grammar[operatorTypeName];
 			const operatorType = operatorTypes[operatorTypeName];
 
 			for (const c in ops) {
-				const firstChar = c[0];
-				const maxLength = maxTokenLengthForFirstChar[firstChar] || 0;
+				operatorType.properties.value = {
+					value: c
+				};
 
-				if (maxLength < c.length) {
-					maxTokenLengthForFirstChar[firstChar] = c.length;
-				}
-				registerOperator(c, operatorType, ops[c]);
+				Object.assign(Object.create(operatorType.token, operatorType.properties), ops[c]).registerWithinTokenizer(this);
 			}
 		}
-
-		WhiteSpaceToken.registerWithinTokenizer(this);
-		IdentifierToken.registerWithinTokenizer(this);
-		NumberToken.registerWithinTokenizer(this);
-		StringToken.registerWithinTokenizer(this);
 
 		if (grammar.tokens) {
 			grammar.tokens.forEach(token => token.registerWithinTokenizer(this));
@@ -123,8 +108,7 @@ export class Tokenizer {
 		};
 
 		do {
-			let c = pp.chunk[pp.offset];
-
+			const c = pp.chunk[pp.offset];
 			let tokenLength = this.maxTokenLengthForFirstChar[c];
 
 			if (tokenLength) {

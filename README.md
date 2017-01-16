@@ -24,7 +24,7 @@ Based on
 
 
 ```javascript
-const {Parser} = require('pratt-parser');
+const {Parser, WhiteSpaceToken, NumberToken} = require('pratt-parser');
 
 function Value(value) {
   return Object.create(null, {
@@ -35,6 +35,10 @@ function Value(value) {
 }
 
 const myGrammar = new Parser({
+  tokens: [
+    WhiteSpaceToken,
+    NumberToken
+  ],
   prefix: {
     '(': {
       nud(grammar) {
@@ -97,9 +101,15 @@ Parses the input and delivers the outermoost expression.
 | chunk | <code>string</code> | input text |
 | context | <code>object</code> | object transparently passed to tokenizer |
 
+  <a name="module_pratt-parser..Tokenizer+tokens"></a>
+
+## module:pratt-parser~Tokenizer.tokens()
+delivers tokens from the input
+
+**Kind**: instance method of <code>module:pratt-parser~Tokenizer</code>  
   <a name="module_pratt-parser..Tokenizer+error"></a>
 
-## module:pratt-parser~Tokenizer.error(message, context, [values]) ⇒ <code>Object</code>
+## module:pratt-parser~Tokenizer.error(message, context, [value]) ⇒ <code>Object</code>
 **Kind**: instance method of <code>module:pratt-parser~Tokenizer</code>  
 **Returns**: <code>Object</code> - error  
 
@@ -107,7 +117,7 @@ Parses the input and delivers the outermoost expression.
 | --- | --- | --- |
 | message | <code>string</code> |  |
 | context | <code>object</code> | token initiating the error |
-| [values] | <code>object</code> |  |
+| [value] | <code>object</code> |  |
 
 * * *
 

@@ -9,7 +9,7 @@ const chai = require('chai'),
   should = chai.should();
 
 const {
-  Parser
+  Parser, WhiteSpaceToken, NumberToken
 } = require('../dist/parser');
 
 describe('calculator',
@@ -23,6 +23,10 @@ describe('calculator',
     }
 
     const myGrammar = new Parser({
+      tokens: [
+        WhiteSpaceToken,
+        NumberToken
+      ],
       prefix: {
         '(': {
           nud(grammar) {
