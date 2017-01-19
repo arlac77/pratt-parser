@@ -12,6 +12,26 @@ from './known_tokens';
  * @module pratt-parser
  */
 
+ const rootPP = {
+	 chunk: undefined,
+	 context: {},
+	 firstCharInLine: 0,
+	 lineNumber: 1, offset: 0,
+	 get positionInLine() {
+	 	return this.offset - this.firstCharInLine;
+		},
+	  get properties() {
+		 return {
+			 lineNumber: {
+				 value: this.lineNumber
+			 },
+			 positionInLine: {
+				 value: this.offset - this.firstCharInLine
+			 }
+		 };
+	 }
+ };
+
 export class Tokenizer {
 
 	/**
@@ -86,26 +106,14 @@ export class Tokenizer {
 		}
 	}
 
+
 	/**
 	 * delivers tokens from the input
 	 */
 	* tokens(chunk, context) {
-		const pp = {
-			context, chunk, firstCharInLine: 0, lineNumber: 1, offset: 0, get positionInLine() {
-				return this.offset - this.firstCharInLine;
-			}
-		};
-
-		const getContextProperties = () => {
-			return {
-				lineNumber: {
-					value: pp.lineNumber
-				},
-				positionInLine: {
-					value: pp.offset - pp.firstCharInLine
-				}
-			};
-		};
+		const pp = Object.create(rootPP);
+		pp.context = context;
+		pp.chunk = chunk;
 
 		do {
 			const c = pp.chunk[pp.offset];
@@ -116,7 +124,7 @@ export class Tokenizer {
 					const t = this.registeredTokens[pp.chunk.substring(pp.offset, pp.offset + tokenLength)];
 					if (t) {
 						const l = pp.offset;
-						const rt = t.parseString(this, pp, getContextProperties());
+						const rt = t.parseString(this, pp, pp.properties);
 						//console.log(`${pp.chunk.substring(l, pp.offset)} -> ${rt} ${rt ? rt.value : ''}`);
 
 						if (rt) {
@@ -129,7 +137,7 @@ export class Tokenizer {
 				continue;
 			} else {
 				if (c === undefined) {
-					return Object.create(EOFToken, getContextProperties());
+					return Object.create(EOFToken, pp.properties);
 				}
 
 				pp.offset += 1;

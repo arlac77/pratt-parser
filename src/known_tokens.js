@@ -221,7 +221,7 @@ export const WhiteSpaceToken = Object.create(RootToken, {
 		}
 	},
 	parseString: {
-		value: function (tokenizer, pp, properties) {
+		value: function (tokenizer, pp) {
 			while (pp.chunk[pp.offset] <= ' ') {
 				if (pp.chunk[pp.offset] === '\n') {
 					pp.lineNumber += 1;
@@ -242,7 +242,7 @@ export const WhiteSpaceToken = Object.create(RootToken, {
  */
 export const LineCommentToken = Object.create(RootToken, {
 	parseString: {
-		value: function (tokenizer, pp, properties) {
+		value: function (tokenizer, pp) {
 			while (pp.chunk[pp.offset] !== '\n' &&  pp.chunk[pp.offset] !== undefined) {
 				pp.offset += 1;
 			}
