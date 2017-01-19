@@ -187,7 +187,17 @@ export const OperatorToken = Object.create(RootToken, {
 				tokenizer.maxTokenLengthForFirstChar[firstChar] = c.length;
 			}
 
-			tokenizer.registeredTokens[c] = this;
+			const p =tokenizer.registeredTokens[c];
+			if(p) {
+				// TODO dirty hack how to merge nud() and let() tokens
+				//console.log(`Token already defined ${c} ${this.nud} <> ${p.nud}`);
+				this.nud = p.nud;
+				//tokenizer.registeredTokens[c] = Object.assign(this,p);
+				tokenizer.registeredTokens[c] = this;
+			}
+			else {
+				tokenizer.registeredTokens[c] = this;
+			}
 		}
 	},
 	parseString: {
