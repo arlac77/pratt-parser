@@ -26,7 +26,7 @@ from './known_tokens';
 				 value: this.lineNumber
 			 },
 			 positionInLine: {
-				 value: this.offset - this.firstCharInLine
+				 value: this.positionInLine
 			 }
 		 };
 	 }
