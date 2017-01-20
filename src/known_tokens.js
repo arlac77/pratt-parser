@@ -41,7 +41,7 @@ export const IdentifierToken = Object.create(RootToken, {
 		}
 	},
 	parseString: {
-		value: function (tokenizer, pp, properties) {
+		value: function (tokenizer, pp) {
 			let i = pp.offset + 1;
 			for (;;) {
 				const c = pp.chunk[i];
@@ -53,6 +53,7 @@ export const IdentifierToken = Object.create(RootToken, {
 				}
 			}
 
+			const properties = pp.properties;
 			properties.value = {
 				value: pp.chunk.substring(pp.offset, i)
 			};
@@ -82,7 +83,8 @@ export const StringToken = Object.create(RootToken, {
 		}
 	},
 	parseString: {
-		value: function (tokenizer, pp, properties) {
+		value: function (tokenizer, pp) {
+			const properties = pp.properties;
 			const tc = pp.chunk[pp.offset];
 			let str = '';
 			let i = pp.offset + 1;
@@ -152,7 +154,8 @@ export const NumberToken = Object.create(RootToken, {
 		}
 	},
 	parseString: {
-		value: function (tokenizer, pp, properties) {
+		value: function (tokenizer, pp) {
+			const properties = pp.properties;
 			let str = pp.chunk[pp.offset];
 			pp.offset += 1;
 			for (; pp.offset < pp.chunk.length;) {
@@ -201,9 +204,9 @@ export const OperatorToken = Object.create(RootToken, {
 		}
 	},
 	parseString: {
-		value: function (tokenizer, pp, properties) {
+		value: function (tokenizer, pp) {
 			pp.offset += this.value.length;
-			return Object.create(this, properties);
+			return Object.create(this,pp.properties);
 		}
 	},
 	type: {

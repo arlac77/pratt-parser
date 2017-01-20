@@ -40,7 +40,7 @@ describe('mini_lang',
 
         Object.create(IdentifierToken, {
           parseString: {
-            value: function (tokenizer, pp, properties) {
+            value: function (tokenizer, pp) {
               let i = pp.offset + 1;
               for (;;) {
                 const c = pp.chunk[i];
@@ -52,6 +52,8 @@ describe('mini_lang',
                 }
               }
               const value = pp.chunk.substring(pp.offset, i);
+
+              const properties = pp.properties;
 
               if (functions[value]) {
                 properties.value = {

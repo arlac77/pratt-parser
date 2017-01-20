@@ -123,9 +123,7 @@ export class Tokenizer {
 				do {
 					const t = this.registeredTokens[pp.chunk.substring(pp.offset, pp.offset + tokenLength)];
 					if (t) {
-						const l = pp.offset;
-						const rt = t.parseString(this, pp, pp.properties);
-						//console.log(`${pp.chunk.substring(l, pp.offset)} -> ${rt} ${rt ? rt.value : ''}`);
+						const rt = t.parseString(this, pp);
 
 						if (rt) {
 							yield rt;
