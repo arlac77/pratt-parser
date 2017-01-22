@@ -214,6 +214,9 @@ export const OperatorToken = Object.create(RootToken, {
 	}
 });
 
+/**
+ * skip white space
+ */
 export const WhiteSpaceToken = Object.create(RootToken, {
 	registerWithinTokenizer: {
 		value: function (tokenizer) {
