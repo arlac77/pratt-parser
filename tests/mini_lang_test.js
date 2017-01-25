@@ -9,7 +9,7 @@ const chai = require('chai'),
   should = chai.should();
 
 const {
-  Parser, Tokenizer, IdentifierToken, WhiteSpaceToken, NumberToken, StringToken
+  Parser, IdentifierToken, WhiteSpaceToken, NumberToken, StringToken
 } = require('../dist/parser');
 
 describe('mini_lang',

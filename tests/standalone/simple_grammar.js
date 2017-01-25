@@ -2,7 +2,9 @@
 
 'use strict';
 
-const createGrammar = require('../dist/parser').create;
+const {
+  Parser, WhiteSpaceToken, NumberToken
+} = require('../../dist/parser');
 
 function Value(value) {
   return Object.create(null, {
@@ -12,10 +14,11 @@ function Value(value) {
   });
 }
 
-let myGrammar = createGrammar({
-  terminals: {
-    number: {}
-  },
+const myGrammar = new Parser({
+  tokens: [
+    WhiteSpaceToken,
+    NumberToken
+  ],
   infix: {
     ')': {},
     '+': {
@@ -34,7 +37,6 @@ let myGrammar = createGrammar({
       precedence: 60,
       combine: (left, right) => Value(left.value / right.value)
     }
-  }
-});
+  }});
 
 console.log(myGrammar.parse('1 + 41 * 3').value);
