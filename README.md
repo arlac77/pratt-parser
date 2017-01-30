@@ -119,6 +119,18 @@ delivers tokens from the input
 | context | <code>object</code> | token initiating the error |
 | [value] | <code>object</code> |  |
 
+  <a name="module_pratt-parser..RootToken.parseString"></a>
+
+## module:pratt-parser~RootToken.parseString(pp) ⇒ <code>Token</code>
+Parses from chunk of PrasePosition and delivers next token
+Modifies ParsePosition so that it points behind the detected token.
+
+**Kind**: static method of <code>module:pratt-parser~RootToken</code>  
+
+| Param | Type |
+| --- | --- |
+| pp | <code>PrsePosition</code> | 
+
 * * *
 
 install
