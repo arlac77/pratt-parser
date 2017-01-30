@@ -7,11 +7,19 @@
  */
 
 export const RootToken = {
-	precedence: 0,
-	type: 'unknown',
-	value: undefined,
+    get precedence() { return 0; },
+	get type() { return 'unknown'; },
+	get value() { return undefined; },
+
 	registerWithinTokenizer(tokenizer) {},
-	parseString() {
+	
+	/**
+	 * Parses from chunk of PrasePosition and delivers next token
+	 * Modifies ParsePosition so that it points behind the detected token.
+	 * @param {PrsePosition} pp
+	 * @return {Token}
+	 */
+	parseString(pp) {
 		return undefined;
 	},
 	toString() {
