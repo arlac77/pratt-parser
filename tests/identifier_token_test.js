@@ -25,7 +25,7 @@ describe('tokens', () => {
       }
     };
 
-    const t = IdentifierToken.parseString(tokenizer, pp);
+    const t = IdentifierToken.parseString(pp);
 
     it('delivers undefined', () => assert.equal('abc', t.value));
     it('moved forward', () => assert.equal(4, pp.offset));

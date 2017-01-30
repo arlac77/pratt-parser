@@ -22,7 +22,7 @@ describe('tokens', () => {
       lineNumber: 1
     };
 
-    it('delivers undefined', () => assert.equal(undefined, WhiteSpaceToken.parseString(tokenizer, pp)));
+    it('delivers undefined', () => assert.equal(undefined, WhiteSpaceToken.parseString(pp)));
     it('moved forward', () => assert.equal(7, pp.offset));
     it('increased lineNumber', () => assert.equal(2, pp.lineNumber));
   });

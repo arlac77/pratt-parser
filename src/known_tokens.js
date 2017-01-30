@@ -41,7 +41,7 @@ export const IdentifierToken = Object.create(RootToken, {
 		}
 	},
 	parseString: {
-		value: function (tokenizer, pp) {
+		value: function (pp) {
 			let i = pp.offset + 1;
 			for (;;) {
 				const c = pp.chunk[i];
@@ -83,7 +83,7 @@ export const StringToken = Object.create(RootToken, {
 		}
 	},
 	parseString: {
-		value: function (tokenizer, pp) {
+		value: function (pp) {
 			const properties = pp.properties;
 			const tc = pp.chunk[pp.offset];
 			let str = '';
@@ -120,7 +120,7 @@ export const StringToken = Object.create(RootToken, {
 						case 'u':
 							c = parseInt(pp.chunk.substr(i + 1, 4), 16);
 							if (!isFinite(c) || c < 0) {
-								tokenizer.error('Unterminated string', pp, str);
+								pp.tokenizer.error('Unterminated string', pp, str);
 							}
 							c = String.fromCharCode(c);
 							i += 4;
@@ -134,7 +134,7 @@ export const StringToken = Object.create(RootToken, {
 				}
 			}
 			if (i === pp.chunk.length && c !== tc) {
-				tokenizer.error('Unterminated string', pp, str);
+				pp.tokenizer.error('Unterminated string', pp, str);
 			}
 		}
 	},
@@ -154,7 +154,7 @@ export const NumberToken = Object.create(RootToken, {
 		}
 	},
 	parseString: {
-		value: function (tokenizer, pp) {
+		value: function (pp) {
 			const properties = pp.properties;
 			let str = pp.chunk[pp.offset];
 			pp.offset += 1;
@@ -190,23 +190,22 @@ export const OperatorToken = Object.create(RootToken, {
 				tokenizer.maxTokenLengthForFirstChar[firstChar] = c.length;
 			}
 
-			const p =tokenizer.registeredTokens[c];
-			if(p) {
+			const p = tokenizer.registeredTokens[c];
+			if (p) {
 				// TODO dirty hack how to merge nud() and let() tokens
 				//console.log(`Token already defined ${c} ${this.nud} <> ${p.nud}`);
 				this.nud = p.nud;
 				//tokenizer.registeredTokens[c] = Object.assign(this,p);
 				tokenizer.registeredTokens[c] = this;
-			}
-			else {
+			} else {
 				tokenizer.registeredTokens[c] = this;
 			}
 		}
 	},
 	parseString: {
-		value: function (tokenizer, pp) {
+		value: function (pp) {
 			pp.offset += this.value.length;
-			return Object.create(this,pp.properties);
+			return Object.create(this, pp.properties);
 		}
 	},
 	type: {
@@ -227,7 +226,7 @@ export const WhiteSpaceToken = Object.create(RootToken, {
 		}
 	},
 	parseString: {
-		value: function (tokenizer, pp) {
+		value: function (pp) {
 			while (pp.chunk[pp.offset] <= ' ') {
 				if (pp.chunk[pp.offset] === '\n') {
 					pp.lineNumber += 1;
@@ -248,7 +247,7 @@ export const WhiteSpaceToken = Object.create(RootToken, {
  */
 export const LineCommentToken = Object.create(RootToken, {
 	parseString: {
-		value: function (tokenizer, pp) {
+		value: function (pp) {
 			while (pp.chunk[pp.offset] !== '\n' &&  pp.chunk[pp.offset] !== undefined) {
 				pp.offset += 1;
 			}

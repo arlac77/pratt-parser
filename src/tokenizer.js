@@ -12,25 +12,26 @@ from './known_tokens';
  * @module pratt-parser
  */
 
- const rootPP = {
-	 chunk: undefined,
-	 context: {},
-	 firstCharInLine: 0,
-	 lineNumber: 1, offset: 0,
-	 get positionInLine() {
-	 	return this.offset - this.firstCharInLine;
-		},
-	  get properties() {
-		 return {
-			 lineNumber: {
-				 value: this.lineNumber
-			 },
-			 positionInLine: {
-				 value: this.positionInLine
-			 }
-		 };
-	 }
- };
+const rootPP = {
+	chunk: undefined,
+	context: {},
+	firstCharInLine: 0,
+	lineNumber: 1,
+	offset: 0,
+	get positionInLine() {
+		return this.offset - this.firstCharInLine;
+	},
+	get properties() {
+		return {
+			lineNumber: {
+				value: this.lineNumber
+			},
+			positionInLine: {
+				value: this.positionInLine
+			}
+		};
+	}
+};
 
 export class Tokenizer {
 
@@ -114,6 +115,7 @@ export class Tokenizer {
 		const pp = Object.create(rootPP);
 		pp.context = context;
 		pp.chunk = chunk;
+		pp.tokenizer = this;
 
 		do {
 			const c = pp.chunk[pp.offset];
@@ -123,7 +125,7 @@ export class Tokenizer {
 				do {
 					const t = this.registeredTokens[pp.chunk.substring(pp.offset, pp.offset + tokenLength)];
 					if (t) {
-						const rt = t.parseString(this, pp);
+						const rt = t.parseString(pp);
 
 						if (rt) {
 							yield rt;

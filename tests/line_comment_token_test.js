@@ -22,7 +22,7 @@ describe('tokens', () => {
       lineNumber: 1
     };
 
-    it('delivers undefined', () => assert.equal(undefined, LineCommentToken.parseString(tokenizer, pp)));
+    it('delivers undefined', () => assert.equal(undefined, LineCommentToken.parseString(pp)));
     it('moved forward', () => assert.equal(5, pp.offset));
     it('increased lineNumber', () => assert.equal(2, pp.lineNumber));
   });
