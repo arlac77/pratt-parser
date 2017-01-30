@@ -7,12 +7,13 @@
  */
 
 export const RootToken = {
-    get precedence() { return 0; },
+  //get precedence() { return 0; },
+  precedence : 0,
 	get type() { return 'unknown'; },
 	get value() { return undefined; },
 
 	registerWithinTokenizer(tokenizer) {},
-	
+
 	/**
 	 * Parses from chunk of PrasePosition and delivers next token
 	 * Modifies ParsePosition so that it points behind the detected token.
@@ -41,7 +42,7 @@ export const IdentifierToken = Object.create(RootToken, {
 		value: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_'
 	},
 	registerWithinTokenizer: {
-		value: function (tokenizer) {
+		value(tokenizer) {
 			for (const c of this.firstChar) {
 				tokenizer.maxTokenLengthForFirstChar[c] = 1;
 				tokenizer.registeredTokens[c] = this;
@@ -49,7 +50,7 @@ export const IdentifierToken = Object.create(RootToken, {
 		}
 	},
 	parseString: {
-		value: function (pp) {
+		value(pp) {
 			let i = pp.offset + 1;
 			for (;;) {
 				const c = pp.chunk[i];
@@ -83,7 +84,7 @@ export const KeywordToken = Object.create(IdentifierToken, {
 
 export const StringToken = Object.create(RootToken, {
 	registerWithinTokenizer: {
-		value: function (tokenizer) {
+		value(tokenizer) {
 			for (const c of '"\'') {
 				tokenizer.maxTokenLengthForFirstChar[c] = 1;
 				tokenizer.registeredTokens[c] = this;
@@ -91,7 +92,7 @@ export const StringToken = Object.create(RootToken, {
 		}
 	},
 	parseString: {
-		value: function (pp) {
+		value(pp) {
 			const properties = pp.properties;
 			const tc = pp.chunk[pp.offset];
 			let str = '';
@@ -154,7 +155,7 @@ export const StringToken = Object.create(RootToken, {
 
 export const NumberToken = Object.create(RootToken, {
 	registerWithinTokenizer: {
-		value: function (tokenizer) {
+		value(tokenizer) {
 			for (const c of '0123456789') {
 				tokenizer.maxTokenLengthForFirstChar[c] = 1;
 				tokenizer.registeredTokens[c] = this;
@@ -162,7 +163,7 @@ export const NumberToken = Object.create(RootToken, {
 		}
 	},
 	parseString: {
-		value: function (pp) {
+		value(pp) {
 			const properties = pp.properties;
 			let str = pp.chunk[pp.offset];
 			pp.offset += 1;
@@ -189,7 +190,7 @@ export const NumberToken = Object.create(RootToken, {
 
 export const OperatorToken = Object.create(RootToken, {
 	registerWithinTokenizer: {
-		value: function (tokenizer) {
+		value(tokenizer) {
 			const c = this.value;
 			const firstChar = c[0];
 			const maxLength = tokenizer.maxTokenLengthForFirstChar[firstChar] || 0;
@@ -211,7 +212,7 @@ export const OperatorToken = Object.create(RootToken, {
 		}
 	},
 	parseString: {
-		value: function (pp) {
+		value(pp) {
 			pp.offset += this.value.length;
 			return Object.create(this, pp.properties);
 		}
@@ -226,7 +227,7 @@ export const OperatorToken = Object.create(RootToken, {
  */
 export const WhiteSpaceToken = Object.create(RootToken, {
 	registerWithinTokenizer: {
-		value: function (tokenizer) {
+		value(tokenizer) {
 			for (const c of ' \f\t\b\r\n') {
 				tokenizer.maxTokenLengthForFirstChar[c] = 1;
 				tokenizer.registeredTokens[c] = this;
@@ -234,7 +235,7 @@ export const WhiteSpaceToken = Object.create(RootToken, {
 		}
 	},
 	parseString: {
-		value: function (pp) {
+		value(pp) {
 			while (pp.chunk[pp.offset] <= ' ') {
 				if (pp.chunk[pp.offset] === '\n') {
 					pp.lineNumber += 1;
@@ -255,7 +256,7 @@ export const WhiteSpaceToken = Object.create(RootToken, {
  */
 export const LineCommentToken = Object.create(RootToken, {
 	parseString: {
-		value: function (pp) {
+		value(pp) {
 			while (pp.chunk[pp.offset] !== '\n' &&  pp.chunk[pp.offset] !== undefined) {
 				pp.offset += 1;
 			}

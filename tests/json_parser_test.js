@@ -35,7 +35,7 @@ describe('json',
         }), */
         Object.create(IdentifierToken, {
           parseString: {
-            value: function (pp) {
+            value(pp) {
               let i = pp.offset + 1;
               for (;;) {
                 const c = pp.chunk[i];

@@ -56,7 +56,7 @@ export class Tokenizer {
 
 				properties: {
 					nud: {
-						value: function (grammar, left) {
+						value(grammar, left) {
 							return this.combine(left, grammar.expression(this.precedence));
 						},
 						writable: true
@@ -68,7 +68,7 @@ export class Tokenizer {
 
 				properties: {
 					led: {
-						value: function (grammar, left) {
+						value(grammar, left) {
 							return this.combine(left, grammar.expression(this.precedence));
 						},
 						writable: true
@@ -80,7 +80,7 @@ export class Tokenizer {
 
 				properties: {
 					led: {
-						value: function (grammar, left) {
+						value(grammar, left) {
 							return this.combine(left, grammar.expression(this.precedence - 1));
 						},
 						writable: true
