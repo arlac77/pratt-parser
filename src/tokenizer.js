@@ -107,7 +107,6 @@ export class Tokenizer {
 		}
 	}
 
-
 	/**
 	 * delivers tokens from the input
 	 */
@@ -133,8 +132,6 @@ export class Tokenizer {
 						break;
 					}
 				} while (tokenLength-- > 1);
-
-				continue;
 			} else {
 				if (c === undefined) {
 					return Object.create(EOFToken, pp.properties);
