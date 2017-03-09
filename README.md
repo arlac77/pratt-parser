@@ -80,6 +80,8 @@ console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
   <a name="module_pratt-parser..Parser+error"></a>
 
 ## module:pratt-parser~Parser.error(message, context) ⇒ <code>Object</code>
+Simply forwards error to the tokenizer
+
 **Kind**: instance method of <code>module:pratt-parser~Parser</code>  
 **Returns**: <code>Object</code> - error  
 
