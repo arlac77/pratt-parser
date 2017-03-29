@@ -30,7 +30,7 @@ export class Parser {
 	}
 
 	/**
-	 * Simply forwards error to the tokenizer
+	 * Forwards error to the tokenizer
 	 * @param {string} message
 	 * @param {object} context
 	 * @return {Object} error
