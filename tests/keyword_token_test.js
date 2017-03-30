@@ -28,7 +28,7 @@ describe('tokens', () => {
 
   describe('keyword', () => {
     const pp = {
-      chunk: ' CREATE TABLE',
+      chunk: ' CREATE TABLE X ',
       offset: 1,
       lineNumber: 1,
       get properties() {
@@ -36,8 +36,10 @@ describe('tokens', () => {
       }
     };
 
-    const t = keywords.parseString(pp);
+    const k1 = keywords.parseString(pp);
+    it('delivers 1st. keyword', () => assert.equal('CREATE', k1.value));
 
-    it.only('delivers keyword', () => assert.equal('CREATE', t.value));
+    const k2 = keywords.parseString(pp);
+    it('delivers 2nd. keyword', () => assert.equal('TABLE', k2.value));
   });
 });

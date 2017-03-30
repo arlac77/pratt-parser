@@ -96,6 +96,9 @@ export const KeywordToken = Object.create(IdentifierToken, {
   parseString: {
     value(pp) {
       const start = pp.offset;
+
+      console.log('>' + pp.chunk.substring(pp.offset) + '<');
+
       for (let i = start + 1; i < pp.chunk.length; i++) {
         const c = pp.chunk[i];
         if (!(c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z')) {
