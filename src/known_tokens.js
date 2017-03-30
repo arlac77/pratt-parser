@@ -87,7 +87,7 @@ export const KeywordToken = Object.create(IdentifierToken, {
     value(tokenizer) {
       Object.keys(this.keywords).forEach(k => {
         const c = k[0];
-        console.log(`${k} ${c}`);
+        //console.log(`${k} ${c}`);
         tokenizer.maxTokenLengthForFirstChar[k] = 1;
         tokenizer.registeredTokens[k] = this;
       });
@@ -95,20 +95,16 @@ export const KeywordToken = Object.create(IdentifierToken, {
   },
   parseString: {
     value(pp) {
-      const properties = pp.properties;
-      const tc = pp.chunk[pp.offset];
-      let str = '';
-      let i = pp.offset + 1;
-      let c;
-      for (; i < pp.chunk.length;) {
-        c = pp.chunk[i];
-        if (c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z') {
+      const start = pp.offset;
+      for (let i = start + 1; i < pp.chunk.length; i++) {
+        const c = pp.chunk[i];
+        if (!(c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z')) {
           pp.offset = i + 1;
           return Object.create(this, Object.assign({
             value: {
-              value: str
+              value: pp.chunk.substring(start, i)
             }
-          }, properties));
+          }, pp.properties));
         }
       }
     }
