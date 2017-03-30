@@ -4,7 +4,7 @@
 
 const {
   Parser, WhiteSpaceToken, NumberToken
-} = require('../../dist/parser');
+} = require('../dist/parser');
 
 function Value(value) {
   return Object.create(null, {
@@ -37,6 +37,7 @@ const myGrammar = new Parser({
       precedence: 60,
       combine: (left, right) => Value(left.value / right.value)
     }
-  }});
+  }
+});
 
 console.log(myGrammar.parse('1 + 41 * 3').value);
