@@ -2,7 +2,6 @@ coverage
 node_modules
 build
 tests
-examples
 doc
 *.log
 *.tmp
@@ -18,3 +17,5 @@ doc
 .markdown-doctest-setup.js
 rollup.config.js
 SUMMARY.md
+
+examples
