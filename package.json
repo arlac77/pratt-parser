@@ -11,7 +11,7 @@
     "TDOP"
   ],
   "engines": {
-    "node": ">=6.10.0"
+    "node": ">=7.9.0"
   },
   "license": "BSD-2-Clause",
   "bugs": {
@@ -63,5 +63,10 @@
       "lcov"
     ],
     "report-dir": "./coverage"
+  },
+  "template": {
+    "repository": {
+      "url": "https://github.com/Kronos-Tools/npm-package-template.git"
+    }
   }
 }
