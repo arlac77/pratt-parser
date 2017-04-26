@@ -106,10 +106,16 @@ Parses the input and delivers the outermoost expression.
 
   <a name="module_pratt-parser..Tokenizer+tokens"></a>
 
-## module:pratt-parser~Tokenizer.tokens()
+## module:pratt-parser~Tokenizer.tokens(chunk, context)
 delivers tokens from the input
 
 **Kind**: instance method of <code>module:pratt-parser~Tokenizer</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| chunk | <code>string</code> | the input to be processed |
+| context | <code>object</code> | additional info to be used by the actual token types |
+
   <a name="module_pratt-parser..Tokenizer+error"></a>
 
 ## module:pratt-parser~Tokenizer.error(message, context, [value]) ⇒ <code>Object</code>
