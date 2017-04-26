@@ -57,9 +57,9 @@ export class Tokenizer {
 				properties: {
 					nud: {
 						value(grammar, left) {
-							return this.combine(left, grammar.expression(this.precedence));
-						},
-						writable: true
+								return this.combine(left, grammar.expression(this.precedence));
+							},
+							writable: true
 					}
 				}
 			},
@@ -69,9 +69,9 @@ export class Tokenizer {
 				properties: {
 					led: {
 						value(grammar, left) {
-							return this.combine(left, grammar.expression(this.precedence));
-						},
-						writable: true
+								return this.combine(left, grammar.expression(this.precedence));
+							},
+							writable: true
 					}
 				}
 			},
@@ -81,9 +81,9 @@ export class Tokenizer {
 				properties: {
 					led: {
 						value(grammar, left) {
-							return this.combine(left, grammar.expression(this.precedence - 1));
-						},
-						writable: true
+								return this.combine(left, grammar.expression(this.precedence - 1));
+							},
+							writable: true
 					}
 				}
 			}
@@ -102,13 +102,15 @@ export class Tokenizer {
 			}
 		}
 
-		if (grammar.tokens) {
+		if (grammar.tokens !== undefined) {
 			grammar.tokens.forEach(token => token.registerWithinTokenizer(this));
 		}
 	}
 
 	/**
 	 * delivers tokens from the input
+	 * @param {string} chunk the input to be processed
+	 * @param {object} context additional info to be used by the actual token types
 	 */
 	* tokens(chunk, context) {
 		const pp = Object.create(rootPP);
@@ -123,10 +125,10 @@ export class Tokenizer {
 			if (tokenLength) {
 				do {
 					const t = this.registeredTokens[pp.chunk.substring(pp.offset, pp.offset + tokenLength)];
-					if (t) {
+					if (t !== undefined) {
 						const rt = t.parseString(pp);
 
-						if (rt) {
+						if (rt !== undefined) {
 							yield rt;
 						}
 						break;
