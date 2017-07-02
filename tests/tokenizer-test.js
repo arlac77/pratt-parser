@@ -1,25 +1,16 @@
-/* global describe, it, xit */
-/* jslint node: true, esnext: true */
+import test from 'ava';
 
-'use strict';
+import {
+  WhiteSpaceToken,
+  NumberToken,
+  StringToken,
+  IdentifierToken
+} from '../src/known-tokens';
+import { Tokenizer } from '../src/tokenizer';
 
-const chai = require('chai'),
-  assert = chai.assert,
-  expect = chai.expect,
-  should = chai.should();
-
-const {
-  Tokenizer, WhiteSpaceToken, NumberToken, StringToken, IdentifierToken
-} = require('../dist/parser');
-
-describe('tokens', () => {
+test('tokens trailing space', t => {
   const tokenizer = new Tokenizer({
-    tokens: [
-      WhiteSpaceToken,
-      NumberToken,
-      StringToken,
-      IdentifierToken
-    ],
+    tokens: [WhiteSpaceToken, NumberToken, StringToken, IdentifierToken],
 
     infix: {
       '=': {
@@ -51,29 +42,31 @@ describe('tokens', () => {
     }
   });
 
-  describe('trailing space', () => {
-    const tokens = [{
+  const tokens = [
+    {
       type: 'identifier',
       value: 'A'
-    }];
-
-    let i = 0;
-
-    for (const token of tokenizer.tokens('A ')) {
-      const refToken = tokens[i];
-
-      it(`tokens ${refToken.type}`, () => {
-        assert.equal(token.type, refToken.type, 'type: ' + refToken.type);
-        assert.equal(token.id, refToken.id, 'id: ' + refToken.id);
-      });
     }
-  });
+  ];
 
-  describe('trailing number', function () {
-    const tokens = [{
-      type: 'number',
-      value: 123
-    }];
+  let i = 0;
+
+  for (const token of tokenizer.tokens('A ')) {
+    const refToken = tokens[i];
+
+    t.is(token.type, refToken.type);
+    t.is(token.id, refToken.id);
+  }
+});
+
+/*
+  describe('trailing number', function() {
+    const tokens = [
+      {
+        type: 'number',
+        value: 123
+      }
+    ];
 
     let i = 0;
 
@@ -88,10 +81,12 @@ describe('tokens', () => {
   });
 
   describe('trailing string', () => {
-    const tokens = [{
-      type: 'string',
-      value: 'ABC'
-    }];
+    const tokens = [
+      {
+        type: 'string',
+        value: 'ABC'
+      }
+    ];
 
     let i = 0;
 
@@ -106,10 +101,12 @@ describe('tokens', () => {
   });
 
   describe('trailing identifier', () => {
-    const tokens = [{
-      type: 'identifier',
-      value: 'ABC'
-    }];
+    const tokens = [
+      {
+        type: 'identifier',
+        value: 'ABC'
+      }
+    ];
 
     let i = 0;
 
@@ -141,7 +138,7 @@ describe('tokens', () => {
   describe('unterminated string', () => {
     it('thows', () => {
       try {
-        for (const token of tokenizer.tokens('\"abc')) {
+        for (const token of tokenizer.tokens('"abc')) {
           console.log(token);
         }
         assert.ok(false);
@@ -154,7 +151,7 @@ describe('tokens', () => {
 
     it('thows when in \\u', () => {
       try {
-        for (const token of tokenizer.tokens('\"\\u\"')) {
+        for (const token of tokenizer.tokens('"\\u"')) {
           console.log(token);
         }
         assert.ok(false);
@@ -166,3 +163,5 @@ describe('tokens', () => {
     });
   });
 });
+
+*/

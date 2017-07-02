@@ -27,7 +27,7 @@ test('keyword', t => {
   };
 
   const k1 = keywords.parseString(pp);
-  t.is(token.value, 'CREATE');
+  t.is(k1.value, 'CREATE');
   const k2 = keywords.parseString(pp);
-  t.is(token.value, 'TABLE');
+  t.is(k2.value, 'TABLE');
 });
