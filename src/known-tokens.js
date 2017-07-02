@@ -1,7 +1,3 @@
-/* jslint node: true, esnext: true */
-
-'use strict';
-
 /**
  * @module pratt-parser
  */
@@ -58,8 +54,12 @@ export const IdentifierToken = Object.create(RootToken, {
       let i = pp.offset + 1;
       for (;;) {
         const c = pp.chunk[i];
-        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
-          (c >= '0' && c <= '9') || c === '_') {
+        if (
+          (c >= 'a' && c <= 'z') ||
+          (c >= 'A' && c <= 'Z') ||
+          (c >= '0' && c <= '9') ||
+          c === '_'
+        ) {
           i += 1;
         } else {
           break;
@@ -101,13 +101,19 @@ export const KeywordToken = Object.create(IdentifierToken, {
 
       for (let i = start + 1; i < pp.chunk.length; i++) {
         const c = pp.chunk[i];
-        if (!(c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z')) {
+        if (!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))) {
           pp.offset = i + 1;
-          return Object.create(this, Object.assign({
-            value: {
-              value: pp.chunk.substring(start, i)
-            }
-          }, pp.properties));
+          return Object.create(
+            this,
+            Object.assign(
+              {
+                value: {
+                  value: pp.chunk.substring(start, i)
+                }
+              },
+              pp.properties
+            )
+          );
         }
       }
     }
@@ -133,15 +139,21 @@ export const StringToken = Object.create(RootToken, {
       let str = '';
       let i = pp.offset + 1;
       let c;
-      for (; i < pp.chunk.length;) {
+      for (; i < pp.chunk.length; ) {
         c = pp.chunk[i];
         if (c === tc) {
           pp.offset = i + 1;
-          return Object.create(this, Object.assign({
-            value: {
-              value: str
-            }
-          }, properties));
+          return Object.create(
+            this,
+            Object.assign(
+              {
+                value: {
+                  value: str
+                }
+              },
+              properties
+            )
+          );
         } else if (c === '\\') {
           i += 1;
           c = pp.chunk[i];
@@ -201,7 +213,7 @@ export const NumberToken = Object.create(RootToken, {
       const properties = pp.properties;
       let str = pp.chunk[pp.offset];
       pp.offset += 1;
-      for (; pp.offset < pp.chunk.length;) {
+      for (; pp.offset < pp.chunk.length; ) {
         const c = pp.chunk[pp.offset];
         if ((c < '0' || c > '9') && c !== '.' && c !== 'e' && c !== 'E') {
           break;
@@ -209,18 +221,20 @@ export const NumberToken = Object.create(RootToken, {
         pp.offset += 1;
         str += c;
       }
-      return Object.create(this, Object.assign(properties, {
-        value: {
-          value: +str
-        }
-      }));
+      return Object.create(
+        this,
+        Object.assign(properties, {
+          value: {
+            value: +str
+          }
+        })
+      );
     }
   },
   type: {
     value: 'number'
   }
 });
-
 
 export const OperatorToken = Object.create(RootToken, {
   registerWithinTokenizer: {
@@ -291,7 +305,10 @@ export const WhiteSpaceToken = Object.create(RootToken, {
 export const LineCommentToken = Object.create(RootToken, {
   parseString: {
     value(pp) {
-      while (pp.chunk[pp.offset] !== '\n' &&  pp.chunk[pp.offset] !== undefined) {
+      while (
+        pp.chunk[pp.offset] !== '\n' &&
+        pp.chunk[pp.offset] !== undefined
+      ) {
         pp.offset += 1;
       }
 
