@@ -1,29 +1,18 @@
-/* global describe, it, xit */
-/* jslint node: true, esnext: true */
+import test from 'ava';
 
-'use strict';
+import { WhiteSpaceToken } from '../src/known-tokens';
 
-const chai = require('chai'),
-  assert = chai.assert,
-  expect = chai.expect,
-  should = chai.should();
-
-const {
-  WhiteSpaceToken
-} = require('../dist/parser');
-
-describe('tokens', () => {
+test('whitespace', t => {
   const tokenizer = {};
+  const pp = {
+    chunk: 'x   \n  A',
+    offset: 1,
+    lineNumber: 1
+  };
 
-  describe('whitespace', () => {
-    const pp = {
-      chunk: 'x   \n  A',
-      offset: 1,
-      lineNumber: 1
-    };
+  const token = WhiteSpaceToken.parseString(pp);
 
-    it('delivers undefined', () => assert.equal(undefined, WhiteSpaceToken.parseString(pp)));
-    it('moved forward', () => assert.equal(7, pp.offset));
-    it('increased lineNumber', () => assert.equal(2, pp.lineNumber));
-  });
+  t.is(token.value, undefined);
+  t.is(pp.offset, 7);
+  t.is(pp.lineNumber, 2);
 });

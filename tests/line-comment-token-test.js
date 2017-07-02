@@ -1,29 +1,18 @@
-/* global describe, it, xit */
-/* jslint node: true, esnext: true */
+import test from 'ava';
 
-'use strict';
+import { LineCommentToken } from '../src/known-tokens';
 
-const chai = require('chai'),
-  assert = chai.assert,
-  expect = chai.expect,
-  should = chai.should();
-
-const {
-  LineCommentToken
-} = require('../dist/parser');
-
-describe('tokens', () => {
+test('line comment', t => {
   const tokenizer = {};
+  const pp = {
+    chunk: 'x#   \n  A',
+    offset: 1,
+    lineNumber: 1
+  };
 
-  describe('line comment', () => {
-    const pp = {
-      chunk: 'x#   \n  A',
-      offset: 1,
-      lineNumber: 1
-    };
+  const token = LineCommentToken.parseString(pp);
 
-    it('delivers undefined', () => assert.equal(undefined, LineCommentToken.parseString(pp)));
-    it('moved forward', () => assert.equal(5, pp.offset));
-    it('increased lineNumber', () => assert.equal(2, pp.lineNumber));
-  });
+  t.is(token.value, undefined);
+  t.is(pp.offset, 5);
+  t.is(pp.lineNumber, 2);
 });

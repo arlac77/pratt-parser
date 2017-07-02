@@ -1,33 +1,20 @@
-/* global describe, it, xit */
-/* jslint node: true, esnext: true */
+import test from 'ava';
 
-'use strict';
+import { IdentifierToken } from '../src/known-tokens';
 
-const chai = require('chai'),
-  assert = chai.assert,
-  expect = chai.expect,
-  should = chai.should();
-
-const {
-  IdentifierToken
-} = require('../dist/parser');
-
-describe('tokens', () => {
+test('identifier tokens', t => {
   const tokenizer = {};
+  const pp = {
+    chunk: ' abc   \n  A',
+    offset: 1,
+    lineNumber: 1,
+    get properties() {
+      return {};
+    }
+  };
 
-  describe('identifier', () => {
-    const pp = {
-      chunk: ' abc   \n  A',
-      offset: 1,
-      lineNumber: 1,
-      get properties() {
-        return {};
-      }
-    };
+  const token = IdentifierToken.parseString(pp);
 
-    const t = IdentifierToken.parseString(pp);
-
-    it('delivers identifier', () => assert.equal('abc', t.value));
-    it('moved forward', () => assert.equal(4, pp.offset));
-  });
+  t.is(token.value, 'abc');
+  t.is(pp.offset, 4);
 });
