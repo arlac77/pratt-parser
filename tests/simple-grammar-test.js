@@ -1,63 +1,55 @@
-/* global describe, it, xit */
-/* jslint node: true, esnext: true */
+import test from 'ava';
 
-'use strict';
+import { WhiteSpaceToken, NumberToken } from '../src/known-tokens';
+import { Parser } from '../src/parser';
 
-const chai = require('chai'),
-  assert = chai.assert,
-  expect = chai.expect,
-  should = chai.should();
-
-const {
-  Parser, WhiteSpaceToken, NumberToken
-} = require('../dist/parser');
-
-describe('calculator',
-  function () {
-    function value(value) {
-      return Object.create(null, {
-        value: {
-          value: value
-        }
-      });
+function value(value) {
+  return Object.create(null, {
+    value: {
+      value: value
     }
+  });
+}
 
-    const myGrammar = new Parser({
-      tokens: [
-        WhiteSpaceToken,
-        NumberToken
-      ],
-      prefix: {
-        '(': {
-          nud(grammar) {
-            const e = grammar.expression(0);
-            grammar.advance(')');
-            return e;
-          }
-        }
-      },
-      infix: {
-        ')': {},
-        '+': {
-          precedence: 50,
-          combine: (left, right) => value(left.value + right.value)
-        },
-        '-': {
-          precedence: 50,
-          combine: (left, right) => value(left.value - right.value)
-        },
-        '*': {
-          precedence: 60,
-          combine: (left, right) => value(left.value * right.value)
-        },
-        '/': {
-          precedence: 60,
-          combine: (left, right) => value(left.value / right.value)
+test('calculator', t => {
+  const myGrammar = new Parser({
+    tokens: [WhiteSpaceToken, NumberToken],
+    prefix: {
+      '(': {
+        nud(grammar) {
+          const e = grammar.expression(0);
+          grammar.advance(')');
+          return e;
         }
       }
-    });
+    },
+    infix: {
+      ')': {},
+      '+': {
+        precedence: 50,
+        combine: (left, right) => value(left.value + right.value)
+      },
+      '-': {
+        precedence: 50,
+        combine: (left, right) => value(left.value - right.value)
+      },
+      '*': {
+        precedence: 60,
+        combine: (left, right) => value(left.value * right.value)
+      },
+      '/': {
+        precedence: 60,
+        combine: (left, right) => value(left.value / right.value)
+      }
+    }
+  });
 
-    it('evaluates', () => assert.equal(myGrammar.parse('1 + 41 * 3 - 2').value, 122));
+  t.is(myGrammar.parse('1 + 41 * 3 - 2').value, 122);
+});
+
+/*
+describe('calculator',
+  function () {
     it('evaluates with prefix op', () => assert.equal(myGrammar.parse('(1 + 41)').value, 42));
     it('evaluates with prefix op 2', () => assert.equal(myGrammar.parse('(1 + 41) * 2').value, 84));
     it('evaluates with prefix op 3', () => assert.equal(myGrammar.parse('(1 + 1) * (2 + 7)').value, 18));
@@ -75,5 +67,5 @@ describe('calculator',
         }
       });
     });
-
   });
+*/
