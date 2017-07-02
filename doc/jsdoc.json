@@ -1,0 +1,11 @@
+{
+  "plugins": [
+    "node_modules/jsdoc-babel"
+  ],
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-3"
+    ]
+  }
+}
