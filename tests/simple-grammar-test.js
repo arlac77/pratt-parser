@@ -45,6 +45,9 @@ test('calculator', t => {
   });
 
   t.is(myGrammar.parse('1 + 41 * 3 - 2').value, 122);
+  t.is(myGrammar.parse('(1 + 41)').value, 42);
+  t.is(myGrammar.parse('(1 + 41) * 2').value, 84);
+  t.is(myGrammar.parse('(1 + (1 + 4 * 3)) * (2 + 1)').value, 42);
 });
 
 /*
