@@ -78,67 +78,40 @@ console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
 - pratt-parser
 - pratt-parser
 
-  <a name="module_pratt-parser..Parser+error"></a>
+  <a name="module_pratt-parser.RootToken.parseString"></a>
 
-## module:pratt-parser~Parser.error(message, context) ⇒ <code>Object</code>
-Forwards error to the tokenizer
-
-**Kind**: instance method of <code>module:pratt-parser~Parser</code>  
-**Returns**: <code>Object</code> - error  
-
-| Param | Type |
-| --- | --- |
-| message | <code>string</code> | 
-| context | <code>object</code> | 
-
-  <a name="module_pratt-parser..Parser+parse"></a>
-
-## module:pratt-parser~Parser.parse(chunk, context) ⇒ <code>object</code>
-Parses the input and delivers the outermoost expression.
-
-**Kind**: instance method of <code>module:pratt-parser~Parser</code>  
-**Returns**: <code>object</code> - evaluated input  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| chunk | <code>string</code> | input text |
-| context | <code>object</code> | object transparently passed to tokenizer |
-
-  <a name="module_pratt-parser..Tokenizer+tokens"></a>
-
-## module:pratt-parser~Tokenizer.tokens(chunk, context)
-delivers tokens from the input
-
-**Kind**: instance method of <code>module:pratt-parser~Tokenizer</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| chunk | <code>string</code> | the input to be processed |
-| context | <code>object</code> | additional info to be used by the actual token types |
-
-  <a name="module_pratt-parser..Tokenizer+error"></a>
-
-## module:pratt-parser~Tokenizer.error(message, context, [value]) ⇒ <code>Object</code>
-**Kind**: instance method of <code>module:pratt-parser~Tokenizer</code>  
-**Returns**: <code>Object</code> - error  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| message | <code>string</code> |  |
-| context | <code>object</code> | token initiating the error |
-| [value] | <code>object</code> |  |
-
-  <a name="module_pratt-parser..RootToken.parseString"></a>
-
-## module:pratt-parser~RootToken.parseString(pp) ⇒ <code>Token</code>
+## module:pratt-parser.RootToken.parseString(pp) ⇒ <code>Token</code>
 Parses from chunk of PrasePosition and delivers next token
 Modifies ParsePosition so that it points behind the detected token.
 
-**Kind**: static method of <code>module:pratt-parser~RootToken</code>  
+**Kind**: static method of <code>module:pratt-parser.RootToken</code>  
 
 | Param | Type |
 | --- | --- |
 | pp | <code>PrsePosition</code> | 
+
+  <a name="<anonymous>..Parser"></a>
+
+## &lt;anonymous&gt;~Parser(grammar) ⇒ <code>object</code>
+Creates a grammar for later parsing
+
+**Kind**: inner method of <code>&lt;anonymous&gt;</code>  
+**Returns**: <code>object</code> - parser  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| grammar | <code>object</code> | definition of the grammar with operators... |
+
+  <a name="<anonymous>..Tokenizer"></a>
+
+## &lt;anonymous&gt;~Tokenizer(grammar)
+Creates a tokenizer for later parsing
+
+**Kind**: inner method of <code>&lt;anonymous&gt;</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| grammar | <code>object</code> | definition of the grammar with operators... |
 
 * * *
 
