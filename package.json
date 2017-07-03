@@ -32,9 +32,9 @@
     "test": "ava",
     "docs": "jsdoc2md --configure doc/jsdoc.json -l off -t doc/README.hbs -f src/*.js >README.md",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "prepublish": "rollup -c -- src/parser.js",
+    "prepare": "rollup -c -- src/parser.js",
     "pretest": "rollup -c tests/rollup.config.js",
-    "posttest": "npm run prepublish && markdown-doctest",
+    "posttest": "npm run prepare && markdown-doctest",
     "precover": "rollup -c tests/rollup.config.js"
   },
   "repository": {
