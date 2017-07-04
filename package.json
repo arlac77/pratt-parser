@@ -4,7 +4,12 @@
   "main": "dist/parser.js",
   "module": "src/parser.js",
   "description": "TDOP parser",
-  "keywords": ["tokenizer", "parser", "PRATT", "TDOP"],
+  "keywords": [
+    "tokenizer",
+    "parser",
+    "PRATT",
+    "TDOP"
+  ],
   "engines": {
     "node": ">=8.1.3"
   },
@@ -48,8 +53,13 @@
     }
   ],
   "nyc": {
-    "include": ["build/test-bundle.js", "src/**/*.js"],
-    "reporter": ["lcov"],
+    "include": [
+      "build/test-bundle.js",
+      "src/**/*.js"
+    ],
+    "reporter": [
+      "lcov"
+    ],
     "report-dir": "./build/coverage"
   },
   "template": {
@@ -61,8 +71,14 @@
     "space": true
   },
   "ava": {
-    "files": ["build/test-bundle.js"],
-    "presets": ["stage-3"],
-    "require": ["babel-register"]
+    "files": [
+      "build/test-bundle.js"
+    ],
+    "presets": [
+      "stage-3"
+    ],
+    "require": [
+      "babel-register"
+    ]
   }
 }
