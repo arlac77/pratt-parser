@@ -1,72 +1,53 @@
 {
   "name": "pratt-parser",
-  "version": "0.0.0-semantic-release",
-  "main": "dist/parser.js",
-  "module": "src/parser.js",
-  "description": "TDOP parser",
-  "keywords": [
-    "tokenizer",
-    "parser",
-    "PRATT",
-    "TDOP"
-  ],
+  "scripts": {
+    "cover": "nyc ava",
+    "precover": "rollup -c tests/rollup.config.js",
+    "test": "ava",
+    "pretest": "rollup -c tests/rollup.config.js",
+    "posttest": "npm run prepare && markdown-doctest",
+    "prepare": "rollup -c -- {{module}}",
+    "docs": "jsdoc2md --configure doc/jsdoc.json -l off -t doc/README.hbs -f src/*.js >README.md",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "devDependencies": {
+    "jsdoc-to-markdown": "^3.0.0",
+    "jsdoc-babel": "^0.3.0",
+    "markdown-doctest": "^0.9.1",
+    "nyc": "^11.0.3",
+    "ava": "^0.21.0",
+    "rollup": "^0.45.2",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-multi-entry": "^2.0.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "semantic-release": "^6.3.6",
+    "xo": "^0.19.0"
+  },
   "engines": {
     "node": ">=8.2.0"
   },
-  "license": "BSD-2-Clause",
+  "version": "0.0.0-semantic-release",
+  "description": "{{description}}",
+  "main": "dist/index.js",
+  "keywords": [
+    "npm-package-template"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arlac77/pratt-parser.git"
+  },
   "bugs": {
     "url": "https://github.com/arlac77/pratt-parser/issues"
   },
   "homepage": "https://github.com/arlac77/pratt-parser#readme",
   "dependencies": {},
-  "devDependencies": {
-    "jsdoc-to-markdown": "^3.0.0",
-    "markdown-doctest": "^0.9.1",
-    "nyc": "^11.0.3",
-    "rollup": "^0.45.2",
-    "semantic-release": "^6.3.6",
-    "jsdoc-babel": "^0.3.0",
-    "ava": "^0.21.0",
-    "rollup-plugin-babel": "^2.7.1",
-    "rollup-plugin-multi-entry": "^2.0.1",
-    "babel-preset-stage-3": "^6.24.1",
-    "xo": "^0.19.0"
-  },
-  "scripts": {
-    "cover": "nyc ava",
-    "test": "ava",
-    "docs": "jsdoc2md --configure doc/jsdoc.json -l off -t doc/README.hbs -f src/*.js >README.md",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "prepare": "rollup -c -- src/parser.js",
-    "pretest": "rollup -c tests/rollup.config.js",
-    "posttest": "npm run prepare && markdown-doctest",
-    "precover": "rollup -c tests/rollup.config.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/arlac77/pratt-parser.git"
-  },
   "contributors": [
     {
       "name": "Markus Felten",
       "email": "markus.felten@gmx.de"
     }
   ],
-  "nyc": {
-    "include": [
-      "build/test-bundle.js",
-      "src/**/*.js"
-    ],
-    "reporter": [
-      "lcov"
-    ],
-    "report-dir": "./build/coverage"
-  },
-  "template": {
-    "repository": {
-      "url": "https://github.com/arlac77/npm-package-template.git"
-    }
-  },
+  "license": "BSD-2-Clause",
   "xo": {
     "space": true
   },
@@ -80,5 +61,19 @@
     "require": [
       "babel-register"
     ]
+  },
+  "nyc": {
+    "include": [
+      "build/test-bundle.js"
+    ],
+    "reporter": [
+      "lcov"
+    ],
+    "report-dir": "./build/coverage"
+  },
+  "template": {
+    "repository": {
+      "url": "https://github.com/arlac77/npm-package-template.git"
+    }
   }
 }
