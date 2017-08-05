@@ -127,7 +127,7 @@ export class Tokenizer {
       const c = pp.chunk[pp.offset];
       let tokenLength = this.maxTokenLengthForFirstChar[c];
 
-      if (tokenLength) {
+      if (tokenLength > 0) {
         do {
           const t = this.registeredTokens[
             pp.chunk.substring(pp.offset, pp.offset + tokenLength)
