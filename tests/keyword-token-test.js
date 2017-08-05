@@ -28,6 +28,11 @@ test('keyword', t => {
 
   const k1 = keywords.parseString(pp);
   t.is(k1.value, 'CREATE');
+  t.is(pp.offset, 8);
+  t.is(pp.lineNumber, 1);
+
   const k2 = keywords.parseString(pp);
   t.is(k2.value, 'TABLE');
+  t.is(pp.offset, 14);
+  t.is(pp.lineNumber, 1);
 });
