@@ -11,7 +11,7 @@
     "TDOP"
   ],
   "engines": {
-    "node": ">=8.2.1"
+    "node": ">=8.3.0"
   },
   "license": "BSD-2-Clause",
   "bugs": {
@@ -27,7 +27,7 @@
     "semantic-release": "^6.3.6",
     "jsdoc-babel": "^0.3.0",
     "ava": "^0.21.0",
-    "rollup-plugin-babel": "^3.0.0",
+    "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-multi-entry": "^2.0.1",
     "babel-preset-stage-3": "^6.24.1",
     "xo": "^0.19.0"
