@@ -26,7 +26,7 @@
     "rollup": "^0.47.4",
     "semantic-release": "^6.3.6",
     "jsdoc-babel": "^0.3.0",
-    "ava": "^0.21.0",
+    "ava": "^0.22.0",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-multi-entry": "^2.0.1",
     "babel-preset-stage-3": "^6.24.1",
