@@ -11,7 +11,7 @@
     "TDOP"
   ],
   "engines": {
-    "node": ">=8.3.0"
+    "node": ">=8.4.0"
   },
   "license": "BSD-2-Clause",
   "bugs": {
