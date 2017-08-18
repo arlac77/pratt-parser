@@ -24,7 +24,7 @@
     "markdown-doctest": "^0.9.1",
     "nyc": "^11.1.0",
     "rollup": "^0.47.6",
-    "semantic-release": "^7.0.1",
+    "semantic-release": "^7.0.2",
     "jsdoc-babel": "^0.3.0",
     "ava": "^0.22.0",
     "rollup-plugin-babel": "^3.0.2",
