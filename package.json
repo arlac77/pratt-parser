@@ -11,7 +11,7 @@
     "TDOP"
   ],
   "engines": {
-    "node": ">=8.4.0"
+    "node": ">=8.7.0"
   },
   "license": "BSD-2-Clause",
   "bugs": {
@@ -23,13 +23,12 @@
     "jsdoc-to-markdown": "^3.0.0",
     "markdown-doctest": "^0.9.1",
     "nyc": "^11.2.1",
-    "rollup": "^0.47.6",
-    "semantic-release": "^8.0.3",
+    "rollup": "^0.50.0",
+    "semantic-release": "^8.1.2",
     "jsdoc-babel": "^0.3.0",
     "ava": "^0.22.0",
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-multi-entry": "^2.0.1",
-    "babel-preset-stage-3": "^6.24.1",
     "xo": "^0.19.0"
   },
   "scripts": {
@@ -37,7 +36,7 @@
     "test": "ava",
     "docs": "jsdoc2md --configure doc/jsdoc.json -l off -t doc/README.hbs -f src/*.js >README.md",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "prepare": "rollup -c -- src/parser.js",
+    "prepare": "rollup -c",
     "pretest": "rollup -c tests/rollup.config.js",
     "posttest": "npm run prepare && markdown-doctest",
     "precover": "rollup -c tests/rollup.config.js"
