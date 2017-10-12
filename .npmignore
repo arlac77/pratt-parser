@@ -5,11 +5,9 @@ tests
 doc
 *.log
 *.tmp
-.DS_Store
 .test
 .tmp
 .gitignore
-.npmrc
 .travis.yml
 .npmignore
 .vscode
