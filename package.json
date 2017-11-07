@@ -11,7 +11,7 @@
     "TDOP"
   ],
   "engines": {
-    "node": ">=8.4.0"
+    "node": ">=8.9.0"
   },
   "license": "BSD-2-Clause",
   "bugs": {
@@ -20,24 +20,23 @@
   "homepage": "https://github.com/arlac77/pratt-parser#readme",
   "dependencies": {},
   "devDependencies": {
-    "jsdoc-to-markdown": "^3.0.0",
+    "jsdoc-to-markdown": "^3.0.1",
     "markdown-doctest": "^0.9.1",
-    "nyc": "^11.2.1",
+    "nyc": "^11.3.0",
     "rollup": "^0.50.0",
-    "semantic-release": "^8.0.3",
+    "semantic-release": "^9.1.0",
     "jsdoc-babel": "^0.3.0",
-    "ava": "^0.22.0",
+    "ava": "^0.23.0",
     "rollup-plugin-babel": "^3.0.2",
-    "rollup-plugin-multi-entry": "^2.0.1",
-    "babel-preset-stage-3": "^6.24.1",
+    "rollup-plugin-multi-entry": "^2.0.2",
     "xo": "^0.19.0"
   },
   "scripts": {
     "cover": "nyc ava",
     "test": "ava",
     "docs": "jsdoc2md --configure doc/jsdoc.json -l off -t doc/README.hbs -f src/*.js >README.md",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "prepare": "rollup -c -- src/parser.js",
+    "semantic-release": "semantic-release",
+    "prepare": "rollup -c",
     "pretest": "rollup -c tests/rollup.config.js",
     "posttest": "npm run prepare && markdown-doctest",
     "precover": "rollup -c tests/rollup.config.js"
@@ -54,7 +53,7 @@
   ],
   "nyc": {
     "include": [
-      "build/test-bundle.js",
+      "build/*-test.js",
       "src/**/*.js"
     ],
     "reporter": [
@@ -72,11 +71,9 @@
   },
   "ava": {
     "files": [
-      "build/test-bundle.js"
+      "build/*-test.js"
     ],
-    "presets": [
-      "stage-3"
-    ],
+    "presets": [],
     "require": [
       "babel-register"
     ]
