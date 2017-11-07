@@ -53,7 +53,7 @@
   ],
   "nyc": {
     "include": [
-      "build/test-bundle.js",
+      "build/*-test.js",
       "src/**/*.js"
     ],
     "reporter": [
@@ -71,11 +71,9 @@
   },
   "ava": {
     "files": [
-      "build/test-bundle.js"
+      "build/*-test.js"
     ],
-    "presets": [
-      "stage-3"
-    ],
+    "presets": [],
     "require": [
       "babel-register"
     ]
