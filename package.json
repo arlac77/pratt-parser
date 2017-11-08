@@ -11,7 +11,7 @@
     "TDOP"
   ],
   "engines": {
-    "node": ">=8.9.0"
+    "node": ">=8.9.1"
   },
   "license": "BSD-2-Clause",
   "bugs": {
@@ -23,7 +23,7 @@
     "jsdoc-to-markdown": "^3.0.1",
     "markdown-doctest": "^0.9.1",
     "nyc": "^11.3.0",
-    "rollup": "^0.50.0",
+    "rollup": "^0.51.1",
     "semantic-release": "^9.1.0",
     "jsdoc-babel": "^0.3.0",
     "ava": "^0.23.0",
@@ -73,7 +73,9 @@
     "files": [
       "build/*-test.js"
     ],
-    "presets": [],
+    "presets": [
+      null
+    ],
     "require": [
       "babel-register"
     ]
