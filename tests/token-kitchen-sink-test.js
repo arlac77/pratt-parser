@@ -89,7 +89,7 @@ test('Kitchen sink', t => {
     },
     {
       type: 'string',
-      value: '\b\f\n\r\t"\'A',
+      value: '\\\b\f\n\r\t"\'A',
       line: 2
     },
     {

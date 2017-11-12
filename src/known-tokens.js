@@ -173,6 +173,9 @@ export const StringToken = Object.create(RootToken, {
             case 't':
               c = '\t';
               break;
+            case '\\':
+              c = '\\';
+              break;
             case 'u':
               c = parseInt(pp.chunk.substr(i + 1, 4), 16);
               if (!isFinite(c) || c < 0) {
