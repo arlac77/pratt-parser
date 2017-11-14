@@ -20,7 +20,7 @@
   "homepage": "https://github.com/arlac77/pratt-parser#readme",
   "dependencies": {},
   "devDependencies": {
-    "jsdoc-to-markdown": "^3.0.1",
+    "jsdoc-to-markdown": "^3.0.2",
     "markdown-doctest": "^0.9.1",
     "nyc": "^11.3.0",
     "rollup": "^0.51.5",
