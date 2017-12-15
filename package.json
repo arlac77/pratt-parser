@@ -23,7 +23,7 @@
     "jsdoc-to-markdown": "^3.0.2",
     "markdown-doctest": "^0.9.1",
     "nyc": "^11.4.0",
-    "rollup": "^0.52.1",
+    "rollup": "^0.52.2",
     "semantic-release": "^11.0.2",
     "jsdoc-babel": "^0.3.0",
     "ava": "^0.24.0",
