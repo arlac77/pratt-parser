@@ -33,11 +33,11 @@ const rootPP = {
   }
 };
 
+/**
+ * Creates a tokenizer for later parsing
+ * @param {Object} grammar definition of the grammar with operators...
+ */
 export class Tokenizer {
-  /**
-	 * Creates a tokenizer for later parsing
-	 * @param {object} grammar definition of the grammar with operators...
-	 */
   constructor(grammar) {
     const maxTokenLengthForFirstChar = {};
     const registeredTokens = {};
@@ -113,10 +113,10 @@ export class Tokenizer {
   }
 
   /**
-	 * delivers tokens from the input
-	 * @param {string} chunk the input to be processed
-	 * @param {object} context additional info to be used by the actual token types
-	 */
+   * delivers tokens from the input
+   * @param {string} chunk the input to be processed
+   * @param {Object} context additional info to be used by the actual token types
+   */
   *tokens(chunk, context) {
     const pp = Object.create(rootPP);
     pp.context = context;
@@ -154,13 +154,15 @@ export class Tokenizer {
   }
 
   /**
-	 * @param {string} message
-	 * @param {object} context token initiating the error
-	 * @param {object} [value]
-	 * @return {Object} error
-	 */
+   * @param {string} message
+   * @param {Object} context token initiating the error
+   * @param {Object} [value]
+   * @return {Object} error
+   */
   error(message, context, value) {
-    message = `${context.lineNumber},${context.positionInLine}: ${message} "${value}"`;
+    message = `${context.lineNumber},${
+      context.positionInLine
+    }: ${message} "${value}"`;
     throw new Error(message);
   }
 }

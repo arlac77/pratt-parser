@@ -2,6 +2,9 @@
  * @module pratt-parser
  */
 
+/**
+ * Base object for all tokens
+ */
 export const RootToken = {
   //get precedence() { return 0; },
   precedence: 0,

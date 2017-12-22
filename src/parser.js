@@ -15,12 +15,11 @@ import { Tokenizer } from './tokenizer';
  * @module pratt-parser
  */
 
+/**
+ * Creates a grammar for later parsing
+ * @param {Object} grammar definition of the grammar with operators...
+ */
 export class Parser {
-  /**
-	 * Creates a grammar for later parsing
-	 * @param {object} grammar definition of the grammar with operators...
-	 * @return {object} parser
-	 */
   constructor(grammar, options = {}) {
     Object.defineProperty(this, 'tokenizer', {
       value: options.tokenizer || new Tokenizer(grammar)
@@ -28,21 +27,19 @@ export class Parser {
   }
 
   /**
-	 * Forwards error to the tokenizer
-	 * @param {string} message
-	 * @param {object} context
-	 * @return {Object} error
-	 */
+   * Forwards error to the tokenizer
+   * @return {Object} error
+   */
   error(...args) {
     return this.tokenizer.error(...args);
   }
 
   /**
-	 * Parses the input and delivers the outermoost expression.
-	 * @param {string} chunk input text
-	 * @param {object} context object transparently passed to tokenizer
-	 * @return {object} evaluated input
-	 */
+   * Parses the input and delivers the outermoost expression.
+   * @param {string} chunk input text
+   * @param {Object} context object transparently passed to tokenizer
+   * @return {Object} evaluated input
+   */
   parse(chunk, context) {
     this.context = context;
 
