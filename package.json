@@ -10,25 +10,13 @@
     "PRATT",
     "TDOP"
   ],
-  "engines": {
-    "node": ">=8.9.3"
-  },
+  "contributors": [
+    {
+      "name": "Markus Felten",
+      "email": "markus.felten@gmx.de"
+    }
+  ],
   "license": "BSD-2-Clause",
-  "bugs": {
-    "url": "https://github.com/arlac77/pratt-parser/issues"
-  },
-  "homepage": "https://github.com/arlac77/pratt-parser#readme",
-  "dependencies": {},
-  "devDependencies": {
-    "markdown-doctest": "^0.9.1",
-    "nyc": "^11.4.1",
-    "rollup": "^0.53.0",
-    "semantic-release": "^11.1.0",
-    "ava": "^0.24.0",
-    "rollup-plugin-multi-entry": "^2.0.2",
-    "xo": "^0.19.0",
-    "documentation": "^5.3.5"
-  },
   "scripts": {
     "cover": "nyc --temp-directory build/nyc ava",
     "test": "ava",
@@ -40,34 +28,28 @@
     "precover": "rollup -c tests/rollup.config.js",
     "lint": "documentation lint src/parser.js"
   },
+  "dependencies": {},
+  "devDependencies": {
+    "markdown-doctest": "^0.9.1",
+    "nyc": "^11.4.1",
+    "rollup": "^0.53.0",
+    "semantic-release": "^11.1.0",
+    "ava": "^0.24.0",
+    "rollup-plugin-multi-entry": "^2.0.2",
+    "xo": "^0.19.0",
+    "documentation": "^5.3.5"
+  },
+  "engines": {
+    "node": ">=8.9.3"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/arlac77/pratt-parser.git"
   },
-  "contributors": [
-    {
-      "name": "Markus Felten",
-      "email": "markus.felten@gmx.de"
-    }
-  ],
-  "nyc": {
-    "include": [
-      "build/*-test.js",
-      "src/**/*.js"
-    ],
-    "reporter": [
-      "lcov"
-    ],
-    "report-dir": "./build/coverage"
+  "bugs": {
+    "url": "https://github.com/arlac77/pratt-parser/issues"
   },
-  "template": {
-    "repository": {
-      "url": "https://github.com/arlac77/npm-package-template.git"
-    }
-  },
-  "xo": {
-    "space": true
-  },
+  "homepage": "https://github.com/arlac77/pratt-parser#readme",
   "ava": {
     "files": [
       "build/*-test.js"
@@ -78,5 +60,23 @@
     "require": [
       "babel-register"
     ]
+  },
+  "nyc": {
+    "include": [
+      "build/*-test.js",
+      "src/**/*.js"
+    ],
+    "reporter": [
+      "lcov"
+    ],
+    "report-dir": "./build/coverage"
+  },
+  "xo": {
+    "space": true
+  },
+  "template": {
+    "repository": {
+      "url": "https://github.com/arlac77/npm-package-template.git"
+    }
   }
 }
