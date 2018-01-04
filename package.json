@@ -39,7 +39,7 @@
     "documentation": "^5.3.5"
   },
   "engines": {
-    "node": ">=8.9.3"
+    "node": ">=8.9.4"
   },
   "repository": {
     "type": "git",
