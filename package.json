@@ -34,7 +34,7 @@
     "markdown-doctest": "^0.9.1",
     "nyc": "^11.4.1",
     "rollup": "^0.54.1",
-    "semantic-release": "^12.2.3",
+    "semantic-release": "^12.2.4",
     "ava": "^0.24.0",
     "rollup-plugin-multi-entry": "^2.0.2",
     "documentation": "^5.3.5",
