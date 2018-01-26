@@ -33,7 +33,7 @@
   "devDependencies": {
     "markdown-doctest": "^0.9.1",
     "nyc": "^11.4.1",
-    "rollup": "^0.55.0",
+    "rollup": "^0.55.1",
     "semantic-release": "^12.2.5",
     "ava": "^0.25.0",
     "rollup-plugin-multi-entry": "^2.0.2",
