@@ -33,15 +33,15 @@
   "devDependencies": {
     "markdown-doctest": "^0.9.1",
     "nyc": "^11.5.0",
-    "rollup": "^0.56.3",
+    "rollup": "^0.56.5",
     "semantic-release": "^13.1.4",
     "ava": "^0.25.0",
     "rollup-plugin-multi-entry": "^2.0.2",
-    "documentation": "^5.4.0",
+    "documentation": "^6.0.0",
     "travis-deploy-once": "^4.3.4"
   },
   "engines": {
-    "node": ">=8.9.4"
+    "node": ">=8.10"
   },
   "repository": {
     "type": "git",
