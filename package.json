@@ -34,10 +34,10 @@
     "markdown-doctest": "^0.9.1",
     "nyc": "^11.6.0",
     "rollup": "^0.57.1",
-    "semantic-release": "^15.1.5",
+    "semantic-release": "^15.1.6",
     "ava": "^0.25.0",
     "rollup-plugin-multi-entry": "^2.0.2",
-    "documentation": "^6.1.0",
+    "documentation": "^6.2.0",
     "travis-deploy-once": "^4.4.1"
   },
   "engines": {
