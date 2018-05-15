@@ -32,7 +32,7 @@
   "dependencies": {},
   "devDependencies": {
     "markdown-doctest": "^0.9.1",
-    "nyc": "^11.7.3",
+    "nyc": "^11.8.0",
     "rollup": "^0.59.0",
     "semantic-release": "^15.4.1",
     "ava": "^0.25.0",
