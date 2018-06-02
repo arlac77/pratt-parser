@@ -1,6 +1,9 @@
 {
   "name": "pratt-parser",
   "version": "0.0.0-semantic-release",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/parser.js",
   "module": "src/parser.js",
   "description": "TDOP parser",
