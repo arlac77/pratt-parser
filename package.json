@@ -40,7 +40,7 @@
     "semantic-release": "^15.5.0",
     "ava": "^0.25.0",
     "rollup-plugin-multi-entry": "^2.0.2",
-    "documentation": "^7.1.0",
+    "documentation": "^8.0.0",
     "travis-deploy-once": "^5.0.0"
   },
   "engines": {
