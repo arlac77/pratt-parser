@@ -79,25 +79,32 @@ console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
 ### Table of Contents
 
 -   [Parser](#parser)
+    -   [Parameters](#parameters)
     -   [error](#error)
+        -   [Parameters](#parameters-1)
     -   [parse](#parse)
+        -   [Parameters](#parameters-2)
 -   [pratt-parser](#pratt-parser)
 -   [pratt-parser](#pratt-parser-1)
 -   [pratt-parser](#pratt-parser-2)
 -   [RootToken](#roottoken)
     -   [parseString](#parsestring)
+        -   [Parameters](#parameters-3)
 -   [WhiteSpaceToken](#whitespacetoken)
 -   [LineCommentToken](#linecommenttoken)
 -   [EOFToken](#eoftoken)
 -   [Tokenizer](#tokenizer)
+    -   [Parameters](#parameters-4)
     -   [tokens](#tokens)
+        -   [Parameters](#parameters-5)
     -   [error](#error-1)
+        -   [Parameters](#parameters-6)
 
 ## Parser
 
 Creates a grammar for later parsing
 
-**Parameters**
+### Parameters
 
 -   `grammar` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** definition of the grammar with operators...
 -   `options`   (optional, default `{}`)
@@ -106,7 +113,7 @@ Creates a grammar for later parsing
 
 Forwards error to the tokenizer
 
-**Parameters**
+#### Parameters
 
 -   `args` **...any** 
 
@@ -116,7 +123,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Parses the input and delivers the outermoost expression.
 
-**Parameters**
+#### Parameters
 
 -   `chunk` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** input text
 -   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** object transparently passed to tokenizer
@@ -138,7 +145,7 @@ Base object for all tokens
 Parses from chunk of PrasePosition and delivers next token
 Modifies ParsePosition so that it points behind the detected token.
 
-**Parameters**
+#### Parameters
 
 -   `pp` **PrsePosition** 
 
@@ -160,7 +167,7 @@ Token representing 'end of file'
 
 Creates a tokenizer for later parsing
 
-**Parameters**
+### Parameters
 
 -   `grammar` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** definition of the grammar with operators...
 
@@ -168,14 +175,14 @@ Creates a tokenizer for later parsing
 
 delivers tokens from the input
 
-**Parameters**
+#### Parameters
 
 -   `chunk` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the input to be processed
 -   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** additional info to be used by the actual token types
 
 ### error
 
-**Parameters**
+#### Parameters
 
 -   `message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** token initiating the error
