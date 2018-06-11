@@ -42,11 +42,13 @@ export class Tokenizer {
     const maxTokenLengthForFirstChar = {};
     const registeredTokens = {};
 
-    Object.defineProperty(this, 'maxTokenLengthForFirstChar', {
-      value: maxTokenLengthForFirstChar
-    });
-    Object.defineProperty(this, 'registeredTokens', {
-      value: registeredTokens
+    Object.defineProperties(this, {
+      maxTokenLengthForFirstChar: {
+        value: maxTokenLengthForFirstChar
+      },
+      registeredTokens: {
+        value: registeredTokens
+      }
     });
 
     const operatorTypes = {
