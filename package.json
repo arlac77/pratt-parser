@@ -40,7 +40,7 @@
     "semantic-release": "^15.9.9",
     "ava": "^0.25.0",
     "rollup-plugin-multi-entry": "^2.0.2",
-    "documentation": "^8.1.1",
+    "documentation": "^8.1.2",
     "travis-deploy-once": "^5.0.2",
     "rollup-plugin-commonjs": "^9.1.5",
     "rollup-plugin-node-resolve": "^3.3.0",
