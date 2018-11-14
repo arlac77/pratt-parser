@@ -1,4 +1,5 @@
 build
+coverage
 tests
 doc
 *.log
@@ -9,7 +10,6 @@ doc
 .travis.yml
 .npmignore
 .vscode
-.nyc_output
 .markdown-doctest-setup.js
 rollup.config.js
 SUMMARY.md
