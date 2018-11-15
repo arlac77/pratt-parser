@@ -67,7 +67,11 @@
       "esm"
     ],
     "babel": false,
-    "compileEnhancements": false
+    "compileEnhancements": false,
+    "extensions": [
+      "js",
+      "mjs"
+    ]
   },
   "template": {
     "repository": {
