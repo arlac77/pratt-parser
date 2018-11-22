@@ -1,7 +1,6 @@
 language: node_js
 node_js:
   - 10.13
-sudo: 'false'
 branches:
   only:
     - master
@@ -22,5 +21,4 @@ after_script:
   - cat ./coverage/lcov.info | coveralls
 after_success:
   - npm run travis-deploy-once "npm run semantic-release"
-before_install:
-  - npm i -g npm@latest
+before_install: []
