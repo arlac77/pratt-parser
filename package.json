@@ -48,7 +48,7 @@
     "esm": "^3.0.84"
   },
   "engines": {
-    "node": ">=10.14"
+    "node": ">=10.14.1"
   },
   "repository": {
     "type": "git",
