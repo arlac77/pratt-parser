@@ -78,15 +78,15 @@ console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
 
 ### Table of Contents
 
+-   [pratt-parser](#pratt-parser)
+-   [pratt-parser](#pratt-parser-1)
+-   [pratt-parser](#pratt-parser-2)
 -   [Parser](#parser)
     -   [Parameters](#parameters)
     -   [error](#error)
         -   [Parameters](#parameters-1)
     -   [parse](#parse)
         -   [Parameters](#parameters-2)
--   [pratt-parser](#pratt-parser)
--   [pratt-parser](#pratt-parser-1)
--   [pratt-parser](#pratt-parser-2)
 -   [RootToken](#roottoken)
     -   [parseString](#parsestring)
         -   [Parameters](#parameters-3)
@@ -99,6 +99,12 @@ console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
         -   [Parameters](#parameters-5)
     -   [error](#error-1)
         -   [Parameters](#parameters-6)
+
+## pratt-parser
+
+## pratt-parser
+
+## pratt-parser
 
 ## Parser
 
@@ -129,12 +135,6 @@ Parses the input and delivers the outermoost expression.
 -   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** object transparently passed to tokenizer
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** evaluated input
-
-## pratt-parser
-
-## pratt-parser
-
-## pratt-parser
 
 ## RootToken
 
