@@ -35,7 +35,7 @@
   "devDependencies": {
     "markdown-doctest": "^0.9.1",
     "rollup": "^0.67.4",
-    "semantic-release": "^15.12.4",
+    "semantic-release": "^15.12.5",
     "ava": "^1.0.0-rc.2",
     "documentation": "^9.0.0",
     "travis-deploy-once": "^5.0.9",
