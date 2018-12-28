@@ -34,7 +34,7 @@
   "dependencies": {},
   "devDependencies": {
     "markdown-doctest": "^0.9.1",
-    "rollup": "^0.68.2",
+    "rollup": "^1.0.0",
     "semantic-release": "^15.13.2",
     "ava": "^1.0.1",
     "documentation": "^9.1.1",
