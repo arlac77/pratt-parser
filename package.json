@@ -24,12 +24,10 @@
     "cover": "c8 --temp-directory build/coverage ava && c8 report -r lcov --temp-directory build/coverage",
     "test": "ava",
     "docs": "documentation readme src/parser.js --section=API",
-    "semantic-release": "semantic-release",
     "prepare": "rollup -c",
     "pretest": "rollup -c tests/rollup.config.js",
     "posttest": "npm run prepare && markdown-doctest",
-    "lint": "documentation lint src/parser.js",
-    "travis-deploy-once": "travis-deploy-once"
+    "lint": "documentation lint src/parser.js"
   },
   "dependencies": {},
   "devDependencies": {
@@ -38,7 +36,6 @@
     "semantic-release": "^15.13.2",
     "ava": "^1.0.1",
     "documentation": "^9.1.1",
-    "travis-deploy-once": "^5.0.11",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-executable": "^1.3.0",
