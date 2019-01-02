@@ -4,8 +4,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/parser.js",
-  "module": "src/parser.js",
+  "main": "src/parser.mjs",
+  "module": "src/parser.mjs",
   "description": "TDOP parser",
   "keywords": [
     "tokenizer",
@@ -23,9 +23,8 @@
   "scripts": {
     "cover": "c8 --temp-directory build/coverage ava && c8 report -r lcov --temp-directory build/coverage",
     "docs": "documentation readme src/parser.js --section=API",
-    "lint": "documentation lint src/parser.js",
-    "posttest": "markdown-doctest && npm run prepare",
-    "pretest": "rollup -c tests/rollup.config.js",
+    "lint": "documentation lint src/parser.mjs",
+    "posttest": "markdown-doctest",
     "test": "ava"
   },
   "dependencies": {},
