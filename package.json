@@ -22,7 +22,7 @@
   "license": "BSD-2-Clause",
   "scripts": {
     "cover": "c8 --temp-directory build/coverage ava && c8 report -r lcov --temp-directory build/coverage",
-    "docs": "documentation readme src/parser.js --section=API",
+    "docs": "documentation readme src/parser.mjs --section=API",
     "lint": "documentation lint src/parser.mjs",
     "posttest": "markdown-doctest",
     "test": "ava"
