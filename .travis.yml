@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-  - 10.15.1
-  - 11.10.0
+  - 10.15.2
+  - 11.10.1
 branches:
   only:
     - master
