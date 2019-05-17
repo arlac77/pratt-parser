@@ -33,7 +33,7 @@
     "ava": "^1.4.1",
     "c8": "^4.1.5",
     "documentation": "^11.0.0",
-    "esm": "^3.2.22",
+    "esm": "^3.2.25",
     "markdown-doctest": "^0.9.1",
     "semantic-release": "^15.13.14"
   },
