@@ -31,7 +31,7 @@
   "dependencies": {},
   "devDependencies": {
     "ava": "^1.4.1",
-    "c8": "^4.1.5",
+    "c8": "^5.0.1",
     "documentation": "^11.0.0",
     "esm": "^3.2.25",
     "markdown-doctest": "^0.9.1",
