@@ -1,11 +1,6 @@
 import {
   EOFToken,
-  WhiteSpaceToken,
-  StringToken,
-  NumberToken,
-  OperatorToken,
-  IdentifierToken,
-  KeywordToken
+  OperatorToken
 } from './known-tokens';
 
 /**
