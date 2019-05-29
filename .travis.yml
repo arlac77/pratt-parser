@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - 10.15.3
+  - 10.16.0
   - 12.3.1
 cache: npm
 jobs:
