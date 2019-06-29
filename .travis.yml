@@ -3,14 +3,14 @@ node_js:
   - 10.16.0
   - 12.5.0
 cache: npm
+
+script:
+  - npm run cover
+  - npx codecov
+  - cat ./build/coverage/lcov.info | npx coveralls
+
 jobs:
   include:
-    - stage: test
-      skip_cleanup: 'true'
-      script:
-        - npm run cover
-        - npx codecov
-        - cat ./build/coverage/lcov.info | npx coveralls
     - stage: doc
       node_js: lts/*
       skip_cleanup: 'true'
@@ -25,7 +25,3 @@ jobs:
         skip_cleanup: 'true'
         script:
           - npx semantic-release
-branches:
-  only:
-    - master
-    - /^greenkeeper/.*$/
