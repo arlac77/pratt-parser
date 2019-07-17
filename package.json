@@ -32,7 +32,7 @@
   "devDependencies": {
     "ava": "^2.2.0",
     "c8": "^5.0.2",
-    "documentation": "^12.0.1",
+    "documentation": "^12.0.2",
     "esm": "^3.2.25",
     "markdown-doctest": "^0.9.1",
     "semantic-release": "^15.13.19"
