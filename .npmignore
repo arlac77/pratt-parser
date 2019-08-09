@@ -8,6 +8,6 @@ doc
 .tmp
 .travis.yml
 .vscode
-.markdown-doctest-setup.js
 .DS_Store
+.markdown-doctest-setup.js
 examples
