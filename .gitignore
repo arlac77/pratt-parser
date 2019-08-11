@@ -1,6 +1,6 @@
+
 node_modules
 build
-coverage
 *.log
 *.dump
 .DS_Store
