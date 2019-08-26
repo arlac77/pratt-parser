@@ -1,6 +1,5 @@
 language: node_js
 node_js:
-  - 10.16.3
   - 12.9.0
 cache: npm
 script:
