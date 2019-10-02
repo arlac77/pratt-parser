@@ -1,13 +1,13 @@
 language: node_js
-node_js:
-  - 12.10.0
-cache: npm
-script:
-  - npm run cover
-  - npx codecov
-  - cat ./build/coverage/lcov.info | npx coveralls
 jobs:
   include:
+    - stage: test
+      node_js:
+        - 12.11.1
+      script:
+        - npm run cover
+        - npx codecov
+        - cat ./build/coverage/lcov.info | npx coveralls
     - stage: doc
       node_js: lts/*
       skip_cleanup: 'true'
