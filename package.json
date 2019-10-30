@@ -22,7 +22,7 @@
   ],
   "license": "BSD-2-Clause",
   "scripts": {
-    "cover": "c8 -x 'tests/**/*.mjs' --temp-directory build/tmp ava && c8 report -r lcov -o build/coverage --temp-directory build/tmp",
+    "cover": "c8 -x 'tests/**/*' --temp-directory build/tmp ava && c8 report -r lcov -o build/coverage --temp-directory build/tmp",
     "docs": "documentation readme src/parser.mjs --section=API",
     "lint": "documentation lint src/parser.mjs",
     "posttest": "markdown-doctest",
