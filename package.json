@@ -35,7 +35,7 @@
     "documentation": "^12.1.2",
     "esm": "^3.2.25",
     "markdown-doctest": "^1.0.0",
-    "semantic-release": "^15.13.28"
+    "semantic-release": "^15.13.29"
   },
   "engines": {
     "node": ">=12.12.0"
