@@ -1,10 +1,11 @@
 {
   "name": "pratt-parser",
   "version": "0.0.0-semantic-release",
-  "type": "module",
   "publishConfig": {
     "access": "public"
   },
+  "sideEffects": false,
+  "type": "module",
   "main": "src/parser.mjs",
   "module": "src/parser.mjs",
   "description": "TDOP parser",
@@ -67,6 +68,5 @@
     "repository": {
       "url": "https://github.com/arlac77/npm-package-template-esm-only.git"
     }
-  },
-  "sideEffects": false
+  }
 }
