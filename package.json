@@ -26,15 +26,23 @@
     "cover": "c8 -x 'tests/**/*' --temp-directory build/tmp ava && c8 report -r lcov -o build/coverage --temp-directory build/tmp",
     "docs": "documentation readme src/parser.mjs --section=API",
     "lint": "documentation lint src/parser.mjs",
-    "posttest": "markdown-doctest",
-    "test": "ava"
+    "posttest": "npm run prepare && markdown-doctest",
+    "test": "ava",
+    "prepare": "rollup -c"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.1",
+    "@rollup/plugin-json": "^4.0.1",
+    "@rollup/plugin-node-resolve": "^7.0.0",
     "ava": "^2.4.0",
-    "c8": "^7.0.0",
+    "builtin-modules": "^3.1.0",
+    "c8": "^7.0.1",
     "documentation": "^12.1.4",
     "esm": "^3.2.25",
     "markdown-doctest": "^1.0.0",
+    "rollup": "^1.29.0",
+    "rollup-plugin-cleanup": "^3.1.1",
+    "rollup-plugin-executable": "^1.5.2",
     "semantic-release": "^16.0.1"
   },
   "engines": {
@@ -65,7 +73,7 @@
   },
   "template": {
     "repository": {
-      "url": "https://github.com/arlac77/npm-package-template-esm-only.git"
+      "url": "https://github.com/arlac77/npm-package-template.git"
     }
   }
 }
