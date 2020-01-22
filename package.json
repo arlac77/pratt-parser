@@ -31,11 +31,11 @@
   },
   "devDependencies": {
     "ava": "^2.4.0",
-    "c8": "^7.0.0",
+    "c8": "^7.0.1",
     "documentation": "^12.1.4",
     "esm": "^3.2.25",
     "markdown-doctest": "^1.0.0",
-    "semantic-release": "^16.0.1"
+    "semantic-release": "^16.0.2"
   },
   "engines": {
     "node": ">=12.14.1"
