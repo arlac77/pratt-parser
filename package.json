@@ -26,7 +26,6 @@
     "cover": "c8 -x 'tests/**/*' --temp-directory build/tmp ava && c8 report -r lcov -o build/coverage --temp-directory build/tmp",
     "docs": "documentation readme src/parser.mjs --section=API",
     "lint": "documentation lint src/parser.mjs",
-    "posttest": "markdown-doctest",
     "test": "ava"
   },
   "devDependencies": {
@@ -34,7 +33,6 @@
     "c8": "^7.0.1",
     "documentation": "^12.1.4",
     "esm": "^3.2.25",
-    "markdown-doctest": "^1.0.0",
     "semantic-release": "^16.0.2"
   },
   "engines": {
