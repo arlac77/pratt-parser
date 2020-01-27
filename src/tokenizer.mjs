@@ -127,7 +127,7 @@ export class Tokenizer {
       if (tokenLength > 0) {
         do {
           const t = this.registeredTokens[
-            pp.chunk.substring(pp.offset, pp.offset + tokenLength)
+            pp.chunk.slice(pp.offset, pp.offset + tokenLength)
           ];
           if (t !== undefined) {
             const rt = t.parseString(pp);

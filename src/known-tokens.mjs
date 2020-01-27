@@ -71,7 +71,7 @@ export const IdentifierToken = Object.create(RootToken, {
 
       const properties = pp.properties;
       properties.value = {
-        value: pp.chunk.substring(pp.offset, i)
+        value: pp.chunk.slice(pp.offset, i)
       };
       pp.offset = i;
       return Object.create(this, properties);
@@ -100,7 +100,7 @@ export const KeywordToken = Object.create(IdentifierToken, {
     value(pp) {
       const start = pp.offset;
 
-      console.log('>' + pp.chunk.substring(pp.offset) + '<');
+      console.log('>' + pp.chunk.slice(pp.offset) + '<');
 
       for (let i = start + 1; i < pp.chunk.length; i++) {
         const c = pp.chunk[i];
@@ -111,7 +111,7 @@ export const KeywordToken = Object.create(IdentifierToken, {
             Object.assign(
               {
                 value: {
-                  value: pp.chunk.substring(start, i)
+                  value: pp.chunk.slice(start, i)
                 }
               },
               pp.properties
