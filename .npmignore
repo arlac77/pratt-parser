@@ -1,4 +1,3 @@
-
 build
 tests
 doc
@@ -6,8 +5,11 @@ doc
 *.tmp
 .test
 .tmp
+.npmrc
 .travis.yml
 .vscode
+.nyc_output
+
 .DS_Store
 .markdown-doctest-setup.js
 examples

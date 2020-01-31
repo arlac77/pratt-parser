@@ -26,14 +26,33 @@
     "cover": "c8 -x 'tests/**/*' --temp-directory build/tmp ava && c8 report -r lcov -o build/coverage --temp-directory build/tmp",
     "docs": "documentation readme src/parser.mjs --section=API",
     "lint": "documentation lint src/parser.mjs",
-    "test": "ava"
+    "test": "ava",
+    "prepare": "rollup -c",
+    "start": "rollup -c -w"
+  },
+  "dependencies": {
+    "mf-styling": "arlac77/mf-styling",
+    "svelte-common": "^1.3.0",
+    "svelte-guard-history-router": "^1.1.11",
+    "svelte-session-manager": "^1.0.5"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.1",
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "@semantic-release/exec": "^5.0.0",
     "ava": "^2.4.0",
     "c8": "^7.0.1",
     "documentation": "^12.1.4",
     "esm": "^3.2.25",
-    "semantic-release": "^17.0.1"
+    "npm-pkgbuild": "^6.11.4",
+    "rollup": "^1.30.1",
+    "rollup-plugin-consts": "^1.0.1",
+    "rollup-plugin-copy": "^3.3.0",
+    "rollup-plugin-dev": "^1.1.1",
+    "rollup-plugin-svelte": "^5.1.1",
+    "rollup-plugin-terser": "^5.2.0",
+    "semantic-release": "^17.0.1",
+    "svelte": "^3.18.1"
   },
   "engines": {
     "node": ">=12.14.1"
@@ -46,6 +65,37 @@
     "url": "https://github.com/arlac77/pratt-parser/issues"
   },
   "homepage": "https://github.com/arlac77/pratt-parser#readme",
+  "config": {
+    "base": "/services/pratt-parser/",
+    "api": "/services/pratt-parser/api",
+    "proxyTarget": "https://somewhere/"
+  },
+  "pacman": {
+    "groups": "{{group}}",
+    "hooks": "pacman/hooks.sh",
+    "installdir": "/services/pratt-parser/frontend",
+    "depends": {
+      "systemd": ">=244.1"
+    },
+    "content": {
+      "${installdir}/": {
+        "base": "public"
+      },
+      "/etc/nginx/config.d/${name}.conf": "pacman/nginx.conf"
+    }
+  },
+  "release": {
+    "plugins": [
+      [
+        "@semantic-release/exec",
+        {
+          "publishCmd": "npx npm-pkgbuild --pkgver ${nextRelease.version} pkgbuild pacman makepkg"
+        }
+      ],
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator"
+    ]
+  },
   "ava": {
     "files": [
       "tests/*-test.js",

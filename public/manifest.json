@@ -1,0 +1,10 @@
+{
+  "name": "pratt-parser",
+  "description": "TDOP parser",
+  "icons": [
+    {
+      "src": "facicon.ico",
+      "sizes": "16x16"
+    }
+  ]
+}

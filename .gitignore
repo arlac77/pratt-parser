@@ -1,9 +1,11 @@
-
+.DS_Store
 node_modules
+public/bundle.*
+public/global.css
+
 build
 *.log
 *.dump
 *.node
-.DS_Store
 .test
 .tmp
