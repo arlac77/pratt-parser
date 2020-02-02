@@ -33,7 +33,7 @@
     "c8": "^7.0.1",
     "documentation": "^12.1.4",
     "esm": "^3.2.25",
-    "semantic-release": "^17.0.1"
+    "semantic-release": "^17.0.2"
   },
   "engines": {
     "node": ">=12.14.1"
