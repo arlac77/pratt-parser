@@ -3,8 +3,8 @@ jobs:
   include:
     - stage: test
       node_js:
-        - 12.14.1
-        - 13.7.0
+        - 12.15.0
+        - 13.8.0
       script:
         - npm run cover
         - npx codecov
