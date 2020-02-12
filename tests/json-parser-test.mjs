@@ -1,14 +1,12 @@
-import test from 'ava';
+import test from "ava";
 
 import {
   IdentifierToken,
-  KeywordToken,
   WhiteSpaceToken,
   NumberToken,
   StringToken
-} from '../src/known-tokens';
-import { Tokenizer } from '../src/tokenizer';
-import { Parser } from '../src/parser';
+} from "../src/known-tokens.mjs";
+import { Parser } from "../src/parser.mjs";
 
 function Value(value) {
   return Object.create(null, {
@@ -36,10 +34,10 @@ const g = {
           for (;;) {
             const c = pp.chunk[i];
             if (
-              (c >= 'a' && c <= 'z') ||
-              (c >= 'A' && c <= 'Z') ||
-              (c >= '0' && c <= '9') ||
-              c === '_'
+              (c >= "a" && c <= "z") ||
+              (c >= "A" && c <= "Z") ||
+              (c >= "0" && c <= "9") ||
+              c === "_"
             ) {
               i += 1;
             } else {
@@ -48,11 +46,11 @@ const g = {
           }
           const value = pp.chunk.substring(pp.offset, i);
           const properties = pp.properties;
-          if (value === 'true') {
+          if (value === "true") {
             properties.value = {
               value: true
             };
-          } else if (value === 'false') {
+          } else if (value === "false") {
             properties.value = {
               value: false
             };
@@ -70,65 +68,65 @@ const g = {
   ],
 
   prefix: {
-    '[': {
+    "[": {
       nud(grammar, left) {
         const values = [];
 
-        if (grammar.token.value !== ']') {
+        if (grammar.token.value !== "]") {
           while (true) {
             values.push(grammar.expression(0).value);
 
-            if (grammar.token.value !== ',') {
+            if (grammar.token.value !== ",") {
               break;
             }
-            grammar.advance(',');
+            grammar.advance(",");
           }
         }
-        grammar.advance(']');
+        grammar.advance("]");
         return Value(values);
       }
     },
-    '{': {
+    "{": {
       nud(grammar, left) {
         const object = {};
 
-        if (grammar.token.value !== '}') {
+        if (grammar.token.value !== "}") {
           while (true) {
             const key = grammar.expression(0).value;
 
-            if (grammar.token.value !== ':') {
+            if (grammar.token.value !== ":") {
               break;
             }
-            grammar.advance(':');
+            grammar.advance(":");
 
             const value = grammar.expression(0).value;
             object[key] = value;
-            if (grammar.token.value === '}') {
+            if (grammar.token.value === "}") {
               break;
             }
-            grammar.advance(',');
+            grammar.advance(",");
           }
         }
-        grammar.advance('}');
+        grammar.advance("}");
         return Value(object);
       }
     }
   },
   infix: {
-    ',': {},
-    ':': {},
-    '}': {},
-    ']': {}
+    ",": {},
+    ":": {},
+    "}": {},
+    "]": {}
   }
 };
 
-test('json simple array', t => {
+test("json simple array", t => {
   const myGrammar = new Parser(g);
   t.deepEqual(
     myGrammar.parse('[1,"b",[4],{ "c" : 5, "d" : true, "e": false}]').value,
     [
       1,
-      'b',
+      "b",
       [4],
       {
         c: 5,

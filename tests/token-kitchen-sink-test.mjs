@@ -1,15 +1,15 @@
 import test from "ava";
+import { join, dirname } from "path";
+import { readFileSync } from "fs";
+import { fileURLToPath } from "url";
 
 import {
   WhiteSpaceToken,
   NumberToken,
   StringToken,
   IdentifierToken
-} from "../src/known-tokens";
-import { Tokenizer } from "../src/tokenizer";
-import { join, dirname } from "path";
-import { readFileSync } from "fs";
-import { fileURLToPath } from "url";
+} from "../src/known-tokens.mjs";
+import { Tokenizer } from "../src/tokenizer.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 

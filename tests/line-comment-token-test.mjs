@@ -1,11 +1,11 @@
-import test from 'ava';
+import test from "ava";
 
-import { LineCommentToken } from '../src/known-tokens';
+import { LineCommentToken } from "../src/known-tokens.mjs";
 
-test('line comment', t => {
+test("line comment", t => {
   const tokenizer = {};
   const pp = {
-    chunk: 'x#   \n  A',
+    chunk: "x#   \n  A",
     offset: 1,
     lineNumber: 1
   };

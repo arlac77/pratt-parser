@@ -1,11 +1,10 @@
-import test from 'ava';
+import test from "ava";
 
-import { WhiteSpaceToken } from '../src/known-tokens';
+import { WhiteSpaceToken } from "../src/known-tokens.mjs";
 
-test('whitespace', t => {
-  const tokenizer = {};
+test("whitespace", t => {
   const pp = {
-    chunk: 'x   \n  A',
+    chunk: "x   \n  A",
     offset: 1,
     lineNumber: 1
   };

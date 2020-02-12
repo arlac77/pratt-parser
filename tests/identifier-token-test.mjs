@@ -1,11 +1,11 @@
-import test from 'ava';
+import test from "ava";
 
-import { IdentifierToken } from '../src/known-tokens';
+import { IdentifierToken } from "../src/known-tokens.mjs";
 
-test('identifier tokens', t => {
+test("identifier tokens", t => {
   const tokenizer = {};
   const pp = {
-    chunk: ' abc   \n  A',
+    chunk: " abc   \n  A",
     offset: 1,
     lineNumber: 1,
     get properties() {
@@ -15,6 +15,6 @@ test('identifier tokens', t => {
 
   const token = IdentifierToken.parseString(pp);
 
-  t.is(token.value, 'abc');
+  t.is(token.value, "abc");
   t.is(pp.offset, 4);
 });

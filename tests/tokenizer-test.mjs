@@ -1,57 +1,57 @@
-import test from 'ava';
+import test from "ava";
 
 import {
   WhiteSpaceToken,
   NumberToken,
   StringToken,
   IdentifierToken
-} from '../src/known-tokens';
-import { Tokenizer } from '../src/tokenizer';
+} from "../src/known-tokens.mjs";
+import { Tokenizer } from "../src/tokenizer.mjs";
 
-test('tokens trailing space', t => {
+test("tokens trailing space", t => {
   const tokenizer = new Tokenizer({
     tokens: [WhiteSpaceToken, NumberToken, StringToken, IdentifierToken],
 
     infix: {
-      '=': {
+      "=": {
         precedence: 77
       },
-      '+': {},
-      '-': {},
-      '*': {
+      "+": {},
+      "-": {},
+      "*": {
         precedence: 42
       },
-      '/': {},
-      '(': {},
-      ')': {},
-      '[': {},
-      ']': {},
-      '{': {},
-      '}': {},
-      ':': {},
-      '<': {},
-      '>': {},
-      '.': {},
-      ',': {},
-      ';': {},
-      '<=': {},
-      '>=': {},
-      '=>': {},
-      '===': {},
-      '!===': {}
+      "/": {},
+      "(": {},
+      ")": {},
+      "[": {},
+      "]": {},
+      "{": {},
+      "}": {},
+      ":": {},
+      "<": {},
+      ">": {},
+      ".": {},
+      ",": {},
+      ";": {},
+      "<=": {},
+      ">=": {},
+      "=>": {},
+      "===": {},
+      "!===": {}
     }
   });
 
   const tokens = [
     {
-      type: 'identifier',
-      value: 'A'
+      type: "identifier",
+      value: "A"
     }
   ];
 
   let i = 0;
 
-  for (const token of tokenizer.tokens('A ')) {
+  for (const token of tokenizer.tokens("A ")) {
     const refToken = tokens[i];
 
     t.is(token.type, refToken.type);

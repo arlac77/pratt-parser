@@ -1,12 +1,12 @@
-import test from 'ava';
+import test from "ava";
 
 import {
   IdentifierToken,
   WhiteSpaceToken,
   NumberToken,
   StringToken
-} from '../src/known-tokens';
-import { Parser } from '../src/parser';
+} from "../src/known-tokens.mjs";
+import { Parser } from "../src/parser.mjs";
 
 function Value(value) {
   return Object.create(null, {
@@ -21,8 +21,8 @@ const identifiers = {
 };
 
 const functions = {
-  concat: args => Value(args.map(a => a.value).join('')),
-  noargs: args => Value('-- no args --'),
+  concat: args => Value(args.map(a => a.value).join("")),
+  noargs: args => Value("-- no args --"),
   onearg: args => args[0]
 };
 
@@ -39,10 +39,10 @@ const g = {
           for (;;) {
             const c = pp.chunk[i];
             if (
-              (c >= 'a' && c <= 'z') ||
-              (c >= 'A' && c <= 'Z') ||
-              (c >= '0' && c <= '9') ||
-              c === '_'
+              (c >= "a" && c <= "z") ||
+              (c >= "A" && c <= "Z") ||
+              (c >= "0" && c <= "9") ||
+              c === "_"
             ) {
               i += 1;
             } else {
@@ -74,82 +74,82 @@ const g = {
     })
   ],
   prefix: {
-    '(': {
+    "(": {
       precedence: 80,
       led(grammar, left) {
-        if (left.type === 'identifier') {
+        if (left.type === "identifier") {
           const args = [];
 
-          if (grammar.token.value !== ')') {
+          if (grammar.token.value !== ")") {
             while (true) {
               args.push(grammar.expression(0));
 
-              if (grammar.token.value !== ',') {
+              if (grammar.token.value !== ",") {
                 break;
               }
-              grammar.advance(',');
+              grammar.advance(",");
             }
           }
 
-          grammar.advance(')');
+          grammar.advance(")");
 
           return left.value(args);
         } else {
           const e = grammar.expression(0);
-          grammar.advance(')');
+          grammar.advance(")");
           return e;
         }
       }
     }
   },
   infix: {
-    ',': {},
-    ')': {},
-    ']': {},
-    '[': {
+    ",": {},
+    ")": {},
+    "]": {},
+    "[": {
       precedence: 40,
       led(grammar, left) {
         const right = grammar.expression(0);
-        grammar.advance(']');
+        grammar.advance("]");
         return Value(left.value[right.value]);
       }
     },
-    '+': {
+    "+": {
       precedence: 50,
       combine: (left, right) => Value(left.value + right.value)
     },
-    '-': {
+    "-": {
       precedence: 50,
       combine: (left, right) => Value(left.value - right.value)
     },
-    '*': {
+    "*": {
       precedence: 60,
       combine: (left, right) => Value(left.value * right.value)
     },
-    '/': {
+    "/": {
       precedence: 60,
       combine: (left, right) => Value(left.value / right.value)
     }
   }
 };
 
-test('mini_lang noargs', t => {
+test("mini_lang noargs", t => {
   const myGrammar = new Parser(g);
-  t.is(myGrammar.parse('noargs()').value, '-- no args --');
+  t.is(myGrammar.parse("noargs()").value, "-- no args --");
 });
 
-test('mini_lang onearg', t => {
+test("mini_lang onearg", t => {
   const myGrammar = new Parser(g);
-  t.is(myGrammar.parse('onearg("the arg")').value, 'the arg');
+  t.is(myGrammar.parse('onearg("the arg")').value, "the arg");
 });
 
-test('mini_lang concat', t => {
+test("mini_lang concat", t => {
   const myGrammar = new Parser(g);
-  t.is(myGrammar.parse('concat("A","B")').value, 'AB');
-  t.is(myGrammar.parse('concat(concat("A","B"),"C")').value, 'ABC');
+  t.is(myGrammar.parse('concat("A","B")').value, "AB");
+  t.is(myGrammar.parse('concat(concat("A","B"),"C")').value, "ABC");
 });
 
-test('mini_lang array', t => {
+test("mini_lang array", t => {
   const myGrammar = new Parser(g);
-  t.is(myGrammar.parse('array[3 * 2] + 2').value, 9);
+  t.is(myGrammar.parse("array[3 * 2] + 2").value, 9);
 });

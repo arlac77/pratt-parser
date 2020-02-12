@@ -1,7 +1,4 @@
-import {
-  EOFToken,
-  OperatorToken
-} from './known-tokens';
+import { EOFToken, OperatorToken } from "./known-tokens.mjs";
 
 /**
  * @module pratt-parser
@@ -145,7 +142,7 @@ export class Tokenizer {
 
         pp.offset += 1;
 
-        this.error('Unknown char', pp, c);
+        this.error("Unknown char", pp, c);
       }
     } while (true);
   }
@@ -157,9 +154,7 @@ export class Tokenizer {
    * @return {Object} error
    */
   error(message, context, value) {
-    message = `${context.lineNumber},${
-      context.positionInLine
-    }: ${message} "${value}"`;
+    message = `${context.lineNumber},${context.positionInLine}: ${message} "${value}"`;
     throw new Error(message);
   }
 }

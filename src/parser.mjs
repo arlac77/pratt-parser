@@ -1,15 +1,6 @@
-import {
-  EOFToken,
-  StringToken,
-  NumberToken,
-  OperatorToken,
-  IdentifierToken,
-  KeywordToken,
-  WhiteSpaceToken,
-  LineCommentToken
-} from './known-tokens';
-
-import { Tokenizer } from './tokenizer';
+import { EOFToken } from "./known-tokens.mjs";
+import { Tokenizer } from "./tokenizer.mjs";
+export * from "./known-tokens.mjs";
 
 /**
  * @module pratt-parser
@@ -21,7 +12,7 @@ import { Tokenizer } from './tokenizer';
  */
 export class Parser {
   constructor(grammar, options = {}) {
-    Object.defineProperty(this, 'tokenizer', {
+    Object.defineProperty(this, "tokenizer", {
       value: options.tokenizer || new Tokenizer(grammar)
     });
   }
@@ -78,15 +69,3 @@ export class Parser {
     return this.expression(this.token.precedence);
   }
 }
-
-export {
-  Tokenizer,
-  EOFToken,
-  StringToken,
-  NumberToken,
-  OperatorToken,
-  IdentifierToken,
-  KeywordToken,
-  WhiteSpaceToken,
-  LineCommentToken
-};
