@@ -23,10 +23,10 @@
   ],
   "license": "BSD-2-Clause",
   "scripts": {
+    "test": "ava --timeout 2m",
     "cover": "c8 -x 'tests/**/*' --temp-directory build/tmp ava --timeout 2m && c8 report -r lcov -o build/coverage --temp-directory build/tmp",
     "docs": "documentation readme src/parser.mjs --section=API",
-    "lint": "documentation lint src/parser.mjs",
-    "test": "ava --timeout 2m"
+    "lint": "documentation lint src/parser.mjs"
   },
   "devDependencies": {
     "ava": "^3.3.0",
