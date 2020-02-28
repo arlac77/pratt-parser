@@ -46,8 +46,6 @@
   },
   "homepage": "https://github.com/arlac77/pratt-parser#readme",
   "template": {
-    "repository": {
-      "url": "https://github.com/arlac77/npm-package-template-esm-only.git"
-    }
+    "inheritFrom": "arlac77/template-esm-only"
   }
 }
