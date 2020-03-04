@@ -8,3 +8,4 @@ doc
 .travis.yml
 .vscode
 examples
+.github
