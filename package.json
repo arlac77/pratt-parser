@@ -23,8 +23,8 @@
   ],
   "license": "BSD-2-Clause",
   "scripts": {
-    "test": "ava --node-arguments '--experimental-modules' --timeout 2m",
-    "cover": "c8 -x 'tests/**/*' --temp-directory build/tmp ava --node-arguments '--experimental-modules' --timeout 2m && c8 report -r lcov -o build/coverage --temp-directory build/tmp",
+    "test": "ava --timeout 2m",
+    "cover": "c8 -x 'tests/**/*' --temp-directory build/tmp ava --timeout 2m && c8 report -r lcov -o build/coverage --temp-directory build/tmp",
     "docs": "documentation readme src/parser.mjs --section=API",
     "lint": "documentation lint src/parser.mjs"
   },
