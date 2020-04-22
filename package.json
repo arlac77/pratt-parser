@@ -32,7 +32,7 @@
     "ava": "^3.7.1",
     "c8": "^7.1.0",
     "documentation": "^12.3.0",
-    "semantic-release": "^17.0.6"
+    "semantic-release": "^17.0.7"
   },
   "engines": {
     "node": ">=12.16.2"
