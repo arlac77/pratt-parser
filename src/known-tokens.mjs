@@ -9,7 +9,7 @@ export const RootToken = {
   //get precedence() { return 0; },
   precedence: 0,
   get type() {
-    return 'unknown';
+    return "unknown";
   },
   get value() {
     return undefined;
@@ -42,7 +42,7 @@ export const RootToken = {
 
 export const IdentifierToken = Object.create(RootToken, {
   firstChar: {
-    value: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_'
+    value: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_"
   },
   registerWithinTokenizer: {
     value(tokenizer) {
@@ -58,10 +58,10 @@ export const IdentifierToken = Object.create(RootToken, {
       for (;;) {
         const c = pp.chunk[i];
         if (
-          (c >= 'a' && c <= 'z') ||
-          (c >= 'A' && c <= 'Z') ||
-          (c >= '0' && c <= '9') ||
-          c === '_'
+          (c >= "a" && c <= "z") ||
+          (c >= "A" && c <= "Z") ||
+          (c >= "0" && c <= "9") ||
+          c === "_"
         ) {
           i += 1;
         } else {
@@ -78,7 +78,7 @@ export const IdentifierToken = Object.create(RootToken, {
     }
   },
   type: {
-    value: 'identifier'
+    value: "identifier"
   }
 });
 
@@ -100,36 +100,31 @@ export const KeywordToken = Object.create(IdentifierToken, {
     value(pp) {
       const start = pp.offset;
 
-      console.log('>' + pp.chunk.slice(pp.offset) + '<');
+      console.log(">" + pp.chunk.slice(pp.offset) + "<");
 
       for (let i = start + 1; i < pp.chunk.length; i++) {
         const c = pp.chunk[i];
-        if (!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))) {
+        if (!((c >= "A" && c <= "Z") || (c >= "a" && c <= "z"))) {
           pp.offset = i + 1;
-          return Object.create(
-            this,
-            Object.assign(
-              {
-                value: {
-                  value: pp.chunk.slice(start, i)
-                }
-              },
-              pp.properties
-            )
-          );
+          return Object.create(this, {
+            value: {
+              value: pp.chunk.slice(start, i)
+            },
+            ...pp.properties
+          });
         }
       }
     }
   },
   type: {
-    value: 'keyword'
+    value: "keyword"
   }
 });
 
 export const StringToken = Object.create(RootToken, {
   registerWithinTokenizer: {
     value(tokenizer) {
-      for (const c of '"\'') {
+      for (const c of "\"'") {
         tokenizer.maxTokenLengthForFirstChar[c] = 1;
         tokenizer.registeredTokens[c] = this;
       }
@@ -139,50 +134,45 @@ export const StringToken = Object.create(RootToken, {
     value(pp) {
       const properties = pp.properties;
       const tc = pp.chunk[pp.offset];
-      let str = '';
+      let str = "";
       let i = pp.offset + 1;
       let c;
       for (; i < pp.chunk.length; ) {
         c = pp.chunk[i];
         if (c === tc) {
           pp.offset = i + 1;
-          return Object.create(
-            this,
-            Object.assign(
-              {
-                value: {
-                  value: str
-                }
-              },
-              properties
-            )
-          );
-        } else if (c === '\\') {
+          return Object.create(this, {
+            value: {
+              value: str
+            },
+            ...properties
+          });
+        } else if (c === "\\") {
           i += 1;
           c = pp.chunk[i];
           switch (c) {
-            case 'b':
-              c = '\b';
+            case "b":
+              c = "\b";
               break;
-            case 'f':
-              c = '\f';
+            case "f":
+              c = "\f";
               break;
-            case 'n':
-              c = '\n';
+            case "n":
+              c = "\n";
               break;
-            case 'r':
-              c = '\r';
+            case "r":
+              c = "\r";
               break;
-            case 't':
-              c = '\t';
+            case "t":
+              c = "\t";
               break;
-            case '\\':
-              c = '\\';
+            case "\\":
+              c = "\\";
               break;
-            case 'u':
+            case "u":
               c = parseInt(pp.chunk.substr(i + 1, 4), 16);
               if (!isFinite(c) || c < 0) {
-                pp.tokenizer.error('Unterminated string', pp, str);
+                pp.tokenizer.error("Unterminated string", pp, str);
               }
               c = String.fromCharCode(c);
               i += 4;
@@ -196,19 +186,19 @@ export const StringToken = Object.create(RootToken, {
         }
       }
       if (i === pp.chunk.length && c !== tc) {
-        pp.tokenizer.error('Unterminated string', pp, str);
+        pp.tokenizer.error("Unterminated string", pp, str);
       }
     }
   },
   type: {
-    value: 'string'
+    value: "string"
   }
 });
 
 export const NumberToken = Object.create(RootToken, {
   registerWithinTokenizer: {
     value(tokenizer) {
-      for (const c of '0123456789') {
+      for (const c of "0123456789") {
         tokenizer.maxTokenLengthForFirstChar[c] = 1;
         tokenizer.registeredTokens[c] = this;
       }
@@ -221,24 +211,22 @@ export const NumberToken = Object.create(RootToken, {
       pp.offset += 1;
       for (; pp.offset < pp.chunk.length; ) {
         const c = pp.chunk[pp.offset];
-        if ((c < '0' || c > '9') && c !== '.' && c !== 'e' && c !== 'E') {
+        if ((c < "0" || c > "9") && c !== "." && c !== "e" && c !== "E") {
           break;
         }
         pp.offset += 1;
         str += c;
       }
-      return Object.create(
-        this,
-        Object.assign(properties, {
-          value: {
-            value: +str
-          }
-        })
-      );
+      return Object.create(this, {
+        ...properties,
+        value: {
+          value: +str
+        }
+      });
     }
   },
   type: {
-    value: 'number'
+    value: "number"
   }
 });
 
@@ -272,7 +260,7 @@ export const OperatorToken = Object.create(RootToken, {
     }
   },
   type: {
-    value: 'operator'
+    value: "operator"
   }
 });
 
@@ -282,7 +270,7 @@ export const OperatorToken = Object.create(RootToken, {
 export const WhiteSpaceToken = Object.create(RootToken, {
   registerWithinTokenizer: {
     value(tokenizer) {
-      for (const c of ' \f\t\b\r\n') {
+      for (const c of " \f\t\b\r\n") {
         tokenizer.maxTokenLengthForFirstChar[c] = 1;
         tokenizer.registeredTokens[c] = this;
       }
@@ -290,8 +278,8 @@ export const WhiteSpaceToken = Object.create(RootToken, {
   },
   parseString: {
     value(pp) {
-      while (pp.chunk[pp.offset] <= ' ') {
-        if (pp.chunk[pp.offset] === '\n') {
+      while (pp.chunk[pp.offset] <= " ") {
+        if (pp.chunk[pp.offset] === "\n") {
           pp.lineNumber += 1;
           pp.firstCharInLine = pp.offset;
         }
@@ -301,7 +289,7 @@ export const WhiteSpaceToken = Object.create(RootToken, {
     }
   },
   type: {
-    value: 'space'
+    value: "space"
   }
 });
 
@@ -312,7 +300,7 @@ export const LineCommentToken = Object.create(RootToken, {
   parseString: {
     value(pp) {
       while (
-        pp.chunk[pp.offset] !== '\n' &&
+        pp.chunk[pp.offset] !== "\n" &&
         pp.chunk[pp.offset] !== undefined
       ) {
         pp.offset += 1;
@@ -324,7 +312,7 @@ export const LineCommentToken = Object.create(RootToken, {
     }
   },
   type: {
-    value: 'comment'
+    value: "comment"
   }
 });
 
@@ -333,6 +321,6 @@ export const LineCommentToken = Object.create(RootToken, {
  */
 export const EOFToken = Object.create(RootToken, {
   type: {
-    value: 'EOF'
+    value: "EOF"
   }
 });
