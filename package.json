@@ -7,6 +7,9 @@
   "sideEffects": false,
   "type": "module",
   "main": "src/parser.mjs",
+  "exports": {
+    ".": "./src/parser.mjs"
+  },
   "description": "TDOP parser",
   "keywords": [
     "tokenizer",
