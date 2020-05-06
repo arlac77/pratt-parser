@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "ava": "^3.8.1",
-    "c8": "^7.1.1",
+    "c8": "^7.1.2",
     "documentation": "^12.3.0",
     "semantic-release": "^17.0.7"
   },
