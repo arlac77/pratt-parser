@@ -34,7 +34,7 @@
   "devDependencies": {
     "ava": "^3.8.2",
     "c8": "^7.1.2",
-    "documentation": "^12.3.0",
+    "documentation": "^13.0.0",
     "semantic-release": "^17.0.7"
   },
   "engines": {
