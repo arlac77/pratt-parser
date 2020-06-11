@@ -12,10 +12,10 @@
   },
   "description": "TDOP parser",
   "keywords": [
-    "tokenizer",
-    "parser",
     "PRATT",
-    "TDOP"
+    "TDOP",
+    "parser",
+    "tokenizer"
   ],
   "contributors": [
     {
@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "ava": "^3.8.2",
-    "c8": "^7.1.2",
+    "c8": "^7.2.0",
     "documentation": "^13.0.1",
     "semantic-release": "^17.0.8"
   },
