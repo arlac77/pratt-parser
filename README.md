@@ -73,27 +73,27 @@ console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
 
 ### Table of Contents
 
-- [pratt-parser](#pratt-parser)
-- [pratt-parser](#pratt-parser-1)
-- [pratt-parser](#pratt-parser-2)
-- [Parser](#parser)
-  - [Parameters](#parameters)
-  - [error](#error)
-    - [Parameters](#parameters-1)
-  - [parse](#parse)
-    - [Parameters](#parameters-2)
-- [RootToken](#roottoken)
-  - [parseString](#parsestring)
-    - [Parameters](#parameters-3)
-- [WhiteSpaceToken](#whitespacetoken)
-- [LineCommentToken](#linecommenttoken)
-- [EOFToken](#eoftoken)
-- [Tokenizer](#tokenizer)
-  - [Parameters](#parameters-4)
-  - [tokens](#tokens)
-    - [Parameters](#parameters-5)
-  - [error](#error-1)
-    - [Parameters](#parameters-6)
+-   [pratt-parser](#pratt-parser)
+-   [pratt-parser](#pratt-parser-1)
+-   [pratt-parser](#pratt-parser-2)
+-   [Parser](#parser)
+    -   [Parameters](#parameters)
+    -   [error](#error)
+        -   [Parameters](#parameters-1)
+    -   [parse](#parse)
+        -   [Parameters](#parameters-2)
+-   [RootToken](#roottoken)
+    -   [parseString](#parsestring)
+        -   [Parameters](#parameters-3)
+-   [WhiteSpaceToken](#whitespacetoken)
+-   [LineCommentToken](#linecommenttoken)
+-   [EOFToken](#eoftoken)
+-   [Tokenizer](#tokenizer)
+    -   [Parameters](#parameters-4)
+    -   [tokens](#tokens)
+        -   [Parameters](#parameters-5)
+    -   [error](#error-1)
+        -   [Parameters](#parameters-6)
 
 ## pratt-parser
 
@@ -107,8 +107,8 @@ Creates a grammar for later parsing
 
 ### Parameters
 
-- `grammar` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** definition of the grammar with operators...
-- `options` (optional, default `{}`)
+-   `grammar` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** definition of the grammar with operators...
+-   `options`   (optional, default `{}`)
 
 ### error
 
@@ -116,7 +116,7 @@ Forwards error to the tokenizer
 
 #### Parameters
 
-- `args` **...any**
+-   `args` **...any** 
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** error
 
@@ -126,8 +126,8 @@ Parses the input and delivers the outermoost expression.
 
 #### Parameters
 
-- `chunk` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** input text
-- `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** object transparently passed to tokenizer
+-   `chunk` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** input text
+-   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** object transparently passed to tokenizer
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** evaluated input
 
@@ -142,9 +142,9 @@ Modifies ParsePosition so that it points behind the detected token.
 
 #### Parameters
 
-- `pp` **PrsePosition**
+-   `pp` **PrsePosition** 
 
-Returns **Token**
+Returns **Token** 
 
 ## WhiteSpaceToken
 
@@ -164,7 +164,7 @@ Creates a tokenizer for later parsing
 
 ### Parameters
 
-- `grammar` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** definition of the grammar with operators...
+-   `grammar` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** definition of the grammar with operators...
 
 ### tokens
 
@@ -172,16 +172,16 @@ delivers tokens from the input
 
 #### Parameters
 
-- `chunk` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the input to be processed
-- `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** additional info to be used by the actual token types
+-   `chunk` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the input to be processed
+-   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** additional info to be used by the actual token types
 
 ### error
 
 #### Parameters
 
-- `message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**
-- `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** token initiating the error
-- `value` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?**
+-   `message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** token initiating the error
+-   `value` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** 
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** error
 
