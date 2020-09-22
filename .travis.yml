@@ -3,7 +3,7 @@ jobs:
   include:
     - stage: test
       node_js:
-        - 14.11.0
+        - 14.12.0
       script:
         - npm run cover
         - cat ./build/coverage/lcov.info | npx coveralls
