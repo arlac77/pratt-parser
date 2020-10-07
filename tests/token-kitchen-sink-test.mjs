@@ -1,7 +1,5 @@
 import test from "ava";
-import { join, dirname } from "path";
 import { readFileSync } from "fs";
-import { fileURLToPath } from "url";
 import {
   Tokenizer,
   WhiteSpaceToken,
@@ -9,8 +7,6 @@ import {
   StringToken,
   IdentifierToken
 } from "pratt-parser";
-
-const here = dirname(fileURLToPath(import.meta.url));
 
 const tokenizer = new Tokenizer({
   tokens: [WhiteSpaceToken, NumberToken, StringToken, IdentifierToken],
@@ -268,9 +264,12 @@ test("Kitchen sink", t => {
     }
   ];
 
-  const s = readFileSync(join(here, "..", "tests", "fixtures", "tokens1.txt"), {
-    encoding: "utf8"
-  });
+  const s = readFileSync(
+    new URL("fixtures/tokens1.txt", import.meta.url).pathname,
+    {
+      encoding: "utf8"
+    }
+  );
 
   let i = 0;
 
