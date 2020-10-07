@@ -1,6 +1,5 @@
 import test from "ava";
-
-import { WhiteSpaceToken } from "../src/known-tokens.mjs";
+import { WhiteSpaceToken } from "pratt-parser";
 
 test("whitespace", t => {
   const pp = {

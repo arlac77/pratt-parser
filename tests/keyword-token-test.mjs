@@ -1,7 +1,5 @@
 import test from "ava";
-
-import { KeywordToken } from "../src/known-tokens.mjs";
-import { Tokenizer } from "../src/tokenizer.mjs";
+import { KeywordToken, Tokenizer } from "pratt-parser";
 
 test("keyword", t => {
   const keywords = Object.create(KeywordToken, {

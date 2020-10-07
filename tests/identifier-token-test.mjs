@@ -1,6 +1,5 @@
 import test from "ava";
-
-import { IdentifierToken } from "../src/known-tokens.mjs";
+import { IdentifierToken } from "pratt-parser";
 
 test("identifier tokens", t => {
   const tokenizer = {};

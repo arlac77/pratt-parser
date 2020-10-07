@@ -1,12 +1,11 @@
 import test from "ava";
-
 import {
+  Tokenizer,
   WhiteSpaceToken,
   NumberToken,
   StringToken,
   IdentifierToken
-} from "../src/known-tokens.mjs";
-import { Tokenizer } from "../src/tokenizer.mjs";
+} from "pratt-parser";
 
 test("tokens trailing space", t => {
   const tokenizer = new Tokenizer({

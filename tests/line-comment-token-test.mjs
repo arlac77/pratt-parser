@@ -1,6 +1,5 @@
 import test from "ava";
-
-import { LineCommentToken } from "../src/known-tokens.mjs";
+import { LineCommentToken } from "pratt-parser";
 
 test("line comment", t => {
   const tokenizer = {};

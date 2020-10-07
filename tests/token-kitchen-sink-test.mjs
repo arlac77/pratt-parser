@@ -2,14 +2,13 @@ import test from "ava";
 import { join, dirname } from "path";
 import { readFileSync } from "fs";
 import { fileURLToPath } from "url";
-
 import {
+  Tokenizer,
   WhiteSpaceToken,
   NumberToken,
   StringToken,
   IdentifierToken
-} from "../src/known-tokens.mjs";
-import { Tokenizer } from "../src/tokenizer.mjs";
+} from "pratt-parser";
 
 const here = dirname(fileURLToPath(import.meta.url));
 

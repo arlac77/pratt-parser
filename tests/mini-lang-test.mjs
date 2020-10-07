@@ -1,12 +1,11 @@
 import test from "ava";
-
 import {
+  Parser,
   IdentifierToken,
   WhiteSpaceToken,
   NumberToken,
   StringToken
-} from "../src/known-tokens.mjs";
-import { Parser } from "../src/parser.mjs";
+} from "pratt-parser";
 
 function Value(value) {
   return Object.create(null, {

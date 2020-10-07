@@ -1,7 +1,5 @@
 import test from "ava";
-
-import { WhiteSpaceToken, NumberToken } from "../src/known-tokens.mjs";
-import { Parser } from "../src/parser.mjs";
+import { WhiteSpaceToken, NumberToken, Parser } from "pratt-parser";
 
 function value(value) {
   return Object.create(null, {
