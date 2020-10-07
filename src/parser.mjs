@@ -1,6 +1,8 @@
 import { EOFToken } from "./known-tokens.mjs";
 import { Tokenizer } from "./tokenizer.mjs";
+
 export * from "./known-tokens.mjs";
+export { Tokenizer };
 
 /**
  * @module pratt-parser
