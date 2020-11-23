@@ -1,0 +1,23 @@
+test:
+  - tests/**/*
+documentation:
+  - docs/**/*
+  - '**/*.md'
+dependencies:
+  - package-lock.json
+  - yarn.lockfile
+ci:
+  - .github/workflows/*
+  - .travis.yml
+git:
+  - .gitignore
+npm:
+  - .npmignore
+deployment:
+  - netlify.toml
+  - _redirects
+rollup:
+  - rollup.config.js
+  - rollup.config.mjs
+labels:
+  - .github/pr_labeler.yml
