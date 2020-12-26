@@ -1,10 +1,4 @@
-/* jslint node: true, esnext: true */
-
-'use strict';
-
-const {
-  Parser, WhiteSpaceToken, NumberToken
-} = require('../dist/parser');
+import { Parser, WhiteSpaceToken, NumberToken } from "pratt-parser";
 
 function Value(value) {
   return Object.create(null, {
@@ -15,29 +9,26 @@ function Value(value) {
 }
 
 const myGrammar = new Parser({
-  tokens: [
-    WhiteSpaceToken,
-    NumberToken
-  ],
+  tokens: [WhiteSpaceToken, NumberToken],
   infix: {
-    ')': {},
-    '+': {
+    ")": {},
+    "+": {
       precedence: 50,
       combine: (left, right) => Value(left.value + right.value)
     },
-    '-': {
+    "-": {
       precedence: 50,
-      ccombine: (left, right) => Value(left.value - right.value)
+      combine: (left, right) => Value(left.value - right.value)
     },
-    '*': {
+    "*": {
       precedence: 60,
       combine: (left, right) => Value(left.value * right.value)
     },
-    '/': {
+    "/": {
       precedence: 60,
       combine: (left, right) => Value(left.value / right.value)
     }
   }
 });
 
-console.log(myGrammar.parse('1 + 41 * 3').value);
+console.log(myGrammar.parse(process.argv.slice(2)).value)
