@@ -1,16 +1,11 @@
-/* jslint node: true, esnext: true */
-
 /* WIP does not work for now!!! */
 
-'use strict';
-
-const {
+import {
   Parser,
   WhiteSpaceToken,
-  StringToken,
   NumberToken,
   IdentifierToken
-} = require('../dist/parser');
+} from "pratt-parser";
 
 function Value(value) {
   return Object.create(null, {
@@ -23,19 +18,20 @@ function Value(value) {
 const tnsGrammar = new Parser({
   tokens: [WhiteSpaceToken, NumberToken, IdentifierToken],
   prefix: {
-    '(': {
+    "(": {
       precedence: 80,
       led(grammar, left) {
         const e = grammar.expression(0);
-        grammar.advance(')');
+        console.log(e);
+        grammar.advance(")");
         return e;
       }
     }
   },
   infix: {
-    '(': {},
-    ')': {},
-    '=': {
+  //  "(": {},
+    ")": {},
+    "=": {
       precedence: 50,
       combine: (left, right) => [left, right]
     }
