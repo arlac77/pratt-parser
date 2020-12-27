@@ -23,3 +23,5 @@ labels:
   - .github/pr_labeler.yml
 github:
   - .github/**/*
+vscode:
+  - .vscode/*
