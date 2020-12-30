@@ -34,7 +34,7 @@
     "ava": "^3.14.0",
     "c8": "^7.3.5",
     "documentation": "github:arlac77/documentation",
-    "semantic-release": "^17.3.0"
+    "semantic-release": "^17.3.1"
   },
   "engines": {
     "node": ">=12.19.0"
