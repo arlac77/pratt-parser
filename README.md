@@ -74,18 +74,18 @@ console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
 -   [pratt-parser](#pratt-parser)
 -   [pratt-parser](#pratt-parser-1)
 -   [pratt-parser](#pratt-parser-2)
--   [Parser](#parser)
-    -   [Parameters](#parameters)
-    -   [error](#error)
-        -   [Parameters](#parameters-1)
-    -   [parse](#parse)
-        -   [Parameters](#parameters-2)
 -   [RootToken](#roottoken)
     -   [parseString](#parsestring)
-        -   [Parameters](#parameters-3)
+        -   [Parameters](#parameters)
 -   [WhiteSpaceToken](#whitespacetoken)
 -   [LineCommentToken](#linecommenttoken)
 -   [EOFToken](#eoftoken)
+-   [Parser](#parser)
+    -   [Parameters](#parameters-1)
+    -   [error](#error)
+        -   [Parameters](#parameters-2)
+    -   [parse](#parse)
+        -   [Parameters](#parameters-3)
 -   [Tokenizer](#tokenizer)
     -   [Parameters](#parameters-4)
     -   [tokens](#tokens)
@@ -98,6 +98,33 @@ console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
 ## pratt-parser
 
 ## pratt-parser
+
+## RootToken
+
+Base object for all tokens
+
+### parseString
+
+Parses from chunk of PrasePosition and delivers next token
+Modifies ParsePosition so that it points behind the detected token.
+
+#### Parameters
+
+-   `pp` **PrsePosition** 
+
+Returns **Token** 
+
+## WhiteSpaceToken
+
+skip white space
+
+## LineCommentToken
+
+skips until end of line
+
+## EOFToken
+
+Token representing 'end of file'
 
 ## Parser
 
@@ -128,33 +155,6 @@ Parses the input and delivers the outermoost expression.
 -   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** object transparently passed to tokenizer
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** evaluated input
-
-## RootToken
-
-Base object for all tokens
-
-### parseString
-
-Parses from chunk of PrasePosition and delivers next token
-Modifies ParsePosition so that it points behind the detected token.
-
-#### Parameters
-
--   `pp` **PrsePosition** 
-
-Returns **Token** 
-
-## WhiteSpaceToken
-
-skip white space
-
-## LineCommentToken
-
-skips until end of line
-
-## EOFToken
-
-Token representing 'end of file'
 
 ## Tokenizer
 
