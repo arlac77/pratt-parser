@@ -13,6 +13,7 @@ git:
   - .gitignore
 npm:
   - .npmignore
+  - package.json
 deployment:
   - netlify.toml
   - _redirects
