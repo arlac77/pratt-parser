@@ -110,9 +110,9 @@ Modifies ParsePosition so that it points behind the detected token.
 
 #### Parameters
 
-*   `pp` **PrsePosition** 
+*   `pp` **PrsePosition**&#x20;
 
-Returns **Token** 
+Returns **Token**&#x20;
 
 ## WhiteSpaceToken
 
@@ -141,7 +141,7 @@ Forwards error to the tokenizer
 
 #### Parameters
 
-*   `args` **...any** 
+*   `args` **...any**&#x20;
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** error
 
@@ -177,9 +177,9 @@ delivers tokens from the input
 
 #### Parameters
 
-*   `message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+*   `message` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
 *   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** token initiating the error
-*   `value` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** 
+*   `value` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?**&#x20;
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** error
 
