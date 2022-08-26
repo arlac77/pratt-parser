@@ -31,7 +31,7 @@
     "lint:docs": "documentation lint ./src/**/*.mjs"
   },
   "devDependencies": {
-    "ava": "^4.3.1",
+    "ava": "^4.3.3",
     "c8": "^7.12.0",
     "documentation": "^14.0.0",
     "semantic-release": "^19.0.5"
