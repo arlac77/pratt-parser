@@ -24,8 +24,8 @@
   "license": "BSD-2-Clause",
   "scripts": {
     "test": "npm run test:ava",
-    "test:ava": "ava --timeout 2m tests/*.mjs",
-    "cover": "c8 -x 'tests/**/*' --temp-directory build/tmp ava --timeout 2m tests/*.mjs && c8 report -r lcov -o build/coverage --temp-directory build/tmp",
+    "test:ava": "ava --timeout 2m tests/*-ava.mjs tests/*-ava-node.mjs",
+    "cover": "c8 -x 'tests/**/*' --temp-directory build/tmp ava --timeout 2m tests/*-ava.mjs tests/*-ava-node.mjs && c8 report -r lcov -o build/coverage --temp-directory build/tmp",
     "docs": "documentation readme --section=API ./src/**/*.mjs",
     "lint": "npm run lint:docs",
     "lint:docs": "documentation lint ./src/**/*.mjs"
