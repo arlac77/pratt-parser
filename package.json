@@ -23,8 +23,9 @@
   ],
   "license": "BSD-2-Clause",
   "scripts": {
-    "test": "npm run test:ava",
+    "test": "npm run test:ava && npm run test:browser-ava",
     "test:ava": "ava --timeout 2m tests/*-ava.mjs tests/*-ava-node.mjs",
+    "test:browser-ava": "browser-ava --headless --no-keep-open tests/*-ava.mjs tests/*-ava-browser.mjs",
     "cover": "c8 -x 'tests/**/*' --temp-directory build/tmp ava --timeout 2m tests/*-ava.mjs tests/*-ava-node.mjs && c8 report -r lcov -o build/coverage --temp-directory build/tmp",
     "docs": "documentation readme --section=API ./src/**/*.mjs",
     "lint": "npm run lint:docs",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "ava": "^5.0.1",
+    "browser-ava": "^1.3.1",
     "c8": "^7.12.0",
     "documentation": "^14.0.0",
     "semantic-release": "^19.0.5"
@@ -50,6 +52,7 @@
   "template": {
     "inheritFrom": [
       "arlac77/template-arlac77-github",
+      "arlac77/template-browser-ava",
       "arlac77/template-esm-only"
     ]
   }
