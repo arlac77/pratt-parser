@@ -4,7 +4,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "sideEffects": false,
   "exports": {
     ".": "./src/parser.mjs"
   },
