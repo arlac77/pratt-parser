@@ -285,7 +285,6 @@ export const WhiteSpaceToken = Object.create(RootToken, {
         }
         pp.offset += 1;
       }
-      return undefined;
     }
   },
   type: {
@@ -308,7 +307,6 @@ export const LineCommentToken = Object.create(RootToken, {
 
       pp.lineNumber += 1;
       pp.firstCharInLine = pp.offset;
-      return undefined;
     }
   },
   type: {
