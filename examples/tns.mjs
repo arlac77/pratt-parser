@@ -8,11 +8,7 @@ import {
 } from "pratt-parser";
 
 function Value(value) {
-  return Object.create(null, {
-    value: {
-      value: value
-    }
-  });
+  return { value };
 }
 
 const tnsGrammar = new Parser({
@@ -29,7 +25,6 @@ const tnsGrammar = new Parser({
     }
   },
   infix: {
-  //  "(": {},
     ")": {},
     "=": {
       precedence: 50,
