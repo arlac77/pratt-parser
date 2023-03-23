@@ -1,11 +1,7 @@
 import { Parser, WhiteSpaceToken, NumberToken } from "pratt-parser";
 
 function Value(value) {
-  return Object.create(null, {
-    value: {
-      value: value
-    }
-  });
+  return { value };
 }
 
 const myGrammar = new Parser({
@@ -30,5 +26,4 @@ const myGrammar = new Parser({
     }
   }
 });
-
 console.log(myGrammar.parse(process.argv.slice(2)).value)
