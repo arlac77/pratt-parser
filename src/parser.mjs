@@ -13,9 +13,9 @@ export { Tokenizer };
  * @param {Object} grammar definition of the grammar with operators...
  */
 export class Parser {
-  constructor(grammar, options = {}) {
+  constructor(grammar, options) {
     Object.defineProperty(this, "tokenizer", {
-      value: options.tokenizer || new Tokenizer(grammar)
+      value: options?.tokenizer || new Tokenizer(grammar)
     });
   }
 

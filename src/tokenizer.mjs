@@ -26,23 +26,14 @@ const rootPP = {
 };
 
 /**
- * Creates a tokenizer for later parsing
+ * Creates a tokenizer for later parsing.
  * @param {Object} grammar definition of the grammar with operators...
  */
 export class Tokenizer {
+  maxTokenLengthForFirstChar = {};
+  registeredTokens = {};
+
   constructor(grammar) {
-    const maxTokenLengthForFirstChar = {};
-    const registeredTokens = {};
-
-    Object.defineProperties(this, {
-      maxTokenLengthForFirstChar: {
-        value: maxTokenLengthForFirstChar
-      },
-      registeredTokens: {
-        value: registeredTokens
-      }
-    });
-
     const operatorTypes = {
       prefix: {
         token: OperatorToken,
@@ -107,7 +98,7 @@ export class Tokenizer {
   }
 
   /**
-   * delivers tokens from the input
+   * delivers tokens from the input.
    * @param {string} chunk the input to be processed
    * @param {Object} context additional info to be used by the actual token types
    */
@@ -123,9 +114,10 @@ export class Tokenizer {
 
       if (tokenLength > 0) {
         do {
-          const t = this.registeredTokens[
-            pp.chunk.slice(pp.offset, pp.offset + tokenLength)
-          ];
+          const t =
+            this.registeredTokens[
+              pp.chunk.slice(pp.offset, pp.offset + tokenLength)
+            ];
           if (t !== undefined) {
             const rt = t.parseString(pp);
 
