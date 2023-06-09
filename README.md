@@ -133,7 +133,7 @@ Creates a grammar for later parsing
 ### Parameters
 
 *   `grammar` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** definition of the grammar with operators...
-*   `options`   (optional, default `{}`)
+*   `options` &#x20;
 
 ### error
 
@@ -158,7 +158,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ## Tokenizer
 
-Creates a tokenizer for later parsing
+Creates a tokenizer for later parsing.
 
 ### Parameters
 
@@ -166,7 +166,7 @@ Creates a tokenizer for later parsing
 
 ### tokens
 
-delivers tokens from the input
+delivers tokens from the input.
 
 #### Parameters
 
