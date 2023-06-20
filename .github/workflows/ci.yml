@@ -1,5 +1,13 @@
 name: CI
-'on': push
+'on':
+  push:
+    branches:
+      - master
+      - next
+  pull_request:
+    branches:
+      - master
+      - next
 jobs:
   test-node:
     runs-on: ubuntu-latest
