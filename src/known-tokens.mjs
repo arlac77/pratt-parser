@@ -89,8 +89,6 @@ export const KeywordToken = Object.create(IdentifierToken, {
   registerWithinTokenizer: {
     value(tokenizer) {
       Object.keys(this.keywords).forEach(k => {
-        const c = k[0];
-        //console.log(`${k} ${c}`);
         tokenizer.maxTokenLengthForFirstChar[k] = 1;
         tokenizer.registeredTokens[k] = this;
       });

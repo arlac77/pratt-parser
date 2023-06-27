@@ -92,9 +92,7 @@ export class Tokenizer {
       }
     }
 
-    if (grammar.tokens !== undefined) {
-      grammar.tokens.forEach(token => token.registerWithinTokenizer(this));
-    }
+    grammar.tokens?.forEach(token => token.registerWithinTokenizer(this));
   }
 
   /**
