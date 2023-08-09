@@ -16,7 +16,7 @@ jobs:
         node-version:
           - 16.20.1
           - 18.17.0
-          - 20.5.0
+          - 20.5.1
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3.7.0
