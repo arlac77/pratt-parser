@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "ava": "^5.3.1",
-    "browser-ava": "^1.3.58",
+    "browser-ava": "^1.3.59",
     "c8": "^8.0.1",
     "documentation": "^14.0.2",
     "semantic-release": "^22.0.1"
