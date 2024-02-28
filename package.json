@@ -32,7 +32,7 @@
     "lint:docs": "documentation lint ./src/**/*.mjs"
   },
   "devDependencies": {
-    "ava": "^6.1.1",
+    "ava": "^6.1.2",
     "browser-ava": "^2.2.1",
     "c8": "^9.1.0",
     "documentation": "^14.0.3",
