@@ -8,6 +8,8 @@ on:
     branches:
       - master
       - next
+permissions:
+  contents: read
 jobs:
   test-node:
     runs-on: ubuntu-latest
@@ -37,6 +39,11 @@ jobs:
       - test-browser
       - test-node
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4.1.1
       - uses: actions/setup-node@v4.0.2
@@ -50,11 +57,6 @@ jobs:
           CI: "true"
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-      id-token: write
   finish:
     needs:
       - test-node
@@ -85,5 +87,3 @@ jobs:
       - run: npm run test:browser-ava --if-present
         env:
           BROWSER: ${{ matrix.browser }}
-permissions:
-  contents: read
