@@ -72,8 +72,6 @@ console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
 ### Table of Contents
 
 *   [pratt-parser](#pratt-parser)
-*   [pratt-parser](#pratt-parser-1)
-*   [pratt-parser](#pratt-parser-2)
 *   [RootToken](#roottoken)
     *   [parseString](#parsestring)
         *   [Parameters](#parameters)
@@ -92,10 +90,6 @@ console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
         *   [Parameters](#parameters-5)
     *   [error](#error-1)
         *   [Parameters](#parameters-6)
-
-## pratt-parser
-
-## pratt-parser
 
 ## pratt-parser
 
@@ -132,8 +126,8 @@ Creates a grammar for later parsing
 
 ### Parameters
 
-*   `grammar` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** definition of the grammar with operators...
-*   `options` &#x20;
+*   `grammar` **any**&#x20;
+*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### error
 
