@@ -1,9 +1,5 @@
 import { EOFToken, OperatorToken } from "./known-tokens.mjs";
 
-/**
- * @module pratt-parser
- */
-
 const rootPP = {
   chunk: undefined,
   context: {},

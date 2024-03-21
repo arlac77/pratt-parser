@@ -5,10 +5,6 @@ export * from "./known-tokens.mjs";
 export { Tokenizer };
 
 /**
- * @module pratt-parser
- */
-
-/**
  * Creates a grammar for later parsing
  * @param {Object} grammar definition of the grammar with operators...
  */
@@ -16,6 +12,12 @@ export class Parser {
   tokenizer;
   context;
   
+  /**
+   * 
+   * @param {any} grammar 
+   * @param {Object} options
+   * @param {Tokenizer} options.tokenizer
+   */
   constructor(grammar, options) {
     this.tokenizer = options?.tokenizer || new Tokenizer(grammar);
   }
