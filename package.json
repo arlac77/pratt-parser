@@ -7,9 +7,11 @@
   },
   "exports": {
     ".": {
-      "default": "./src/parser.mjs"
+      "default": "./src/parser.mjs",
+      "types": "./types/parser.d.mts"
     }
   },
+  "types": "./types/parser.d.mts",
   "description": "TDOP parser",
   "keywords": [
     "PRATT",
@@ -45,7 +47,7 @@
     "typescript": "^5.4.3"
   },
   "engines": {
-    "node": ">=16.20.2"
+    "node": ">=20.11.1"
   },
   "repository": {
     "type": "git",

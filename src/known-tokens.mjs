@@ -1,6 +1,3 @@
-/**
- * @module pratt-parser
- */
 
 /**
  * Base object for all tokens
@@ -20,7 +17,7 @@ export const RootToken = {
   /**
    * Parses from chunk of PrasePosition and delivers next token
    * Modifies ParsePosition so that it points behind the detected token.
-   * @param {PrsePosition} pp
+   * @param {ParsePosition} pp
    * @return {Token}
    */
   parseString(pp) {
