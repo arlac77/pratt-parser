@@ -72,7 +72,6 @@ console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
 
 ### Table of Contents
 
-*   [pratt-parser](#pratt-parser)
 *   [RootToken](#roottoken)
     *   [parseString](#parsestring)
         *   [Parameters](#parameters)
@@ -92,8 +91,6 @@ console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
     *   [error](#error-1)
         *   [Parameters](#parameters-6)
 
-## pratt-parser
-
 ## RootToken
 
 Base object for all tokens
@@ -105,7 +102,7 @@ Modifies ParsePosition so that it points behind the detected token.
 
 #### Parameters
 
-*   `pp` **PrsePosition**&#x20;
+*   `pp` **ParsePosition**&#x20;
 
 Returns **Token**&#x20;
 
