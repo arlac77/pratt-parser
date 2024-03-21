@@ -5,13 +5,13 @@
     "access": "public",
     "provenance": true
   },
+  "types": "./types/parser.d.mts",
   "exports": {
     ".": {
       "default": "./src/parser.mjs",
       "types": "./types/parser.d.mts"
     }
   },
-  "types": "./types/parser.d.mts",
   "description": "TDOP parser",
   "keywords": [
     "PRATT",
