@@ -148,7 +148,7 @@ Creates a grammar for later parsing
 ### Parameters
 
 *   `grammar` **any**&#x20;
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
+*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?**&#x20;
 
 ### error
 
