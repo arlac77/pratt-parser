@@ -72,6 +72,10 @@ console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
 
 ### Table of Contents
 
+*   [ParsePosition](#parseposition)
+    *   [Properties](#properties)
+*   [Token](#token)
+    *   [Properties](#properties-1)
 *   [RootToken](#roottoken)
     *   [parseString](#parsestring)
         *   [Parameters](#parameters)
@@ -91,6 +95,25 @@ console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
     *   [error](#error-1)
         *   [Parameters](#parameters-6)
 
+## ParsePosition
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+### Properties
+
+*   `offset` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)**&#x20;
+*   `chunk` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
+
+## Token
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+### Properties
+
+*   `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
+*   `precedence` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)**&#x20;
+*   `value` **any**&#x20;
+
 ## RootToken
 
 Base object for all tokens
@@ -102,9 +125,9 @@ Modifies ParsePosition so that it points behind the detected token.
 
 #### Parameters
 
-*   `pp` **ParsePosition**&#x20;
+*   `pp` **[ParsePosition](#parseposition)**&#x20;
 
-Returns **Token**&#x20;
+Returns **[Token](#token)**&#x20;
 
 ## WhiteSpaceToken
 
