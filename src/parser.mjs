@@ -15,7 +15,7 @@ export class Parser {
   /**
    * 
    * @param {any} grammar 
-   * @param {Object} options
+   * @param {Object} [options]
    * @param {Tokenizer} options.tokenizer
    */
   constructor(grammar, options) {
