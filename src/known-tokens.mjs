@@ -1,41 +1,53 @@
+/**
+ * @typedef {Object} ParsePosition
+ * @property {number} offset
+ * @property {string} chunk
+ */
+
+/**
+ * @typedef {Object} Token
+ * @property {string} type
+ * @property {number} precedence
+ * @property {any} value
+ */
 
 /**
  * Base object for all tokens
  */
 export const RootToken = {
-  //get precedence() { return 0; },
-  precedence: 0,
-  get type() {
-    return "unknown";
-  },
-  get value() {
-    return undefined;
-  },
+    //get precedence() { return 0; },
+    precedence: 0,
+    get type() {
+      return "unknown";
+    },
+    get value() {
+      return undefined;
+    },
 
-  registerWithinTokenizer(tokenizer) {},
+    registerWithinTokenizer(tokenizer) {},
 
-  /**
-   * Parses from chunk of PrasePosition and delivers next token
-   * Modifies ParsePosition so that it points behind the detected token.
-   * @param {ParsePosition} pp
-   * @return {Token}
-   */
-  parseString(pp) {
-    return undefined;
-  },
-  toString() {
-    return `${this.type}: ${this.value} [${this.precedence}]`;
-  },
-  led(grammar, left) {
-    return left;
-  },
-  nud(grammar) {
-    return this;
-  },
-  combine() {
-    return 0;
-  }
-};
+    /**
+     * Parses from chunk of PrasePosition and delivers next token
+     * Modifies ParsePosition so that it points behind the detected token.
+     * @param {ParsePosition} pp
+     * @return {Token}
+     */
+    parseString(pp) {
+      return undefined;
+    },
+    toString() {
+      return `${this.type}: ${this.value} [${this.precedence}]`;
+    },
+    led(grammar, left) {
+      return left;
+    },
+    nud(grammar) {
+      return this;
+    },
+    combine() {
+      return 0;
+    }
+  };
 
 export const IdentifierToken = Object.create(RootToken, {
   firstChar: {

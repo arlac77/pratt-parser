@@ -27,6 +27,7 @@ export class Parser {
    * @return {Object} error
    */
   error(...args) {
+    // @ts-ignore
     return this.tokenizer.error(...args);
   }
 
