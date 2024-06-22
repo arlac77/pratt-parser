@@ -12,7 +12,6 @@ jobs:
       matrix:
         node-version:
           - 20.15.0
-          - 20.15.0
         browser:
           - chrome
     steps:
