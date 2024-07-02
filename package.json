@@ -44,7 +44,7 @@
     "c8": "^10.1.2",
     "documentation": "^14.0.3",
     "semantic-release": "^24.0.0",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.3"
   },
   "engines": {
     "node": ">=20.12.2"
