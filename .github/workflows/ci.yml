@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 22.5.1
+          - 22.6.0
     steps:
       - uses: actions/checkout@v4.1.7
       - uses: actions/setup-node@v4.0.3
@@ -45,7 +45,7 @@ jobs:
       - uses: actions/checkout@v4.1.7
       - uses: actions/setup-node@v4.0.3
         with:
-          node-version: 22.5.1
+          node-version: 22.6.0
           cache: npm
           cache-dependency-path: package-lock.json
       - run: npm ci
@@ -67,9 +67,11 @@ jobs:
       - uses: actions/checkout@v4.1.7
       - uses: actions/setup-node@v4.0.3
         with:
-          node-version: 22.5.1
+          node-version: 22.6.0
           cache: npm
           cache-dependency-path: package-lock.json
+      - name: checkout
+        run: npm ci
       - run: npm ci
       - run: npx semantic-release
         env:
