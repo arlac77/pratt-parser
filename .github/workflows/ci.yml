@@ -25,7 +25,7 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
       - run: npm ci
-      - name: null
+      - name: checkout
         run: npm ci
       - run: npm run cover --if-present
       - name: Coveralls Parallel
@@ -51,7 +51,7 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
       - run: npm ci
-      - name: null
+      - name: checkout
         run: npm ci
       - run: npx playwright install
       - run: npm run test:browser-ava --if-present
