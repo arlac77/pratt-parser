@@ -58,7 +58,7 @@ jobs:
       - name: install playwright
         run: npx playwright install
       - name: test browser
-        npm run test:browser-ava --if-present
+        run: npm run test:browser-ava --if-present
         env:
           BROWSER: ${{ matrix.browser }}
   release:
