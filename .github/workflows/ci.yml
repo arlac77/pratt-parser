@@ -18,7 +18,8 @@ jobs:
         node-version:
           - 22.6.0
     steps:
-      - uses: actions/checkout@v4.1.7
+      - name: checkout
+        uses: actions/checkout@v4.1.7
       - uses: actions/setup-node@v4.0.3
         with:
           node-version: ${{ matrix.node-version }}
@@ -43,7 +44,8 @@ jobs:
           - chrome
           - firefox
     steps:
-      - uses: actions/checkout@v4.1.7
+      - name: checkout
+        uses: actions/checkout@v4.1.7
       - uses: actions/setup-node@v4.0.3
         with:
           node-version: 22.6.0
@@ -67,7 +69,8 @@ jobs:
       pull-requests: write
       id-token: write
     steps:
-      - uses: actions/checkout@v4.1.7
+      - name: checkout
+        uses: actions/checkout@v4.1.7
       - uses: actions/setup-node@v4.0.3
         with:
           node-version: 22.6.0
