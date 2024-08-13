@@ -20,7 +20,8 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4.1.7
-      - uses: actions/setup-node@v4.0.3
+      - name: prepare node
+        uses: actions/setup-node@v4.0.3
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
@@ -28,7 +29,7 @@ jobs:
       - name: checkout
         run: npm ci
       - run: npm run cover --if-present
-      - name: Coveralls Parallel
+      - name: coveralls
         uses: coverallsapp/github-action@v2
         continue-on-error: true
         with:
@@ -46,7 +47,8 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4.1.7
-      - uses: actions/setup-node@v4.0.3
+      - name: prepare node
+        uses: actions/setup-node@v4.0.3
         with:
           node-version: 22.6.0
           cache: npm
@@ -71,7 +73,8 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4.1.7
-      - uses: actions/setup-node@v4.0.3
+      - name: prepare node
+        uses: actions/setup-node@v4.0.3
         with:
           node-version: 22.6.0
           cache: npm
@@ -89,7 +92,7 @@ jobs:
       - test-node
     runs-on: ubuntu-latest
     steps:
-      - name: Coveralls Finished
+      - name: finish coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
