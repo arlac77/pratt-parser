@@ -28,7 +28,8 @@ jobs:
           cache-dependency-path: package-lock.json
       - name: checkout
         run: npm ci
-      - run: npm run cover --if-present
+      - name: test and coverage
+        run: npm run cover --if-present
       - name: coveralls
         uses: coverallsapp/github-action@v2
         continue-on-error: true
