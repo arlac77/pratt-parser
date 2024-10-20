@@ -27,14 +27,14 @@
   ],
   "license": "BSD-2-Clause",
   "scripts": {
-    "prepare": "npm run prepare:typescript",
+    "prepare": "node --run prepare:typescript",
     "prepare:typescript": "tsc --allowJs --declaration --emitDeclarationOnly --declarationDir types --resolveJsonModule --target es2024 --lib es2024 -m esnext --module nodenext --moduleResolution nodenext --rootDir src ./src**/*.mjs",
-    "test": "npm run test:browser-ava && npm run test:ava",
+    "test": "node --run test:browser-ava && node --run test:ava",
     "test:ava": "ava --timeout 4m tests/*-ava.mjs tests/*-ava-node.mjs",
     "test:browser-ava": "browser-ava --headless --no-keep-open tests/*-ava.mjs tests/*-ava-browser.mjs",
     "cover": "c8 -x 'tests/**/*' --temp-directory build/tmp ava --timeout 4m tests/*-ava.mjs tests/*-ava-node.mjs && c8 report -r lcov -o build/coverage --temp-directory build/tmp",
     "docs": "documentation readme --section=API ./src/**/*.mjs",
-    "lint": "npm run lint:docs && npm run lint:typescript",
+    "lint": "node --run lint:docs && node --run lint:typescript",
     "lint:docs": "documentation lint ./src/**/*.mjs",
     "lint:typescript": "tsc --allowJs --checkJs --noEmit --resolveJsonModule --target es2024 --lib es2024 -m esnext --module nodenext --moduleResolution nodenext ./src**/*.mjs"
   },
