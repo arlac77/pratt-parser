@@ -8,8 +8,8 @@
   "types": "./types/parser.d.mts",
   "exports": {
     ".": {
-      "default": "./src/parser.mjs",
-      "types": "./types/parser.d.mts"
+      "types": "./types/parser.d.mts",
+      "default": "./src/parser.mjs"
     }
   },
   "description": "TDOP parser",
