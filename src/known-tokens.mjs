@@ -215,7 +215,14 @@ export const NumberToken = Object.create(RootToken, {
       pp.offset += 1;
       for (; pp.offset < pp.chunk.length; ) {
         const c = pp.chunk[pp.offset];
-        if ((c < "0" || c > "9") && c !== "." && c !== "e" && c !== "E") {
+        if (
+          (c < "0" || c > "9") &&
+          c !== "." &&
+          c !== "e" &&
+          c !== "E" &&
+          c !== "-" &&
+          c !== "+"
+        ) {
           break;
         }
         pp.offset += 1;

@@ -68,9 +68,9 @@ test("Kitchen sink", t => {
     },
     {
       type: "number",
-      value: 0.4e7,
+      value: 0.4e-7,
       line: 1,
-      pos: 26
+      pos: 27
     },
     {
       type: "string",
