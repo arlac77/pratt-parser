@@ -102,7 +102,7 @@ export class Tokenizer {
     pp.chunk = chunk;
     pp.tokenizer = this;
 
-    do {
+    while (true) {
       const c = pp.chunk[pp.offset];
       let tokenLength = this.maxTokenLengthForFirstChar[c];
 
@@ -130,7 +130,7 @@ export class Tokenizer {
 
         this.error("Unknown char", pp, c);
       }
-    } while (true);
+    }
   }
 
   /**

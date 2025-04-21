@@ -32,7 +32,6 @@ export const RootToken = {
    * @return {Token}
    */
   parseString(pp) {
-    return undefined;
   },
   toString() {
     return `${this.type}: ${this.value} [${this.precedence}]`;
