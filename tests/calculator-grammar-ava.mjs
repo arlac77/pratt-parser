@@ -9,7 +9,7 @@ function value(value) {
   });
 }
 
-const myGrammar = new Parser({
+const Calculator = new Parser({
   tokens: [WhiteSpaceToken, NumberToken],
   prefix: {
     "(": {
@@ -42,18 +42,18 @@ const myGrammar = new Parser({
 });
 
 test("calculator simple", t => {
-  t.is(myGrammar.parse("1 + 41 * 3 - 2").value, 122);
+  t.is(Calculator.parse("1 + 41 * 3 - 2").value, 122);
 });
 
 test("calculator braces", t => {
-  t.is(myGrammar.parse("(1 + 41)").value, 42);
-  t.is(myGrammar.parse("(1 + 41) * 2").value, 84);
-  t.is(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value, 42);
+  t.is(Calculator.parse("(1 + 41)").value, 42);
+  t.is(Calculator.parse("(1 + 41) * 2").value, 84);
+  t.is(Calculator.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value, 42);
 });
 
 test("calculator unexpected token", t => {
   function doit() {
-    myGrammar.parse("(1 + %");
+    Calculator.parse("(1 + %");
   }
 
   const error = t.throws(doit);
