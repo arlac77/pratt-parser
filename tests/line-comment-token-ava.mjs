@@ -9,7 +9,7 @@ test("line comment", t => {
     lineNumber: 1
   };
 
-  const token = LineCommentToken.parseString(pp);
+  const token = LineCommentToken.parse(pp);
 
   //t.is(token.value, undefined);
   t.is(pp.offset, 5);

@@ -19,9 +19,6 @@ export const RootToken = {
   get type() {
     return "unknown";
   },
-  get value() {
-    return undefined;
-  },
 
   registerWithinTokenizer(tokenizer) {},
 
@@ -31,7 +28,7 @@ export const RootToken = {
    * @param {ParsePosition} pp
    * @return {Token}
    */
-  parseString(pp) {
+  parse(pp) {
   },
   toString() {
     return `${this.type}: ${this.value} [${this.precedence}]`;
@@ -59,7 +56,7 @@ export const IdentifierToken = Object.create(RootToken, {
       }
     }
   },
-  parseString: {
+  parse: {
     value(pp) {
       let i = pp.offset + 1;
       for (;;) {
@@ -101,7 +98,7 @@ export const KeywordToken = Object.create(IdentifierToken, {
       });
     }
   },
-  parseString: {
+  parse: {
     value(pp) {
       const start = pp.offset;
 
@@ -133,7 +130,7 @@ export const StringToken = Object.create(RootToken, {
       }
     }
   },
-  parseString: {
+  parse: {
     value(pp) {
       const properties = pp.properties;
       const tc = pp.chunk[pp.offset];
@@ -207,7 +204,7 @@ export const NumberToken = Object.create(RootToken, {
       }
     }
   },
-  parseString: {
+  parse: {
     value(pp) {
       const properties = pp.properties;
       let str = pp.chunk[pp.offset];
@@ -263,7 +260,7 @@ export const OperatorToken = Object.create(RootToken, {
       }
     }
   },
-  parseString: {
+  parse: {
     value(pp) {
       pp.offset += this.value.length;
       return Object.create(this, pp.properties);
@@ -286,7 +283,7 @@ export const WhiteSpaceToken = Object.create(RootToken, {
       }
     }
   },
-  parseString: {
+  parse: {
     value(pp) {
       while (pp.chunk[pp.offset] <= " ") {
         if (pp.chunk[pp.offset] === "\n") {
@@ -306,7 +303,7 @@ export const WhiteSpaceToken = Object.create(RootToken, {
  * skips until end of line
  */
 export const LineCommentToken = Object.create(RootToken, {
-  parseString: {
+  parse: {
     value(pp) {
       while (
         pp.chunk[pp.offset] !== "\n" &&

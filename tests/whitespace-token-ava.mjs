@@ -8,7 +8,7 @@ test("whitespace", t => {
     lineNumber: 1
   };
 
-  const token = WhiteSpaceToken.parseString(pp);
+  const token = WhiteSpaceToken.parse(pp);
 
   //t.is(token.value, undefined);
   t.is(pp.offset, 7);

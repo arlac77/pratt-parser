@@ -27,7 +27,7 @@ const g = {
         }
       }), */
     Object.create(IdentifierToken, {
-      parseString: {
+      parse: {
         value(pp) {
           let i = pp.offset + 1;
           for (;;) {

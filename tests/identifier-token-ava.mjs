@@ -11,7 +11,7 @@ test("identifier tokens", t => {
     }
   };
 
-  const token = IdentifierToken.parseString(pp);
+  const token = IdentifierToken.parse(pp);
 
   t.is(token.value, "abc");
   t.is(pp.offset, 4);

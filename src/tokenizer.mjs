@@ -113,7 +113,7 @@ export class Tokenizer {
               pp.chunk.slice(pp.offset, pp.offset + tokenLength)
             ];
           if (t !== undefined) {
-            const rt = t.parseString(pp);
+            const rt = t.parse(pp);
 
             if (rt !== undefined) {
               yield rt;
