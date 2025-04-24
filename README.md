@@ -77,7 +77,7 @@ console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
 *   [Token](#token)
     *   [Properties](#properties-1)
 *   [RootToken](#roottoken)
-    *   [parseString](#parsestring)
+    *   [parse](#parse)
         *   [Parameters](#parameters)
 *   [WhiteSpaceToken](#whitespacetoken)
 *   [LineCommentToken](#linecommenttoken)
@@ -86,7 +86,7 @@ console.log(myGrammar.parse("(1 + (1 + 4 * 3)) * (2 + 1)").value);
     *   [Parameters](#parameters-1)
     *   [error](#error)
         *   [Parameters](#parameters-2)
-    *   [parse](#parse)
+    *   [parse](#parse-1)
         *   [Parameters](#parameters-3)
 *   [Tokenizer](#tokenizer)
     *   [Parameters](#parameters-4)
@@ -118,7 +118,7 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 
 Base object for all tokens
 
-### parseString
+### parse
 
 Parses from chunk of PrasePosition and delivers next token
 Modifies ParsePosition so that it points behind the detected token.
