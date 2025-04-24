@@ -92,7 +92,7 @@ export class Tokenizer {
   }
 
   /**
-   * delivers tokens from the input.
+   * Delivers tokens from the input.
    * @param {string} chunk the input to be processed
    * @param {Object} context additional info to be used by the actual token types
    */
@@ -108,12 +108,12 @@ export class Tokenizer {
 
       if (tokenLength > 0) {
         do {
-          const t =
+          const token =
             this.registeredTokens[
               pp.chunk.slice(pp.offset, pp.offset + tokenLength)
             ];
-          if (t !== undefined) {
-            const rt = t.parse(pp);
+          if (token !== undefined) {
+            const rt = token.parse(pp);
 
             if (rt !== undefined) {
               yield rt;
@@ -123,12 +123,12 @@ export class Tokenizer {
         } while (tokenLength-- > 1);
       } else {
         if (c === undefined) {
-          return Object.create(EOFToken, pp.properties);
+          yield Object.create(EOFToken, pp.properties);
+          return;
+        } else {
+          pp.offset += 1;
+          this.error("Unknown char", pp, c);
         }
-
-        pp.offset += 1;
-
-        this.error("Unknown char", pp, c);
       }
     }
   }

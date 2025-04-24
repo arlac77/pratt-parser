@@ -7,7 +7,7 @@ import {
   IdentifierToken
 } from "pratt-parser";
 
-test("tokens trailing space", t => {
+test.only("tokens trailing space", t => {
   const tokenizer = new Tokenizer({
     tokens: [WhiteSpaceToken, NumberToken, StringToken, IdentifierToken],
 
@@ -45,6 +45,9 @@ test("tokens trailing space", t => {
     {
       type: "identifier",
       value: "A"
+    },
+    {
+      type: "EOF"
     }
   ];
 
@@ -52,9 +55,9 @@ test("tokens trailing space", t => {
 
   for (const token of tokenizer.tokens("A ")) {
     const refToken = tokens[i];
-
-    t.is(token.type, refToken.type);
-    t.is(token.id, refToken.id);
+    t.is(token.type, refToken.type, `${i}:`);
+    t.is(token.id, refToken.id, `${i}:`);
+    i++;
   }
 });
 

@@ -261,6 +261,10 @@ test("Kitchen sink", t => {
       type: "operator",
       value: ")",
       line: 17
+    },
+    {
+      type: "EOF",
+      line: 18
     }
   ];
 
