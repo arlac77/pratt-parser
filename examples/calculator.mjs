@@ -5,7 +5,7 @@ import { argv } from "node:process";
 function value(value) {
   return Object.create(null, {
     value: {
-      value: value
+      value
     }
   });
 }
@@ -42,6 +42,5 @@ const Calculator = new Parser({
   }
 });
 
-
-const input = argv.slice(2).join(' ');
+const input = argv.slice(2).join(" ");
 console.log(Calculator.parse(input).value);

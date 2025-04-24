@@ -4,7 +4,7 @@ import { WhiteSpaceToken, NumberToken, Parser } from "pratt-parser";
 function value(value) {
   return Object.create(null, {
     value: {
-      value: value
+      value
     }
   });
 }
