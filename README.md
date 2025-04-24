@@ -181,7 +181,7 @@ Creates a tokenizer for later parsing.
 
 ### tokens
 
-delivers tokens from the input.
+Delivers tokens from the input.
 
 #### Parameters
 
