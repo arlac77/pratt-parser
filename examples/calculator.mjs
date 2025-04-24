@@ -1,29 +1,47 @@
-import { Parser, WhiteSpaceToken, NumberToken } from "pratt-parser";
+#!/usr/bin/env node
+import { WhiteSpaceToken, NumberToken, Parser } from "pratt-parser";
+import { argv } from "node:process";
 
-function Value(value) {
-  return { value };
+function value(value) {
+  return Object.create(null, {
+    value: {
+      value: value
+    }
+  });
 }
 
-const myGrammar = new Parser({
+const Calculator = new Parser({
   tokens: [WhiteSpaceToken, NumberToken],
+  prefix: {
+    "(": {
+      nud(grammar) {
+        const e = grammar.expression(0);
+        grammar.advance(")");
+        return e;
+      }
+    }
+  },
   infix: {
     ")": {},
     "+": {
       precedence: 50,
-      combine: (left, right) => Value(left.value + right.value)
+      combine: (left, right) => value(left.value + right.value)
     },
     "-": {
       precedence: 50,
-      combine: (left, right) => Value(left.value - right.value)
+      combine: (left, right) => value(left.value - right.value)
     },
     "*": {
       precedence: 60,
-      combine: (left, right) => Value(left.value * right.value)
+      combine: (left, right) => value(left.value * right.value)
     },
     "/": {
       precedence: 60,
-      combine: (left, right) => Value(left.value / right.value)
+      combine: (left, right) => value(left.value / right.value)
     }
   }
 });
-console.log(myGrammar.parse(process.argv.slice(2)).value)
+
+
+const input = argv.slice(2).join(' ');
+console.log(Calculator.parse(input).value);
