@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /* WIP does not work for now!!! */
 
 import {
@@ -7,25 +8,35 @@ import {
   IdentifierToken
 } from "pratt-parser";
 
-function Value(value) {
-  return { value };
+function value(value) {
+  return Object.create(null, {
+    value: {
+      value
+    }
+  });
 }
 
 const tnsGrammar = new Parser({
   tokens: [WhiteSpaceToken, NumberToken, IdentifierToken],
+
   prefix: {
     "(": {
-      precedence: 80,
-      led(grammar, left) {
+      nud(grammar) {
         const e = grammar.expression(0);
-        console.log(e);
         grammar.advance(")");
+        console.log(
+          "EXPRESSION",
+          e.map(e => e.value)
+        );
         return e;
       }
     }
   },
+  infixr: {
+  },
   infix: {
-    ")": {},
+    ")": {
+    },
     "=": {
       precedence: 50,
       combine: (left, right) => [left, right]

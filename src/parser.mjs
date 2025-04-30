@@ -1,6 +1,5 @@
 import { EOFToken } from "./known-tokens.mjs";
 import { Tokenizer } from "./tokenizer.mjs";
-
 export * from "./known-tokens.mjs";
 export { Tokenizer };
 
@@ -48,25 +47,26 @@ export class Parser {
         this.token.value !== undefined &&
         this.token.value !== id
       ) {
-        this.error(`Got ${this.token.value} expected ${id}`, this.token);
+        this.error(`Got '${this.token.value}' expected '${id}'`, this.token);
       }
 
-      const n = tokens.next();
-      this.token = n.done ? EOFToken : n.value;
+      const next = tokens.next();
+      this.token = next.done ? EOFToken : next.value;
+
       return this.token;
     };
 
-    this.token = this.advance();
+    this.advance();
 
     this.expression = precedence => {
-      let t = this.token;
+      let token = this.token;
       this.advance();
-      let left = t.nud(this);
+      let left = token.nud(this);
 
       while (precedence < this.token.precedence) {
-        t = this.token;
+        token = this.token;
         this.advance();
-        left = t.led(this, left);
+        left = token.led(this, left);
       }
 
       return left;
