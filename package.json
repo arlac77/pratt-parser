@@ -38,13 +38,6 @@
     "lint:docs": "documentation lint ./src**/*.mjs",
     "lint:typescript": "tsc --allowJs --checkJs --noEmit --resolveJsonModule --target esnext -m esnext --module nodenext --moduleResolution nodenext ./src**/*.mjs"
   },
-  "dependencies": {
-    "ava": "^6.3.0",
-    "content-entry": "^13.0.4",
-    "fetch-rate-limit-util": "^4.4.1",
-    "repository-provider": "^35.3.4",
-    "repository-provider-test-support": "^3.1.9"
-  },
   "devDependencies": {
     "ava": "^6.3.0",
     "browser-ava": "^2.3.26",
@@ -54,7 +47,7 @@
     "typescript": "^5.8.3"
   },
   "engines": {
-    "node": ">=22.14.0"
+    "node": ">=22.15.0"
   },
   "repository": {
     "type": "git",
