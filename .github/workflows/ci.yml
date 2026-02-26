@@ -18,6 +18,7 @@ jobs:
       matrix:
         node-version:
           - 24.13.1
+          - 24.14.0
     steps:
       - name: checkout
         uses: actions/checkout@v6.0.2
@@ -50,7 +51,7 @@ jobs:
       - name: prepare node
         uses: actions/setup-node@v6.2.0
         with:
-          node-version: 24.13.1
+          node-version: 24.14.0
       - name: install
         run: npm ci
       - name: install playwright
@@ -75,7 +76,7 @@ jobs:
       - name: prepare node
         uses: actions/setup-node@v6.2.0
         with:
-          node-version: 24.13.1
+          node-version: 24.14.0
       - name: install
         run: npm ci
       - name: release
