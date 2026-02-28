@@ -40,8 +40,8 @@
     "lint:typescript": "tsc --allowJs --checkJs --noEmit --resolveJsonModule --target esnext -m esnext --module nodenext --moduleResolution nodenext ./src**/*.mjs"
   },
   "devDependencies": {
-    "ava": "^6.4.1",
-    "browser-ava": "^2.3.53",
+    "ava": "^7.0.0",
+    "browser-ava": "^2.3.54",
     "c8": "^11.0.0",
     "documentation": "^14.0.3",
     "semantic-release": "^25.0.3",
