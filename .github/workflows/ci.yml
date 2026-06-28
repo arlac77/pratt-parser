@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 26.3.1
+          - 26.4.0
     steps:
       - name: checkout
         uses: actions/checkout@v7.0.0
@@ -50,7 +50,7 @@ jobs:
       - name: prepare node
         uses: actions/setup-node@v6.4.0
         with:
-          node-version: 26.3.1
+          node-version: 26.4.0
       - name: install
         run: npm ci
       - name: install playwright
