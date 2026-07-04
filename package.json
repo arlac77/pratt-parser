@@ -5,7 +5,7 @@
     "access": "public",
     "provenance": true
   },
-  "packageManager": "npm@11.16.0",
+  "packageManager": "npm@11.18.0",
   "types": "./types/parser.d.mts",
   "exports": {
     ".": {
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "ava": "^8.0.1",
-    "browser-ava": "^2.3.64",
+    "browser-ava": "^2.3.65",
     "c8": "^11.0.0",
     "documentation": "^14.0.3",
     "semantic-release": "^25.0.5",
