@@ -47,11 +47,6 @@
     "semantic-release": "^25.0.7",
     "typescript": "^7.0.2"
   },
-  "overrides": {
-    "c8": {
-      "yargs": "^18.0.0"
-    }
-  },
   "engines": {
     "node": ">=22.15.0"
   },
