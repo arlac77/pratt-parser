@@ -4,6 +4,8 @@ updates:
     directory: /
     schedule:
       interval: daily
+    cooldown:
+      default-days: 7
     commit-message:
       prefix: "fix(deps):"
       prefix-development: "chore(deps):"
@@ -13,35 +15,18 @@ updates:
     directory: /
     schedule:
       interval: daily
+    cooldown:
+      default-days: 7
     commit-message:
       prefix: "chore(action):"
     labels:
       - dependencies
-  - package-ecosystem: npm
-    directory: /
-    schedule:
-      interval: daily
-    cooldown:
-      default-days: 2
-    commit-message:
-      prefix: "fix(deps):"
-      prefix-development: "chore(deps):"
-    labels:
-      - npm dependencies
-  - package-ecosystem: github-actions
-    directory: /
-    schedule:
-      interval: daily
-    commit-message:
-      prefix: "chore(action):"
-    labels:
-      - build dependencies
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: daily
     cooldown:
-      default-days: 2
+      default-days: 7
     commit-message:
       prefix: "chore(action):"
     labels:
