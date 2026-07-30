@@ -30,7 +30,7 @@ jobs:
       - name: test and coverage
         run: npm run cover --if-present
       - name: coveralls
-        uses: coverallsapp/github-action@v2
+        uses: coverallsapp/github-action@v2.3.8
         continue-on-error: true
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
